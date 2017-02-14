@@ -3,8 +3,8 @@
 /**
  * @brief 延迟添加的对象
  */
-public interface IDelayHandleItem
+interface IDelayHandleItem
 {
-    void setClientDispose(bool isDispose);
-    bool isClientDispose();
+    public void setClientDispose(Boolean isDispose);
+    public Boolean isClientDispose();
 }

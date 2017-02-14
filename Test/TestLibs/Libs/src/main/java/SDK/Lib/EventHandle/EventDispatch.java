@@ -1,5 +1,7 @@
 ﻿package SDK.Lib.EventHandle;
 
+import SDK.Lib.DelayHandle.*;
+
 /**
  * @brief 事件分发，之分发一类事件，不同类型的事件使用不同的事件分发
  * @brief 注意，事件分发缺点就是，可能被调用的对象已经释放，但是没有清掉事件处理器，结果造成空指针
@@ -61,9 +63,9 @@ public class EventDispatch extends DelayHandleMgrBase
     }
 
     // 相同的函数只能增加一次，Lua ，Python 这些语言不支持同时存在几个相同名字的函数，只支持参数可以赋值，因此不单独提供同一个名字不同参数的接口了
-    virtual public void addEventHandle(ICalleeObject pThis, MAction<IDispatchObject> handle, LuaTable luaTable = null, LuaFunction luaFunction = null)
+    virtual public void addEventHandle(ICalleeObject pThis, IDispatchObject handle)
     {
-        if (null != pThis || null != handle || null != luaTable || null != luaFunction)
+        if (null != pThis || null != handle)
         {
             EventDispatchFunctionObject funcObject = new EventDispatchFunctionObject();
 
@@ -84,7 +86,7 @@ public class EventDispatch extends DelayHandleMgrBase
         }
     }
 
-    public void removeEventHandle(ICalleeObject pThis, MAction<IDispatchObject> handle, LuaTable luaTable = null, LuaFunction luaFunction = null)
+    public void removeEventHandle(ICalleeObject pThis, MAction<IDispatchObject> handle)
     {
         int idx = 0;
         int elemLen = 0;
@@ -110,7 +112,14 @@ public class EventDispatch extends DelayHandleMgrBase
         }
     }
 
-    override protected void addObject(IDelayHandleItem delayObject, float priority = 0.0f)
+    @Override
+    protected void addObject(IDelayHandleItem delayObject)
+    {
+        this.addObject(delayObject, 0);
+    }
+
+    @Override
+    protected void addObject(IDelayHandleItem delayObject, float priority)
     {
         if (this.isInDepth())
         {
@@ -127,11 +136,11 @@ public class EventDispatch extends DelayHandleMgrBase
     {
         if (this.isInDepth())
         {
-            base.removeObject(delayObject);
+            super.removeObject(delayObject);
         }
         else
         {
-            if (!this.mHandleList.Remove(delayObject as EventDispatchFunctionObject))
+            if (!this.mHandleList.Remove((EventDispatchFunctionObject)delayObject))
             {
 
             }
@@ -160,11 +169,6 @@ public class EventDispatch extends DelayHandleMgrBase
             }
 
             ++idx;
-        }
-
-        if (this.mLuaCSBridgeDispatch != null)
-        {
-            this.mLuaCSBridgeDispatch.handleGlobalEvent(this.mEventId, dispatchObject);
         }
 
         this.decDepth();
@@ -241,7 +245,7 @@ public class EventDispatch extends DelayHandleMgrBase
         }
     }
 
-    public bool hasEventHandle()
+    public boolean hasEventHandle()
     {
         return this.mHandleList.Count() > 0;
     }

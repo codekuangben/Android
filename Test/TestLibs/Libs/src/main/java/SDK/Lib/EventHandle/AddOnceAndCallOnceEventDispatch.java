@@ -1,8 +1,9 @@
-﻿package SDK.Lib.DelayHandle;
+﻿package SDK.Lib.EventHandle;
 
 public class AddOnceAndCallOnceEventDispatch extends EventDispatch
 {
-    override public void addEventHandle(ICalleeObject pThis, MAction<IDispatchObject> handle, LuaTable luaTable = null, LuaFunction luaFunction = null)
+    @Override
+    public void addEventHandle(ICalleeObject pThis, IDispatchObject handle)
     {
         if (!isExistEventHandle(pThis, handle, luaTable, luaFunction))
         {

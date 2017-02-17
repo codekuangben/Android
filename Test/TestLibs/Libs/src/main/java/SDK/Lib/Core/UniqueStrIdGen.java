@@ -1,40 +1,40 @@
-﻿namespace SDK.Lib
+﻿package SDK.Lib.Core;
+
+/**
+ * @brief 唯一字符串生成器
+ */
+public class UniqueStrIdGen extends UniqueNumIdGen
 {
-    /**
-     * @brief 唯一字符串生成器
-     */
-    public class UniqueStrIdGen : UniqueNumIdGen
+    public final String PlayerPrefix = "PL";
+    public final String PlayerChildPrefix = "PC";
+    public final String PlayerSnowBlockPrefix = "PSM";
+    public final String RobotPrefix = "RT";
+    public final String SnowBlockPrefix = "SM";
+
+    protected String mPrefix;
+    protected String mRetId;
+
+    public UniqueStrIdGen(String prefix, int baseUniqueId)
     {
-        public const string PlayerPrefix = "PL";
-        public const string PlayerChildPrefix = "PC";
-        public const string PlayerSnowBlockPrefix = "PSM";
-        public const string RobotPrefix = "RT";
-        public const string SnowBlockPrefix = "SM";
+        super(baseUniqueId);
 
-        protected string mPrefix;
-        protected string mRetId;
+        this.mPrefix = prefix;
+    }
 
-        public UniqueStrIdGen(string prefix, uint baseUniqueId)
-            : base(baseUniqueId)
-        {
-            this.mPrefix = prefix;
-        }
+    public String genNewStrId()
+    {
+        this.mRetId = String.format("{0}_{1}", this.mPrefix, this.genNewId());
+        return this.mRetId;
+    }
 
-        public string genNewStrId()
-        {
-            this.mRetId = string.Format("{0}_{1}", mPrefix, this.genNewId());
-            return this.mRetId;
-        }
+    public String getCurStrId()
+    {
+        return this.mRetId;
+    }
 
-        public string getCurStrId()
-        {
-            return this.mRetId;
-        }
-
-        public string genStrIdById(uint id)
-        {
-            this.mRetId = string.Format("{0}_{1}", mPrefix, id);
-            return this.mRetId;
-        }
+    public String genStrIdById(int id)
+    {
+        this.mRetId = String.format("{0}_{1}", mPrefix, id);
+        return this.mRetId;
     }
 }

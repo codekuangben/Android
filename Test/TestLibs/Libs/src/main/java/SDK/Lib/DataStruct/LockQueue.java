@@ -1,22 +1,21 @@
-﻿namespace SDK.Lib
+﻿package SDK.Lib.DataStruct;
+
+public class LockQueue<T>
 {
-    public class LockQueue<T>
+    protected LockList<T> mList;
+
+    public LockQueue(string name)
     {
-        protected LockList<T> mList;
+        mList = new LockList<T>("name");
+    }
 
-        public LockQueue(string name)
-        {
-            mList = new LockList<T>("name");
-        }
+    public void push(T item)
+    {
+        mList.Add(item);
+    }
 
-        public void push(T item)
-        {
-            mList.Add(item);
-        }
-
-        public T pop()
-        {
-            return mList.RemoveAt(0);
-        }
+    public T pop()
+    {
+        return mList.RemoveAt(0);
     }
 }

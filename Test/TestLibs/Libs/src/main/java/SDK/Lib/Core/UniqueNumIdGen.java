@@ -1,25 +1,24 @@
-﻿namespace SDK.Lib
+﻿package SDK.Lib.Core;
+
+public class UniqueNumIdGen
 {
-    public class UniqueNumIdGen
+    protected int mPreIdx;
+    protected int mCurId;
+
+    public UniqueNumIdGen(int baseUniqueId)
     {
-        protected uint mPreIdx;
-        protected uint mCurId;
+        this.mCurId = 0;
+    }
 
-        public UniqueNumIdGen(uint baseUniqueId)
-        {
-            this.mCurId = 0;
-        }
+    public int genNewId()
+    {
+        this.mPreIdx = this.mCurId;
+        this.mCurId++;
+        return this.mPreIdx;
+    }
 
-        public uint genNewId()
-        {
-            this.mPreIdx = this.mCurId;
-            this.mCurId++;
-            return this.mPreIdx;
-        }
-
-        public uint getCurId()
-        {
-            return this.mCurId;
-        }
+    public int getCurId()
+    {
+        return this.mCurId;
     }
 }

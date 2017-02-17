@@ -1,17 +1,16 @@
-﻿namespace SDK.Lib
+﻿package SDK.Lib.Core;
+
+public class GObject
 {
-    public class GObject
+    protected String mTypeId;     // 名字
+
+    public GObject()
     {
-        protected string mTypeId;     // 名字
+        this.mTypeId = "GObject";
+    }
 
-        public GObject()
-        {
-            this.mTypeId = "GObject";
-        }
-
-        public string getTypeId()
-        {
-            return this.mTypeId;
-        }
+    public String getTypeId()
+    {
+        return this.mTypeId;
     }
 }

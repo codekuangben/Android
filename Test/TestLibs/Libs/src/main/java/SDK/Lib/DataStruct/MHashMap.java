@@ -1,10 +1,9 @@
-﻿namespace SDK.Lib
+﻿package SDK.Lib.DataStruct;
+
+/**
+ * @brief MHashMap
+ */
+public class MHashMap
 {
-    /**
-     * @brief MHashMap
-     */
-    public class MHashMap
-    {
-        protected System.Collections.Hashtable mHashtable;
-    }
+    protected System.Collections.Hashtable mHashtable;
 }

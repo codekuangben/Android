@@ -1,5 +1,7 @@
 ﻿package SDK.Lib.DataStruct;
+
 import SDK.Lib.EventHandle.*;
+import SDK.Lib.Tools.*;
 
 /**
  *@brief ByteBuffer 功能
@@ -19,16 +21,29 @@ public class ByteBuffer implements IDispatchObject
 
     protected byte[] mPadBytes;
 
-    protected LuaCSBridgeByteBuffer mLuaCSBridgeByteBuffer;        // Lua 中的缓冲区
+    public ByteBuffer()
+    {
+        this(BufferCV.INIT_CAPACITY, BufferCV.MAX_CAPACITY, EEndian.eLITTLE_ENDIAN);
+    }
 
-    public ByteBuffer(uint initCapacity = BufferCV.INIT_CAPACITY, uint maxCapacity = BufferCV.MAX_CAPACITY, EEndian endian = EEndian.eLITTLE_ENDIAN)
+    public ByteBuffer(int initCapacity)
+    {
+        this(initCapacity, BufferCV.MAX_CAPACITY, EEndian.eLITTLE_ENDIAN);
+    }
+
+    public ByteBuffer(int initCapacity, int maxCapacity)
+    {
+        this(initCapacity, maxCapacity, EEndian.eLITTLE_ENDIAN);
+    }
+
+    public ByteBuffer(int initCapacity, int maxCapacity, EEndian endian)
     {
         mEndian = endian;        // 缓冲区默认是小端的数据，因为服务器是 linux 的
         mDynBuffer = new DynBuffer<byte>(initCapacity, maxCapacity);
 
         mReadFloatBytes = new byte[sizeof(float)];
         mReadDoubleBytes = new byte[sizeof(double)];
-}
+    }
 
     public DynBuffer<byte> dynBuffer
     {

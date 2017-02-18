@@ -1,32 +1,40 @@
-﻿using System.Threading;
+﻿package SDK.Lib.Thread;
 
-namespace SDK.Lib
+import java.util.concurrent.CyclicBarrier;
+
+/**
+ * @同步使用的 Event
+ */
+public class MEvent
 {
-    /**
-     * @同步使用的 Event
-     */
-    public class MEvent
+    private CyclicBarrier mEvent;
+
+    public MEvent(boolean initialState)
     {
-        private ManualResetEvent m_event;
+        this.mEvent = new CyclicBarrier(2);
+    }
 
-        public MEvent(bool initialState)
+    public void WaitOne()
+    {
+        try
         {
-            m_event = new ManualResetEvent(initialState);
+            this.mEvent.await();
         }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
 
-        public void WaitOne()
-        {
-            m_event.WaitOne();
-        }
+    public boolean Reset()
+    {
+        this.mEvent.reset();
+        return true;
+    }
 
-        public bool Reset()
-        {
-            return m_event.Reset();
-        }
-
-        public bool Set()
-        {
-            return m_event.Set();
-        }
+    public boolean Set()
+    {
+        //return this.mEvent.Set();
+        return false;
     }
 }

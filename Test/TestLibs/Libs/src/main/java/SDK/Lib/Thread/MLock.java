@@ -1,41 +1,32 @@
-﻿using System;
+﻿package SDK.Lib.Thread;
 
-namespace SDK.Lib
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
+
+import SDK.Lib.FrameWork.*;
+
+/**
+ * @brief 锁操作
+ */
+public class MLock
 {
-    /**
-     * @brief 锁操作
-     */
-    public class MLock : IDisposable
+    protected Lock mMutex;
+
+    public MLock(MMutex mutex)
     {
-        protected MMutex mMutex;
-
-        public MLock(MMutex mutex)
+        if (MacroDef.NET_MULTHREAD)
         {
-            if (MacroDef.NET_MULTHREAD)
-            {
-                mMutex = mutex;
-                mMutex.WaitOne();
-            }
+            this.mMutex = new ReentrantLock();
+            this.mMutex.lock();
         }
+    }
 
-        // 这个在超出作用域的时候就会被调用，但是只有在使用 using 语句中，例如 using (MLock mlock = new MLock(mReadMutex)) ，这个语句执行完后立马调用，using (MLock mlock = new MLock(mReadMutex)) {} 才行
-        public void Dispose()
+    // 这个在超出作用域的时候就会被调用，但是只有在使用 using 语句中，例如 using (MLock mlock = new MLock(mReadMutex)) ，这个语句执行完后立马调用，using (MLock mlock = new MLock(mReadMutex)) {} 才行
+    public void Dispose()
+    {
+        if (MacroDef.NET_MULTHREAD)
         {
-            if (MacroDef.NET_MULTHREAD)
-            {
-                mMutex.ReleaseMutex();
-            }
+            mMutex.unlock();
         }
-
-        // 析构在垃圾回收的时候才会被调用
-        //~MLock()
-        //{
-        //    mMutex.ReleaseMutex();
-        //}
-
-        //public void unlock()
-        //{
-        //    mMutex.ReleaseMutex();
-        //}
     }
 }

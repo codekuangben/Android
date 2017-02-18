@@ -38,102 +38,73 @@ public class ByteBuffer implements IDispatchObject
 
     public ByteBuffer(int initCapacity, int maxCapacity, EEndian endian)
     {
-        mEndian = endian;        // 缓冲区默认是小端的数据，因为服务器是 linux 的
-        mDynBuffer = new DynBuffer<byte>(initCapacity, maxCapacity);
+        this.mEndian = endian;        // 缓冲区默认是小端的数据，因为服务器是 linux 的
+        this.mDynBuffer = new DynBuffer<byte>(initCapacity, maxCapacity);
 
-        mReadFloatBytes = new byte[sizeof(float)];
-        mReadDoubleBytes = new byte[sizeof(double)];
+        this.mReadFloatBytes = new byte[Float.SIZE];
+        this.mReadDoubleBytes = new byte[Double.SIZE];
     }
 
-    public DynBuffer<byte> dynBuffer
+    public DynBuffer<byte> getDynBuffer()
     {
-        get
-        {
-            return mDynBuffer;
-        }
+        return this.mDynBuffer;
     }
 
-    public uint bytesAvailable
+    public int getBytesAvailable()
     {
-        get
-        {
-            return (mDynBuffer.size - mPos);
-        }
+        return (this.mDynBuffer.getSize() - this.mPos);
     }
 
-    public EEndian endian
+    public EEndian getEndian()
     {
-        get
-        {
-            return mEndian;
-        }
-        set
-        {
-            mEndian = value;
-        }
+        return this.mEndian;
     }
 
     public void setEndian(EEndian end)
     {
-        mEndian = end;
+        this.mEndian = end;
     }
 
-    public uint length
+    public int getLength()
     {
-        get
-        {
-            return mDynBuffer.size;
-        }
-        set
-        {
-            mDynBuffer.size = value;
-        }
+        return this.mDynBuffer.getSize();
     }
 
-    public void setPos(uint pos)
+    public void setLength(int value)
     {
-        mPos = pos;
+        this.mDynBuffer.setSize(value);
     }
 
-    public uint getPos()
+    public void setPos(int pos)
     {
-        return mPos;
+        this.mPos = pos;
     }
 
-    public uint position
+    public int getPos()
     {
-        get
-        {
-            return mPos;
-        }
-        set
-        {
-            mPos = value;
-        }
+        return this.mPos;
     }
 
-    public LuaCSBridgeByteBuffer luaCSBridgeByteBuffer
+    public int getPosition()
     {
-        get
-        {
-            return mLuaCSBridgeByteBuffer;
-        }
-        set
-        {
-            mLuaCSBridgeByteBuffer = value;
-        }
+        return this.mPos;
+    }
+
+    public void setPosition(int value)
+    {
+        this.mPos = value;
     }
 
     public void clear ()
     {
-        mPos = 0;
-        mDynBuffer.size = 0;
+        this.mPos = 0;
+        this.mDynBuffer.setSize(0);
     }
 
     // 检查是否有足够的大小可以扩展
-    protected bool canWrite(uint delta)
+    protected boolean canWrite(int delta)
     {
-        if(mDynBuffer.size + delta > mDynBuffer.capacity)
+        if(this.mDynBuffer.getSize() + delta > this.mDynBuffer.getCapacity())
         {
             return false;
         }
@@ -142,9 +113,9 @@ public class ByteBuffer implements IDispatchObject
     }
 
     // 读取检查
-    protected bool canRead(uint delta)
+    protected boolean canRead(int delta)
     {
-        if (mPos + delta > mDynBuffer.size)
+        if (this.mPos + delta > this.mDynBuffer.getSize())
         {
             return false;
         }
@@ -152,30 +123,30 @@ public class ByteBuffer implements IDispatchObject
         return true;
     }
 
-    protected void extendDeltaCapicity(uint delta)
+    protected void extendDeltaCapicity(int delta)
     {
-        mDynBuffer.extendDeltaCapicity(delta);
+        this.mDynBuffer.extendDeltaCapicity(delta);
     }
 
-    protected void advPos(uint num)
+    protected void advPos(int num)
     {
-        mPos += num;
+        this.mPos += num;
     }
 
-    protected void advPosAndLen(uint num)
+    protected void advPosAndLen(int num)
     {
-        mPos += num;
-        length = mPos;
+        this.mPos += num;
+        this.setLength(this.mPos);
     }
 
     public void incPosDelta(int delta)        // 添加 pos delta 数量
     {
-        mPos += (uint)delta;
+        this.mPos += (int)delta;
     }
 
     public void decPosDelta(int delta)     // 减少 pos delta 数量
     {
-        mPos -= (uint)delta;
+        this.mPos -= (int)delta;
     }
 
     public ByteBuffer readInt8(ref byte tmpByte)
@@ -200,82 +171,82 @@ public class ByteBuffer implements IDispatchObject
         return this;
     }
 
-    public ByteBuffer readInt16(ref short tmpShort)
+    public ByteBuffer readInt16(short tmpShort)
     {
-        if (canRead(sizeof(short)))
+        if (canRead(Short.SIZE))
         {
             tmpShort = MBitConverter.ToInt16(mDynBuffer.buffer, (int)mPos, mEndian);
 
-            advPos(sizeof(short));
+            advPos(Short.SIZE);
         }
 
         return this;
     }
 
-    public ByteBuffer readUnsignedInt16(ref ushort tmpUshort)
+    public ByteBuffer readUnsignedInt16(short tmpUshort)
     {
-        if (canRead(sizeof(ushort)))
+        if (canRead(Short.SIZE))
         {
             tmpUshort = MBitConverter.ToUInt16(mDynBuffer.buffer, (int)mPos, mEndian);
 
-            advPos(sizeof(ushort));
+            advPos(Short.SIZE);
         }
 
         return this;
     }
 
-    public ByteBuffer readInt32(ref int tmpInt)
+    public ByteBuffer readInt32(int tmpInt)
     {
-        if (canRead(sizeof(int)))
+        if (canRead(Int.SIZE))
         {
             tmpInt = MBitConverter.ToInt32(mDynBuffer.buffer, (int)mPos, mEndian);
 
-            advPos(sizeof(int));
+            advPos(Int.SIZE);
         }
 
         return this;
     }
 
-    public ByteBuffer readUnsignedInt32(ref uint tmpUint)
+    public ByteBuffer readUnsignedInt32(int tmpUint)
     {
-        if (canRead(sizeof(uint)))
+        if (canRead(Int.SIZE))
         {
             // 如果字节序和本地字节序不同，需要转换
             tmpUint = MBitConverter.ToUInt32(mDynBuffer.buffer, (int)mPos, mEndian);
 
-            advPos(sizeof(uint));
+            advPos(Int.SIZE);
         }
 
         return this;
     }
 
-    public ByteBuffer readInt64(ref long tmpLong)
+    public ByteBuffer readInt64(long tmpLong)
     {
-        if (canRead(sizeof(long)))
+        if (canRead(Long.SIZE))
         {
             tmpLong = MBitConverter.ToInt64(mDynBuffer.buffer, (int)mPos, mEndian);
 
-            advPos(sizeof(long));
+            advPos(Long.SIZE);
         }
 
         return this;
     }
 
-    public ByteBuffer readUnsignedInt64(ref ulong tmpUlong)
+    public ByteBuffer readUnsignedInt64(long tmpUlong)
     {
-        if (canRead(sizeof(ulong)))
+        if (canRead(Long.SIZE))
         {
             tmpUlong = MBitConverter.ToUInt64(mDynBuffer.buffer, (int)mPos, mEndian);
 
-            advPos(sizeof(ulong));
+            advPos(Long.SIZE);
         }
 
         return this;
     }
 
-    public ByteBuffer readFloat(ref float tmpFloat)
+    public ByteBuffer readFloat(float tmpFloat)
     {
-        if (canRead(sizeof(float)))
+        if (canRead(Float.SIZE))
         {
             if (mEndian != SystemEndian.msLocalEndian)
             {
@@ -288,15 +259,15 @@ public class ByteBuffer implements IDispatchObject
                 tmpFloat = System.BitConverter.ToSingle(mDynBuffer.buffer, (int)mPos);
             }
 
-            advPos(sizeof(float));
+            advPos(Float.SIZE);
         }
 
         return this;
     }
 
-    public ByteBuffer readDouble(ref double tmpDouble)
+    public ByteBuffer readDouble(double tmpDouble)
     {
-        if (canRead(sizeof(double)))
+        if (canRead(Double.SIZE))
         {
             if (mEndian != SystemEndian.msLocalEndian)
             {
@@ -309,7 +280,7 @@ public class ByteBuffer implements IDispatchObject
                 tmpDouble = System.BitConverter.ToDouble(mDynBuffer.buffer, (int)mPos);
             }
 
-            advPos(sizeof(double));
+            advPos(Double.SIZE);
         }
 
         return this;

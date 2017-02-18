@@ -103,4 +103,23 @@ public class MArray
 			++idx;
 		}
 	}
+
+	static public byte[] getSubBytes(byte[] srcBytes, int begin, int count)
+	{
+		if(0 == begin && srcBytes.length == count)
+		{
+			return srcBytes;
+		}
+		else
+		{
+			byte[] subBytes = new byte[count];
+
+			for (int i = begin; i < begin + count; i++)
+			{
+				subBytes[i - begin] = srcBytes[i];
+			}
+
+			return subBytes;
+		}
+	}
 }

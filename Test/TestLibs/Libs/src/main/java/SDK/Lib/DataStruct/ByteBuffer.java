@@ -289,7 +289,7 @@ public class ByteBuffer implements IDispatchObject
     //public ByteBuffer readMultiByte(ref string tmpStr, uint len, Encoding charSet)
     public ByteBuffer readMultiByte(String tmpStr, int len, GkEncode gkCharSet)
     {
-        Encoding charSet = UtilApi.convGkEncode2EncodingEncoding(gkCharSet);
+        MEncoding charSet = UtilApi.convGkEncode2EncodingEncoding(gkCharSet);
 
         // 如果是 unicode ，需要大小端判断
         if (canRead(len))
@@ -482,7 +482,7 @@ public class ByteBuffer implements IDispatchObject
     //public void writeMultiByte(string value, Encoding charSet, int len)
     public void writeMultiByte(String value, GkEncode gkCharSet, int len)
     {
-        Encoding charSet = UtilApi.convGkEncode2EncodingEncoding(gkCharSet);
+        MEncoding charSet = UtilApi.convGkEncode2EncodingEncoding(gkCharSet);
         int num = 0;
 
         if (null != value)
@@ -502,7 +502,7 @@ public class ByteBuffer implements IDispatchObject
 
             if (num < len)
             {
-                MArray.Copy(charSet.GetBytes(value), 0, mDynBuffer.buffer, mPos, num);
+                MArray.Copy(charSet.GetBytes(value), 0, mDynBuffer.getBuffer(), mPos, num);
                 // 后面补齐 0
                 MArray.Clear(mDynBuffer.getBuffer(), (int)(mPos + num), len - num);
             }

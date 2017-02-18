@@ -252,11 +252,11 @@ public class ByteBuffer implements IDispatchObject
             {
                 MArray.Copy(mDynBuffer.getBuffer(), (int)mPos, mReadFloatBytes, 0, Float.SIZE);
                 MArray.Reverse(mReadFloatBytes, 0, Float.SIZE);
-                tmpFloat = System.BitConverter.ToSingle(mReadFloatBytes, (int)mPos);
+                tmpFloat = MBitConverter.ToFloat(mReadFloatBytes, (int)mPos);
             }
             else
             {
-                tmpFloat = System.BitConverter.ToSingle(mDynBuffer.getBuffer(), (int)mPos);
+                tmpFloat = MBitConverter.ToFloat(mDynBuffer.getBuffer(), (int)mPos);
             }
 
             advPos(Float.SIZE);
@@ -273,11 +273,11 @@ public class ByteBuffer implements IDispatchObject
             {
                 MArray.Copy(mDynBuffer.getBuffer(), (int)mPos, mReadDoubleBytes, 0, Double.SIZE);
                 MArray.Reverse(mReadDoubleBytes, 0, Double.SIZE);
-                tmpDouble = System.BitConverter.ToDouble(mReadDoubleBytes, (int)mPos);
+                tmpDouble = MBitConverter.ToDouble(mReadDoubleBytes, (int)mPos);
             }
             else
             {
-                tmpDouble = System.BitConverter.ToDouble(mDynBuffer.getBuffer(), (int)mPos);
+                tmpDouble = MBitConverter.ToDouble(mDynBuffer.getBuffer(), (int)mPos);
             }
 
             advPos(Double.SIZE);
@@ -425,12 +425,12 @@ public class ByteBuffer implements IDispatchObject
             extendDeltaCapicity(Float.SIZE);
         }
 
-        mWriteFloatBytes = System.BitConverter.GetBytes(value);
+        mWriteFloatBytes = MBitConverter.GetBytes(value);
         if (mEndian != SystemEndian.msLocalEndian)
         {
-            Array.Reverse(mWriteFloatBytes);
+            MArray.Reverse(mWriteFloatBytes);
         }
-        Array.Copy(mWriteFloatBytes, 0, mDynBuffer.getBuffer(), mPos, Float.SIZE);
+        MArray.Copy(mWriteFloatBytes, 0, mDynBuffer.getBuffer(), mPos, Float.SIZE);
 
         advPosAndLen(Float.SIZE);
     }
@@ -442,7 +442,7 @@ public class ByteBuffer implements IDispatchObject
             extendDeltaCapicity(Double.SIZE);
         }
 
-        mWriteDoubleBytes = System.BitConverter.GetBytes(value);
+        mWriteDoubleBytes = MBitConverter.GetBytes(value);
         if (mEndian != SystemEndian.msLocalEndian)
         {
             MArray.Reverse(mWriteDoubleBytes);

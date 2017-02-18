@@ -1,15 +1,15 @@
-﻿namespace SDK.Lib
+﻿package SDK.Lib.FrameHandle;
+
+public class FixedTickMgr extends TickMgr
 {
-    public class FixedTickMgr : TickMgr
+    public FixedTickMgr()
     {
-        public FixedTickMgr()
-        {
 
-        }
+    }
 
-        override protected void onExecAdvance(float delta)
-        {
-            base.onExecAdvance(delta);
-        }
+    @Override
+    protected void onExecAdvance(float delta)
+    {
+        super.onExecAdvance(delta);
     }
 }

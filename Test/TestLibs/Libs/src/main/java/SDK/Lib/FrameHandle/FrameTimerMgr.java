@@ -1,95 +1,113 @@
 ﻿/**
- * @brief 定时器管理器
- */
-namespace SDK.Lib
+* @brief 定时器管理器
+*/
+package SDK.Lib.FrameHandle;
+
+import SDK.Lib.DataStruct.MList;
+import SDK.Lib.DelayHandle.IDelayHandleItem;
+import SDK.Lib.Tools.UtilApi;
+
+public class FrameTimerMgr extends DelayHandleMgrBase
 {
-    public class FrameTimerMgr : DelayHandleMgrBase
+    protected MList<FrameTimerItem> mTimerList;     // 当前所有的定时器列表
+
+    public FrameTimerMgr()
     {
-        protected MList<FrameTimerItem> mTimerList;     // 当前所有的定时器列表
+        this.mTimerList = new MList<FrameTimerItem>();
+    }
 
-        public FrameTimerMgr()
+    @Override
+    public void init()
+    {
+
+    }
+
+    @Override
+    public void dispose()
+    {
+
+    }
+
+    @Override
+    protected void addObject(IDelayHandleItem delayObject)
+    {
+        this.addObject(delayObject, 0);
+    }
+
+    @Override
+    protected void addObject(IDelayHandleItem delayObject, float priority)
+    {
+        // 检查当前是否已经在队列中
+        if (!this.mTimerList.Contains((FrameTimerItem)delayObject))
         {
-            this.mTimerList = new MList<FrameTimerItem>();
-        }
-
-        override public void init()
-        {
-
-        }
-
-        override public void dispose()
-        {
-
-        }
-
-        override protected void addObject(IDelayHandleItem delayObject, float priority = 0.0f)
-        {
-            // 检查当前是否已经在队列中
-            if (!this.mTimerList.Contains(delayObject as FrameTimerItem))
+            if (this.mLoopDepth.isInDepth())
             {
-                if (this.mLoopDepth.isInDepth())
-                {
-                    base.addObject(delayObject, priority);
-                }
-                else
-                {
-                    this.mTimerList.Add(delayObject as FrameTimerItem);
-                }
+                super.addObject(delayObject, priority);
+            }
+            else
+            {
+                this.mTimerList.Add((FrameTimerItem)delayObject);
             }
         }
+    }
 
-        override protected void removeObject(IDelayHandleItem delayObject)
+    @Override
+    protected void removeObject(IDelayHandleItem delayObject)
+    {
+        // 检查当前是否在队列中
+        if (this.mTimerList.Contains((FrameTimerItem)delayObject))
         {
-            // 检查当前是否在队列中
-            if (this.mTimerList.Contains(delayObject as FrameTimerItem))
-            {
-                (delayObject as FrameTimerItem).mDisposed = true;
+            ((FrameTimerItem)delayObject).mDisposed = true;
 
-                if (this.mLoopDepth.isInDepth())
+            if (this.mLoopDepth.isInDepth())
+            {
+                super.addObject(delayObject);
+            }
+            else
+            {
+                for(FrameTimerItem item : this.mTimerList.list())
                 {
-                    base.addObject(delayObject);
-                }
-                else
-                {
-                    foreach (FrameTimerItem item in this.mTimerList.list())
+                    if (UtilApi.isAddressEqual(item, delayObject))
                     {
-                        if (UtilApi.isAddressEqual(item, delayObject))
-                        {
-                            this.mTimerList.Remove(item);
-                            break;
-                        }
+                        this.mTimerList.Remove(item);
+                        break;
                     }
                 }
             }
         }
+    }
 
-        public void addFrameTimer(FrameTimerItem timer, float priority = 0.0f)
+    public void addFrameTimer(FrameTimerItem timer)
+    {
+        this.addFrameTimer(timer, 0);
+    }
+
+    public void addFrameTimer(FrameTimerItem timer, float priority)
+    {
+        this.addObject(timer, priority);
+    }
+
+    public void removeFrameTimer(FrameTimerItem timer)
+    {
+        this.removeObject(timer);
+    }
+
+    public void Advance(float delta)
+    {
+        this.mLoopDepth.incDepth();
+
+        for(FrameTimerItem timerItem : this.mTimerList.list())
         {
-            this.addObject(timer, priority);
-        }
-
-        public void removeFrameTimer(FrameTimerItem timer)
-        {
-            this.removeObject(timer);
-        }
-
-        public void Advance(float delta)
-        {
-            this.mLoopDepth.incDepth();
-
-            foreach (FrameTimerItem timerItem in this.mTimerList.list())
+            if (!timerItem.isClientDispose())
             {
-                if (!timerItem.isClientDispose())
-                {
-                    timerItem.OnFrameTimer();
-                }
-                if (timerItem.mDisposed)
-                {
-                    removeObject(timerItem);
-                }
+                timerItem.OnFrameTimer();
             }
-
-            this.mLoopDepth.decDepth();
+            if (timerItem.mDisposed)
+            {
+                removeObject(timerItem);
+            }
         }
+
+        this.mLoopDepth.decDepth();
     }
 }

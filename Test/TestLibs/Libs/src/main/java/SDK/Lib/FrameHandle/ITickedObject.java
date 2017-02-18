@@ -1,7 +1,6 @@
-﻿namespace SDK.Lib
+﻿package SDK.Lib.FrameHandle;
+
+public interface ITickedObject
 {
-    public interface ITickedObject
-    {
-        void onTick(float delta);
-    }
+    void onTick(float delta);
 }

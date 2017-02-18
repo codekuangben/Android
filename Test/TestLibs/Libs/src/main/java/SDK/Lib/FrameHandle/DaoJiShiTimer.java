@@ -1,64 +1,68 @@
-﻿namespace SDK.Lib
+﻿package SDK.Lib.FrameHandle;
+
+/**
+ * @brief 倒计时定时器
+ */
+public class DaoJiShiTimer extends TimerItemBase
 {
-    /**
-     * @brief 倒计时定时器
-     */
-    public class DaoJiShiTimer : TimerItemBase
+    @Override
+    public void setTotalTime(float value)
     {
-        override public void setTotalTime(float value)
+        super.setTotalTime(value);
+        this.mCurRunTime = value;
+    }
+
+    @Override
+    public float getRunTime()
+    {
+        return this.mTotalTime - this.mCurRunTime;
+    }
+
+    // 如果要获取剩余的倒计时时间，使用 getLeftCallTime
+    @Override
+    public float getLeftRunTime()
+    {
+        return this.mCurRunTime;
+    }
+
+    @Override
+    public void OnTimer(float delta)
+    {
+        if (this.mDisposed)
         {
-            base.setTotalTime(value);
-            this.mCurRunTime = value;
+            return;
         }
 
-        override public float getRunTime()
+        this.mCurRunTime -= delta;
+        if(this.mCurRunTime < 0)
         {
-            return this.mTotalTime - this.mCurRunTime;
+            this.mCurRunTime = 0;
         }
+        this.mIntervalLeftTime += delta;
 
-        // 如果要获取剩余的倒计时时间，使用 getLeftCallTime
-        override public float getLeftRunTime()
+        if (this.mIsInfineLoop)
         {
-            return this.mCurRunTime;
+            checkAndDisp();
         }
-
-        public override void OnTimer(float delta)
+        else
         {
-            if (this.mDisposed)
+            if (this.mCurRunTime <= 0)
             {
-                return;
-            }
-
-            this.mCurRunTime -= delta;
-            if(this.mCurRunTime < 0)
-            {
-                this.mCurRunTime = 0;
-            }
-            this.mIntervalLeftTime += delta;
-
-            if (this.mIsInfineLoop)
-            {
-                checkAndDisp();
+                disposeAndDisp();
             }
             else
             {
-                if (this.mCurRunTime <= 0)
-                {
-                    disposeAndDisp();
-                }
-                else
-                {
-                    checkAndDisp();
-                }
+                checkAndDisp();
             }
         }
+    }
 
-        public override void reset()
-        {
-            this.mCurRunTime = this.mTotalTime;
-            this.mCurCallTime = 0;
-            this.mIntervalLeftTime = 0;
-            this.mDisposed = false;
-        }
+    @Override
+    public void reset()
+    {
+        this.mCurRunTime = this.mTotalTime;
+        this.mCurCallTime = 0;
+        this.mIntervalLeftTime = 0;
+        this.mDisposed = false;
     }
 }

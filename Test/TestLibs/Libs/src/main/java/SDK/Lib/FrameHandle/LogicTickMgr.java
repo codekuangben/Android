@@ -1,23 +1,23 @@
-﻿namespace SDK.Lib
+﻿package SDK.Lib.FrameHandle;
+
+/**
+ * @brief 逻辑心跳管理器
+ */
+public class LogicTickMgr extends TickMgr
 {
-    /**
-     * @brief 逻辑心跳管理器
-     */
-    public class LogicTickMgr : TickMgr
+    protected TimeInterval mTimeInterval;
+
+    public LogicTickMgr()
     {
-        protected TimeInterval mTimeInterval;
+        this.mTimeInterval = new TimeInterval();
+    }
 
-        public LogicTickMgr()
+    @Override
+    protected void onExecAdvance(float delta)
+    {
+        if(this.mTimeInterval.canExec(delta))
         {
-            this.mTimeInterval = new TimeInterval();
-        }
-
-        override protected void onExecAdvance(float delta)
-        {
-            if(this.mTimeInterval.canExec(delta))
-            {
-                base.onExecAdvance(delta);
-            }
+            base.onExecAdvance(delta);
         }
     }
 }

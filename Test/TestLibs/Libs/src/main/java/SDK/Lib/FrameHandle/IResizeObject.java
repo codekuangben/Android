@@ -1,7 +1,6 @@
-﻿namespace SDK.Lib
+﻿package SDK.Lib.FrameHandle;
+
+public interface IResizeObject
 {
-    public interface IResizeObject
-    {
-        void onResize(int viewWidth, int viewHeight);
-    }
+    void onResize(int viewWidth, int viewHeight);
 }

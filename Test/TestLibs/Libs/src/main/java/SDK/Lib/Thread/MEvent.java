@@ -1,24 +1,25 @@
 ﻿package SDK.Lib.Thread;
 
-import java.util.concurrent.CyclicBarrier;
+//import java.util.concurrent.CyclicBarrier;
 
 /**
  * @同步使用的 Event
  */
 public class MEvent
 {
-    private CyclicBarrier mEvent;
+    //private CyclicBarrier mEvent;
+    private Object mEvent;
 
     public MEvent(boolean initialState)
     {
-        this.mEvent = new CyclicBarrier(2);
+        //this.mEvent = new CyclicBarrier(2);
     }
 
-    public void WaitOne()
+    synchronized public void WaitOne()
     {
         try
         {
-            this.mEvent.await();
+            this.mEvent.wait();
         }
         catch(Exception e)
         {
@@ -26,15 +27,15 @@ public class MEvent
         }
     }
 
-    public boolean Reset()
+    synchronized public boolean Reset()
     {
-        this.mEvent.reset();
+        //this.mEvent.reset();
         return true;
     }
 
-    public boolean Set()
+    synchronized public boolean Set()
     {
-        //return this.mEvent.Set();
-        return false;
+        this.mEvent.notify();
+        return true;
     }
 }

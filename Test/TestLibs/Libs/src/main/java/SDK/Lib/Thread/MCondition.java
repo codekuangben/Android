@@ -1,57 +1,54 @@
-﻿namespace SDK.Lib
+﻿package SDK.Lib.Thread;
+
+/**
+ * @brief 单一对象同步
+ */
+public class MCondition
 {
-    /**
-     * @brief 单一对象同步
-     */
-    public class MCondition
+    protected MMutex mMutex;
+    protected MEvent mEvent;
+    protected boolean mCanEnterWait;  // 是否可以进入等待
+
+    public MCondition(String name)
     {
-        protected MMutex m_pMMutex;
-        protected MEvent m_pMEvent;
-        protected bool m_canEnterWait;  // 是否可以进入等待
+        this.mMutex = new MMutex(false, name);
+        this.mEvent = new MEvent(false);
+        this.mCanEnterWait = true;      // 允许进入等待状态
+    }
 
-        public MCondition(string name)
-        {
-            m_pMMutex = new MMutex(false, name);
-            m_pMEvent = new MEvent(false);
-            m_canEnterWait = true;      // 允许进入等待状态
-        }
+    public boolean getCanEnterWait()
+    {
+        return this.mCanEnterWait;
+    }
 
-        public bool canEnterWait
-        {
-            get
+    public void waitImpl()
+    {
+        //using (MLock mlock = new MLock(mMutex))
+        //{
+            this.mMutex.WaitOne();
+            if (this.mCanEnterWait)
             {
-                return m_canEnterWait;
+                this.mMutex.ReleaseMutex();   // 这个地方需要释放锁，否则 notifyAll 进不来
+                this.mEvent.WaitOne();
+                this.mEvent.Reset();      // 重置信号
             }
-        }
-
-        public void wait()
-        {
-            //using (MLock mlock = new MLock(m_pMMutex))
-            //{
-                m_pMMutex.WaitOne();
-                if (m_canEnterWait)
-                {
-                    m_pMMutex.ReleaseMutex();   // 这个地方需要释放锁，否则 notifyAll 进不来
-                    m_pMEvent.WaitOne();
-                    m_pMEvent.Reset();      // 重置信号
-                }
-                else
-                {
-                    m_canEnterWait = true;
-                    m_pMMutex.ReleaseMutex();
-                }
-            //}
-        }
-
-        public void notifyAll()
-        {
-            using (MLock mlock = new MLock(m_pMMutex))
+            else
             {
-                if (m_canEnterWait) // 如果 m_canEnterWait == false，必然不能进入等待
-                {
-                    m_canEnterWait = false;
-                    m_pMEvent.Set();        // 唤醒线程
-                }
+                this.mCanEnterWait = true;
+                this.mMutex.ReleaseMutex();
+            }
+        //}
+    }
+
+    public void notifyAllImpl()
+    {
+        MLock mlock = new MLock(mMutex);
+
+        {
+            if (this.mCanEnterWait) // 如果 mCanEnterWait == false，必然不能进入等待
+            {
+                this.mCanEnterWait = false;
+                this.mEvent.Set();        // 唤醒线程
             }
         }
     }

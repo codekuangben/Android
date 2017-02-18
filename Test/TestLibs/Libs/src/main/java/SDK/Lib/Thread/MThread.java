@@ -5,8 +5,8 @@
  */
 public class MThread implements IMRunnable
 {
-    protected static int msMainThreadID;           // 主线程 id
-    protected int mCurThreadID;                    // 当前线程的 id
+    protected static long msMainThreadID;           // 主线程 id
+    protected long mCurThreadID;                    // 当前线程的 id
 
     // 数据区域
     protected MThreadImpl mThread;
@@ -20,7 +20,7 @@ public class MThread implements IMRunnable
         this.mParam = param;
     }
 
-    public boolean setExitFlag(boolean value)
+    public void setExitFlag(boolean value)
     {
         this.mIsExitFlag = value;
     }
@@ -76,30 +76,30 @@ public class MThread implements IMRunnable
 
     protected void getCurThreadID()
     {
-        this.mCurThreadID = Thread.CurrentThread.ManagedThreadId;       // 当前线程的 ID
+        this.mCurThreadID = Thread.currentThread().getId();       // 当前线程的 ID
     }
 
-    public boolean isCurThread(int threadID)
+    public boolean isCurThread(long threadID)
     {
         return (this.mCurThreadID == threadID);
     }
 
     static public void getMainThreadID()
     {
-        msMainThreadID = Thread.CurrentThread.ManagedThreadId;
+        msMainThreadID = Thread.currentThread().getId();
     }
 
     static public boolean isMainThread()
     {
-        return (msMainThreadID == Thread.CurrentThread.ManagedThreadId);
+        return (msMainThreadID == Thread.currentThread().getId());
     }
 
     static public void needMainThread()
     {
         if (!isMainThread())
         {
-            Ctx.mInstance.mLogSys.error("error: log out in other thread");
-            throw new Exception("cannot call function in thread");
+            //Ctx.mInstance.mLogSys.error("error: log out in other thread");
+            //throw new Exception("cannot call function in thread");
         }
     }
 }

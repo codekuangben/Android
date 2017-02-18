@@ -2,6 +2,11 @@ package SDK.Lib.DataStruct;
 
 public class MArray
 {
+	static public void Copy(byte[] src, int srcIndex, byte[] dest, int destIndex, int length)
+	{
+		MArray.Copy(src, (long)srcIndex, dest, (long)destIndex, (long)length);
+	}
+
 	static public void Copy(byte[] src, long srcIndex, byte[] dest, long destIndex, long length)
 	{
 		int idx = 0;

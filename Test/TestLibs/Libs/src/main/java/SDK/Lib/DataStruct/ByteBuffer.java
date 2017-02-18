@@ -149,23 +149,23 @@ public class ByteBuffer implements IDispatchObject
         this.mPos -= (int)delta;
     }
 
-    public ByteBuffer readInt8(ref byte tmpByte)
+    public ByteBuffer readInt8(byte tmpByte)
     {
-        if (canRead(sizeof(char)))
+        if (canRead(Byte.SIZE))
         {
             tmpByte = mDynBuffer.buffer[(int)mPos];
-            advPos(sizeof(char));
+            advPos(Byte.SIZE);
         }
 
         return this;
     }
 
-    public ByteBuffer readUnsignedInt8(ref byte tmpByte)
+    public ByteBuffer readUnsignedInt8(byte tmpByte)
     {
-        if (canRead(sizeof(byte)))
+        if (canRead(Byte.SIZE))
         {
             tmpByte = mDynBuffer.buffer[(int)mPos];
-            advPos(sizeof(byte));
+            advPos(Byte.SIZE);
         }
 
         return this;
@@ -197,11 +197,11 @@ public class ByteBuffer implements IDispatchObject
 
     public ByteBuffer readInt32(int tmpInt)
     {
-        if (canRead(Int.SIZE))
+        if (canRead(Integer.SIZE))
         {
             tmpInt = MBitConverter.ToInt32(mDynBuffer.buffer, (int)mPos, mEndian);
 
-            advPos(Int.SIZE);
+            advPos(Integer.SIZE);
         }
 
         return this;
@@ -209,12 +209,12 @@ public class ByteBuffer implements IDispatchObject
 
     public ByteBuffer readUnsignedInt32(int tmpUint)
     {
-        if (canRead(Int.SIZE))
+        if (canRead(Integer.SIZE))
         {
             // 如果字节序和本地字节序不同，需要转换
             tmpUint = MBitConverter.ToUInt32(mDynBuffer.buffer, (int)mPos, mEndian);
 
-            advPos(Int.SIZE);
+            advPos(Integer.SIZE);
         }
 
         return this;
@@ -287,7 +287,7 @@ public class ByteBuffer implements IDispatchObject
     }
 
     //public ByteBuffer readMultiByte(ref string tmpStr, uint len, Encoding charSet)
-    public ByteBuffer readMultiByte(ref string tmpStr, uint len, GkEncode gkCharSet)
+    public ByteBuffer readMultiByte(String tmpStr, int len, GkEncode gkCharSet)
     {
         Encoding charSet = UtilApi.convGkEncode2EncodingEncoding(gkCharSet);
 
@@ -302,7 +302,7 @@ public class ByteBuffer implements IDispatchObject
     }
 
     // 这个是字节读取，没有大小端的区别
-    public ByteBuffer readBytes(ref byte[] tmpBytes, uint len)
+    public ByteBuffer readBytes(byte[] tmpBytes, int len)
     {
         if (canRead(len))
         {
@@ -316,108 +316,108 @@ public class ByteBuffer implements IDispatchObject
     // 如果要使用 writeInt8 ，直接使用 writeMultiByte 这个函数
     public void writeInt8(char value)
     {
-        if (!canWrite(sizeof(char)))
+        if (!canWrite(Byte.SIZE))
         {
-            extendDeltaCapicity(sizeof(char));
+            extendDeltaCapicity(Byte.SIZE);
         }
         mDynBuffer.buffer[mPos] = (byte)value;
-        advPosAndLen(sizeof(char));
+        advPosAndLen(Byte.SIZE);
     }
 
     public void writeUnsignedInt8(byte value)
     {
-        if (!canWrite(sizeof(byte)))
+        if (!canWrite(Byte.SIZE))
         {
-            extendDeltaCapicity(sizeof(byte));
+            extendDeltaCapicity(Byte.SIZE);
         }
         mDynBuffer.buffer[mPos] = value;
-        advPosAndLen(sizeof(byte));
+        advPosAndLen(Byte.SIZE);
     }
 
     public void writeInt16 (short value)
     {
-        if (!canWrite(sizeof(short)))
+        if (!canWrite(Short.SIZE))
         {
-            extendDeltaCapicity(sizeof(short));
+            extendDeltaCapicity(Short.SIZE);
         }
 
         MBitConverter.GetBytes(value, mDynBuffer.buffer, (int)mPos, mEndian);
 
-        advPosAndLen(sizeof(short));
+        advPosAndLen(Short.SIZE);
     }
 
     public void writeUnsignedInt16(ushort value)
     {
-        if (!canWrite(sizeof(ushort)))
+        if (!canWrite(Short.SIZE))
         {
-            extendDeltaCapicity(sizeof(ushort));
+            extendDeltaCapicity(Short.SIZE);
         }
 
         MBitConverter.GetBytes(value, mDynBuffer.buffer, (int)mPos, mEndian);
 
-        advPosAndLen(sizeof(ushort));
+        advPosAndLen(Short.SIZE);
     }
 
     public void writeInt32(int value)
     {
-        if (!canWrite(sizeof(int)))
+        if (!canWrite(Integer.SIZE))
         {
-            extendDeltaCapicity(sizeof(int));
+            extendDeltaCapicity(Integer.SIZE);
         }
 
         MBitConverter.GetBytes(value, mDynBuffer.buffer, (int)mPos, mEndian);
 
-        advPosAndLen(sizeof(int));
+        advPosAndLen(Integer.SIZE);
     }
 
-    public void writeUnsignedInt32 (uint value, bool bchangeLen = true)
+    public void writeUnsignedInt32 (int value, boolean bchangeLen = true)
     {
-        if (!canWrite(sizeof(uint)))
+        if (!canWrite(Integer.SIZE))
         {
-            extendDeltaCapicity(sizeof(uint));
+            extendDeltaCapicity(Integer.SIZE);
         }
 
         MBitConverter.GetBytes(value, mDynBuffer.buffer, (int)mPos, mEndian);
 
         if (bchangeLen)
         {
-            advPosAndLen(sizeof(uint));
+            advPosAndLen(Integer.SIZE);
         }
         else
         {
-            advPos(sizeof(uint));
+            advPos(Integer.SIZE);
         }
     }
 
     public void writeInt64(long value)
     {
-        if (!canWrite(sizeof(long)))
+        if (!canWrite(Long.SIZE))
         {
-            extendDeltaCapicity(sizeof(long));
+            extendDeltaCapicity(Long.SIZE);
         }
 
         MBitConverter.GetBytes(value, mDynBuffer.buffer, (int)mPos, mEndian);
 
-        advPosAndLen(sizeof(long));
+        advPosAndLen(Long.SIZE);
     }
 
-    public void writeUnsignedInt64(ulong value)
+    public void writeUnsignedInt64(long value)
     {
-        if (!canWrite(sizeof(ulong)))
+        if (!canWrite(Long.SIZE))
         {
-            extendDeltaCapicity(sizeof(ulong));
+            extendDeltaCapicity(Long.SIZE);
         }
 
         MBitConverter.GetBytes(value, mDynBuffer.buffer, (int)mPos, mEndian);
 
-        advPosAndLen(sizeof(ulong));
+        advPosAndLen(Long.SIZE);
     }
 
     public void writeFloat(float value)
     {
-        if (!canWrite(sizeof(float)))
+        if (!canWrite(Float.SIZE))
         {
-            extendDeltaCapicity(sizeof(float));
+            extendDeltaCapicity(Float.SIZE);
         }
 
         mWriteFloatBytes = System.BitConverter.GetBytes(value);
@@ -425,16 +425,16 @@ public class ByteBuffer implements IDispatchObject
         {
             Array.Reverse(mWriteFloatBytes);
         }
-        Array.Copy(mWriteFloatBytes, 0, mDynBuffer.buffer, mPos, sizeof(float));
+        Array.Copy(mWriteFloatBytes, 0, mDynBuffer.buffer, mPos, Float.SIZE);
 
-        advPosAndLen(sizeof(float));
+        advPosAndLen(Float.SIZE);
     }
 
     public void writeDouble(double value)
     {
-        if (!canWrite(sizeof(double)))
+        if (!canWrite(Boolean.SIZE))
         {
-            extendDeltaCapicity(sizeof(double));
+            extendDeltaCapicity(Boolean.SIZE);
         }
 
         mWriteDoubleBytes = System.BitConverter.GetBytes(value);
@@ -442,13 +442,13 @@ public class ByteBuffer implements IDispatchObject
         {
             Array.Reverse(mWriteDoubleBytes);
         }
-        Array.Copy(mWriteDoubleBytes, 0, mDynBuffer.buffer, mPos, sizeof(double));
+        Array.Copy(mWriteDoubleBytes, 0, mDynBuffer.buffer, mPos, Boolean.SIZE);
 
-        advPosAndLen(sizeof(double));
+        advPosAndLen(Boolean.SIZE);
     }
 
     // 写入字节， bchangeLen 是否改变长度
-    public void writeBytes(byte[] value, uint start, uint len, bool bchangeLen = true)
+    public void writeBytes(byte[] value, int start, int len, boolean bchangeLen = true)
     {
         if (len > 0)            // 如果有长度才写入
         {
@@ -470,7 +470,7 @@ public class ByteBuffer implements IDispatchObject
 
     // 写入字符串
     //public void writeMultiByte(string value, Encoding charSet, int len)
-    public void writeMultiByte(string value, GkEncode gkCharSet, int len)
+    public void writeMultiByte(String value, GkEncode gkCharSet, int len)
     {
         Encoding charSet = UtilApi.convGkEncode2EncodingEncoding(gkCharSet);
         int num = 0;
@@ -485,9 +485,9 @@ public class ByteBuffer implements IDispatchObject
                 len = num;
             }
 
-            if (!canWrite((uint)len))
+            if (!canWrite((int)len))
             {
-                extendDeltaCapicity((uint)len);
+                extendDeltaCapicity((int)len);
             }
 
             if (num < len)
@@ -500,23 +500,23 @@ public class ByteBuffer implements IDispatchObject
             {
                 Array.Copy(charSet.GetBytes(value), 0, mDynBuffer.buffer, mPos, len);
             }
-            advPosAndLen((uint)len);
+            advPosAndLen((int)len);
         }
         else
         {
-            if (!canWrite((uint)len))
+            if (!canWrite((int)len))
             {
-                extendDeltaCapicity((uint)len);
+                extendDeltaCapicity((int)len);
             }
 
-            advPosAndLen((uint)len);
+            advPosAndLen((int)len);
         }
     }
 
     // 替换已经有的一段数据
-    protected void replace(byte[] srcBytes, uint srcStartPos = 0, uint srclen_ = 0, uint destStartPos = 0, uint destlen_ = 0)
+    protected void replace(byte[] srcBytes, int srcStartPos = 0, int srclen_ = 0, int destStartPos = 0, int destlen_ = 0)
     {
-        uint lastLeft = length - destStartPos - destlen_;        // 最后一段的长度
+        int lastLeft = length - destStartPos - destlen_;        // 最后一段的长度
         length = destStartPos + srclen_ + lastLeft;      // 设置大小，保证足够大小空间
 
         position = destStartPos + srclen_;
@@ -529,16 +529,16 @@ public class ByteBuffer implements IDispatchObject
         writeBytes(srcBytes, srcStartPos, srclen_, false);
     }
 
-    public void insertUnsignedInt32(uint value)
+    public void insertUnsignedInt32(int value)
     {
-        length += sizeof(int);       // 扩大长度
+        length += Integer.SIZE;       // 扩大长度
         writeUnsignedInt32(value);     // 写入
     }
 
-    public ByteBuffer readUnsignedLongByOffset(ref ulong tmpUlong, uint offset)
+    public ByteBuffer readUnsignedLongByOffset(long tmpUlong, int offset)
     {
         position = offset;
-        readUnsignedInt64(ref tmpUlong);
+        readUnsignedInt64(tmpUlong);
         return this;
     }
 
@@ -548,172 +548,12 @@ public class ByteBuffer implements IDispatchObject
         mDynBuffer.buffer[this.length] = 0;
     }
 
-    public void writeVector2(Vector2 vec)
+    public ByteBuffer readBoolean(boolean tmpBool)
     {
-        this.writeFloat(vec.x);
-        this.writeFloat(vec.y);
-    }
-
-    public void writeVector3(Vector3 vec)
-    {
-        this.writeFloat(vec.x);
-        this.writeFloat(vec.y);
-        this.writeFloat(vec.z);
-    }
-
-    public void writeVector4(Vector4 vec)
-    {
-        this.writeFloat(vec.x);
-        this.writeFloat(vec.y);
-        this.writeFloat(vec.z);
-        this.writeFloat(vec.w);
-    }
-
-    public void readVector2(ref Vector2 vec)
-    {
-        this.readFloat(ref vec.x);
-        this.readFloat(ref vec.y);
-    }
-
-    public void readVector3(ref Vector3 vec)
-    {
-        this.readFloat(ref vec.x);
-        this.readFloat(ref vec.y);
-        this.readFloat(ref vec.z);
-    }
-
-    public void readVector4(ref Vector4 vec)
-    {
-        this.readFloat(ref vec.x);
-        this.readFloat(ref vec.y);
-        this.readFloat(ref vec.z);
-        this.readFloat(ref vec.w);
-    }
-
-    public void writeAABB(MAxisAlignedBox aabb)
-    {
-        writeVector3(aabb.getMinimum().toNative());
-        writeVector3(aabb.getMaximum().toNative());
-    }
-
-    public void readAABB(ref MAxisAlignedBox aabb)
-    {
-        Vector3 tmp = new Vector3();
-        readVector3(ref tmp);
-        aabb.setMinimum(MVector3.fromNative(tmp));
-        readVector3(ref tmp);
-        aabb.setMaximum(MVector3.fromNative(tmp));
-    }
-
-    // 压缩
-    public uint compress(uint len_ = 0, CompressionAlgorithm algorithm = CompressionAlgorithm.ZLIB)
-    {
-        len_ = (len_ == 0 ? length : len_);
-
-        byte[] retByte = null;
-        uint retSize = 0;
-        Compress.CompressData(mDynBuffer.buffer, position, len_, ref retByte, ref retSize, algorithm);
-
-        replace(retByte, 0, retSize, position, len_);
-
-        return retSize;
-    }
-
-    // 解压
-    public uint uncompress(uint len_ = 0, CompressionAlgorithm algorithm = CompressionAlgorithm.ZLIB)
-    {
-        len_ = (len_ == 0 ? length : len_);
-
-        byte[] retByte = null;
-        uint retSize = 0;
-        Compress.DecompressData(mDynBuffer.buffer, position, len_, ref retByte, ref retSize, algorithm);
-
-        replace(retByte, 0, retSize, position, len_);
-
-        return retSize;
-    }
-
-    // 加密，使用 des 对称数字加密算法，加密8字节补齐，可能会导致变长
-    public uint encrypt(CryptContext cryptContext, uint len_ = 0)
-    {
-#if OBSOLETE
-        len_ = (len_ == 0 ? length : len_);
-
-        byte[] retByte = null;
-        // 只有 8 个字节的时候才加密
-        uint leftCnt = len_ % 8;  // 剩余的数量
-        uint cryptCnt = leftCnt;
-
-        if (len_ >= 8)
-        {
-            Crypt.encryptData(mDynBuffer.buff, position, len_ - leftCnt, ref retByte, cryptKey);
-            writeBytes(retByte, 0, (uint)retByte.Length, false);
-            cryptCnt += (uint)retByte.Length;
-        }
-
-        if (leftCnt > 0) // 如果还有剩余的字节没有加密，还需要增加长度
-        {
-            position += leftCnt;
-        }
-
-        return cryptCnt;
-#endif
-        len_ = (len_ == 0 ? length : len_);
-        uint alignLen_ = ((len_ + 7) / 8) * 8; // 补齐 8 个字节，因为加密是 8 个字节一次加密，只要是 8 个字节的整数倍，无论多少个都可以任意解压
-        uint leftLen_ = alignLen_ - len_;
-        if (leftLen_ > 0)
-        {
-            if (mPadBytes == null)
-            {
-                mPadBytes = new byte[8];
-            }
-
-            // 保存数据，然后补 0
-            Array.Copy(mDynBuffer.buffer, position + len_, mPadBytes, 0, leftLen_);
-            Array.Clear(mDynBuffer.buffer, (int)(position + len_), (int)leftLen_);
-        }
-
-        if (len_ == 0)      // 修正之后还等于 0
-        {
-            return 0;
-        }
-
-        if (alignLen_ > mDynBuffer.capacity)   // 如果最后加密(由于补齐)的长度大于原始长度
-        {
-            length = alignLen_;
-        }
-
-        byte[] retByte = null;
-
-        Crypt.encryptData(mDynBuffer.buffer, position, alignLen_, ref retByte, cryptContext);  // 注意补齐不一定是 0
-        Array.Copy(mPadBytes, 0, mDynBuffer.buffer, position + len_, leftLen_);       // 拷贝回去
-        replace(retByte, 0, alignLen_, position, len_);
-
-        return alignLen_;
-    }
-
-    // 解密，现在必须 8 字节对齐解密
-    public void decrypt(CryptContext cryptContext, uint len_ = 0)
-    {
-        len_ = (len_ == 0 ? length : len_);
-
-        byte[] retByte = null;
-
-        if (0 == len_)
-        {
-            return;
-        }
-
-        Crypt.decryptData(mDynBuffer.buffer, position, len_, ref retByte, cryptContext);
-        writeBytes(retByte, 0, (uint)retByte.Length, false);
-    }
-
-    public ByteBuffer readBoolean(ref bool tmpBool)
-    {
-        if (canRead(sizeof(bool)))
+        if (canRead(Byte.SIZE))
         {
             tmpBool = System.BitConverter.ToBoolean(mDynBuffer.buffer, (int)mPos);
-            advPos(sizeof(bool));
+            advPos(Byte.SIZE);
         }
 
         return this;

@@ -1,5 +1,6 @@
 ﻿package SDK.Lib.EventHandle;
 
+import SDK.Lib.DataStruct.MList;
 import SDK.Lib.DelayHandle.*;
 
 /**
@@ -37,7 +38,7 @@ public class EventDispatch extends DelayHandleMgrBase
     public void setUniqueId(int value)
     {
         this.mUniqueId = value;
-        this.mHandleList.uniqueId = this.mUniqueId;
+        this.mHandleList.setUniqueId(this.mUniqueId);
     }
 
     @Override
@@ -63,7 +64,7 @@ public class EventDispatch extends DelayHandleMgrBase
     }
 
     // 相同的函数只能增加一次，Lua ，Python 这些语言不支持同时存在几个相同名字的函数，只支持参数可以赋值，因此不单独提供同一个名字不同参数的接口了
-    virtual public void addEventHandle(ICalleeObject pThis, IDispatchObject handle)
+    public void addEventHandle(ICalleeObject pThis, IDispatchObject handle)
     {
         if (null != pThis || null != handle)
         {
@@ -72,10 +73,6 @@ public class EventDispatch extends DelayHandleMgrBase
             if (null != handle)
             {
                 funcObject.setFuncObject(pThis, handle);
-            }
-            if(null != luaTable || null != luaFunction)
-            {
-                funcObject.setLuaFunctor(luaTable, luaFunction);
             }
 
             this.addDispatch(funcObject);
@@ -86,7 +83,7 @@ public class EventDispatch extends DelayHandleMgrBase
         }
     }
 
-    public void removeEventHandle(ICalleeObject pThis, MAction<IDispatchObject> handle)
+    public void removeEventHandle(ICalleeObject pThis, IDispatchObject handle)
     {
         int idx = 0;
         int elemLen = 0;
@@ -94,7 +91,7 @@ public class EventDispatch extends DelayHandleMgrBase
 
         while (idx < elemLen)
         {
-            if (this.mHandleList[idx].isEqual(pThis, handle, luaTable, luaFunction))
+            if (this.mHandleList.get(idx).isEqual(pThis, handle))
             {
                 break;
             }
@@ -104,7 +101,7 @@ public class EventDispatch extends DelayHandleMgrBase
 
         if (idx < this.mHandleList.Count())
         {
-            this.removeDispatch(this.mHandleList[idx]);
+            this.removeDispatch(this.mHandleList.get(idx));
         }
         else
         {
@@ -123,16 +120,17 @@ public class EventDispatch extends DelayHandleMgrBase
     {
         if (this.isInDepth())
         {
-            base.addObject(delayObject, priority);
+            super.addObject(delayObject, priority);
         }
         else
         {
             // 这个判断说明相同的函数只能加一次，但是如果不同资源使用相同的回调函数就会有问题，但是这个判断可以保证只添加一次函数，值得，因此不同资源需要不同回调函数
-            this.mHandleList.Add(delayObject as EventDispatchFunctionObject);
+            this.mHandleList.Add((EventDispatchFunctionObject)delayObject);
         }
     }
 
-    override protected void removeObject(IDelayHandleItem delayObject)
+    @Override
+    protected void removeObject(IDelayHandleItem delayObject)
     {
         if (this.isInDepth())
         {
@@ -147,7 +145,7 @@ public class EventDispatch extends DelayHandleMgrBase
         }
     }
 
-    virtual public void dispatchEvent(IDispatchObject dispatchObject)
+    public void dispatchEvent(IDispatchObject dispatchObject)
     {
         //try
         //{
@@ -161,7 +159,7 @@ public class EventDispatch extends DelayHandleMgrBase
 
         while (idx < len)
         {
-            handle = this.mHandleList[idx];
+            handle = this.mHandleList.get(idx);
 
             if (!handle.mIsClientDispose)
             {
@@ -190,7 +188,7 @@ public class EventDispatch extends DelayHandleMgrBase
 
             while (idx < len)
             {
-                item = this.mHandleList[idx];
+                item = this.mHandleList.get(idx);
 
                 this.removeDispatch(item);
 
@@ -204,9 +202,9 @@ public class EventDispatch extends DelayHandleMgrBase
     }
 
     // 这个判断说明相同的函数只能加一次，但是如果不同资源使用相同的回调函数就会有问题，但是这个判断可以保证只添加一次函数，值得，因此不同资源需要不同回调函数
-    public bool isExistEventHandle(ICalleeObject pThis, MAction<IDispatchObject> handle, LuaTable luaTable = null, LuaFunction luaFunction = null)
+    public boolean isExistEventHandle(ICalleeObject pThis, IDispatchObject handle)
     {
-        bool bFinded = false;
+        boolean bFinded = false;
         //foreach (EventDispatchFunctionObject item in this.mHandleList.list())
         int idx = 0;
         int len = this.mHandleList.Count();
@@ -214,9 +212,9 @@ public class EventDispatch extends DelayHandleMgrBase
 
         while (idx < len)
         {
-            item = this.mHandleList[idx];
+            item = this.mHandleList.get(idx);
 
-            if (item.isEqual(pThis, handle, luaTable, luaFunction))
+            if (item.isEqual(pThis, handle))
             {
                 bFinded = true;
                 break;
@@ -237,7 +235,7 @@ public class EventDispatch extends DelayHandleMgrBase
 
         while (idx < len)
         {
-            handle = this.mHandleList[idx];
+            handle = this.mHandleList.get(idx);
 
             this.mHandleList.Add(handle);
 

@@ -1,17 +1,17 @@
 ﻿package SDK.Lib.EventHandle;
+
+public class ResEventDispatch extends EventDispatch
 {
-    public class ResEventDispatch : EventDispatch
+    public ResEventDispatch()
     {
-        public ResEventDispatch()
-        {
 
-        }
+    }
 
-        override public void dispatchEvent(IDispatchObject dispatchObject)
-        {
-            base.dispatchEvent(dispatchObject);
+    @Override
+    public void dispatchEvent(IDispatchObject dispatchObject)
+    {
+        super.dispatchEvent(dispatchObject);
 
-            this.clearEventHandle();
-        }
+        this.clearEventHandle();
     }
 }

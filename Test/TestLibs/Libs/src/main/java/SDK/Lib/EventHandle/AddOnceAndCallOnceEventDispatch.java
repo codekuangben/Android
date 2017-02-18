@@ -5,15 +5,17 @@ public class AddOnceAndCallOnceEventDispatch extends EventDispatch
     @Override
     public void addEventHandle(ICalleeObject pThis, IDispatchObject handle)
     {
-        if (!isExistEventHandle(pThis, handle, luaTable, luaFunction))
+        if (!this.isExistEventHandle(pThis, handle))
         {
-            base.addEventHandle(pThis, handle, luaTable, luaFunction);
+            super.addEventHandle(pThis, handle);
         }
     }
 
-    override public void dispatchEvent(IDispatchObject dispatchObject)
+    @Override
+    public void dispatchEvent(IDispatchObject dispatchObject)
     {
-        base.dispatchEvent(dispatchObject);
-        clearEventHandle();
+        super.dispatchEvent(dispatchObject);
+
+        this.clearEventHandle();
     }
 }

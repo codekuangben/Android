@@ -1,19 +1,20 @@
 ﻿package SDK.Lib.EventHandle;
+
+/**
+ * @brief 一次事件分发，分发一次就清理
+ */
+public class CallOnceEventDispatch extends EventDispatch
 {
-    /**
-     * @brief 一次事件分发，分发一次就清理
-     */
-    public class CallOnceEventDispatch : EventDispatch
+    public CallOnceEventDispatch()
     {
-        public CallOnceEventDispatch()
-        {
 
-        }
+    }
 
-        override public void dispatchEvent(IDispatchObject dispatchObject)
-        {
-            base.dispatchEvent(dispatchObject);
-            clearEventHandle();
-        }
+    @Override
+    public void dispatchEvent(IDispatchObject dispatchObject)
+    {
+        super.dispatchEvent(dispatchObject);
+
+        this.clearEventHandle();
     }
 }

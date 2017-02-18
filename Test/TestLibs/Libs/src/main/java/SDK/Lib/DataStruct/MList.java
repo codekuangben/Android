@@ -1,5 +1,8 @@
 ﻿package SDK.Lib.DataStruct;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @brief 对系统 List 的封装
  */
@@ -7,27 +10,27 @@ public class MList<T>
 {
     //public delegate int CompareFunc(T left, T right);
 
-    protected List<T> mList;
+    protected ArrayList<T> mList;
     protected int mUniqueId;       // 唯一 Id ，调试使用
 
-    protected Dictionary<T, int> mDic;    // 为了加快查找速度，当前 Element 到索引映射
-    protected bool mIsSpeedUpFind;  // 是否加快查询
+    protected MDictionary<T, Integer> mDic;    // 为了加快查找速度，当前 Element 到索引映射
+    protected boolean mIsSpeedUpFind;  // 是否加快查询
 
     public MList()
     {
-        this.mList = new List<T>();
-        this.mDic = new Dictionary<T, int>();
+        this.mList = new ArrayList<T>();
+        this.mDic = new MDictionary<T, Integer>();
         this.mIsSpeedUpFind = true;
     }
 
     public MList(int capacity)
     {
-        this.mList = new List<T>(capacity);
+        this.mList = new ArrayList<T>(capacity);
     }
 
     public T[] ToArray()
     {
-        return this.mList.ToArray();
+        return (T[])this.mList.toArray();
     }
 
     public List<T> list()
@@ -35,100 +38,92 @@ public class MList<T>
         return this.mList;
     }
 
-    public int uniqueId
+    public int getUniqueId()
     {
-        get
-        {
-            return this.mUniqueId;
-        }
-        set
-        {
-            this.mUniqueId = value;
-        }
+        return this.mUniqueId;
     }
 
-    public List<T> buffer
+    public void setUniqueId(int value)
     {
-        get
-        {
-            return this.mList;
-        }
+        this.mUniqueId = value;
     }
 
-    public int size
+    public List<T> getBuffer()
     {
-        get
-        {
-            return this.mList.Count;
-        }
+        return this.mList;
+    }
+
+    public int getSize()
+    {
+        return this.mList.size();
     }
 
     public void Add(T item)
     {
-        this.mList.Add(item);
+        this.mList.add(item);
 
         if (this.mIsSpeedUpFind)
         {
-            this.mDic[item] = this.mList.Count - 1;
+            this.mDic.set(item, this.mList.size() - 1);
         }
     }
 
     // 主要是 Add 一个 float 类型的 Vector3
     public void Add(T item_1, T item_2, T item_3)
     {
-        this.mList.Add(item_1);
-        this.mList.Add(item_2);
-        this.mList.Add(item_3);
+        this.mList.add(item_1);
+        this.mList.add(item_2);
+        this.mList.add(item_3);
 
         if(this.mIsSpeedUpFind)
         {
-            this.mDic[item_1] = this.mList.Count - 3;
-            this.mDic[item_2] = this.mList.Count - 2;
-            this.mDic[item_3] = this.mList.Count - 1;
+            this.mDic.set(item_1, this.mList.size() - 3);
+            this.mDic.set(item_2, this.mList.size() - 2);
+            this.mDic.set(item_3, this.mList.size() - 1);
         }
     }
 
     // 主要是 Add 一个 float 类型的 UV
     public void Add(T item_1, T item_2)
     {
-        this.mList.Add(item_1);
-        this.mList.Add(item_2);
+        this.mList.add(item_1);
+        this.mList.add(item_2);
 
         if (this.mIsSpeedUpFind)
         {
-            this.mDic[item_1] = this.mList.Count - 2;
-            this.mDic[item_2] = this.mList.Count - 1;
+            this.mDic.set(item_1, this.mList.size() - 2);
+            this.mDic.set(item_2, this.mList.size() - 1);
         }
     }
 
     // 主要是 Add 一个 byte 类型的 Color32
     public void Add(T item_1, T item_2, T item_3, T item_4)
     {
-        this.mList.Add(item_1);
-        this.mList.Add(item_2);
-        this.mList.Add(item_3);
-        this.mList.Add(item_4);
+        this.mList.add(item_1);
+        this.mList.add(item_2);
+        this.mList.add(item_3);
+        this.mList.add(item_4);
 
         if (this.mIsSpeedUpFind)
         {
-            this.mDic[item_1] = this.mList.Count - 4;
-            this.mDic[item_2] = this.mList.Count - 3;
-            this.mDic[item_3] = this.mList.Count - 2;
-            this.mDic[item_4] = this.mList.Count - 1;
+            this.mDic.set(item_1, this.mList.size() - 4);
+            this.mDic.set(item_2, this.mList.size() - 3);
+            this.mDic.set(item_3, this.mList.size() - 2);
+            this.mDic.set(item_4, this.mList.size() - 1);
         }
     }
 
     public void push(T item)
     {
-        this.mList.Add(item);
+        this.mList.add(item);
 
         if (this.mIsSpeedUpFind)
         {
-            this.mDic[item] = this.mList.Count - 1;
+            this.mDic.set(item, this.mList.size() - 1);
         }
     }
 
-    public bool Remove(T item)
+    public boolean Remove(T item)
     {
         if (this.mIsSpeedUpFind)
         {
@@ -136,30 +131,28 @@ public class MList<T>
         }
         else
         {
-            return this.mList.Remove(item);
+            return this.mList.remove(item);
         }
     }
 
-    public T this[int index]
+    public T get(int index)
     {
-        get
-        {
-            return this.mList[index];
-        }
-        set
-        {
-            if (this.mIsSpeedUpFind)
-            {
-                this.mDic[value] = index;
-            }
+        return this.mList.get(index);
+    }
 
-            this.mList[index] = value;
+    public void set(int index, T value)
+    {
+        if (this.mIsSpeedUpFind)
+        {
+            this.mDic.set(value, index);
         }
+
+        this.mList.add(index, value);
     }
 
     public void Clear()
     {
-        this.mList.Clear();
+        this.mList.clear();
 
         if (this.mIsSpeedUpFind)
         {
@@ -169,28 +162,28 @@ public class MList<T>
 
     public int Count()
     {
-        return this.mList.Count;
+        return this.mList.size();
     }
 
     public int length()
     {
-        return this.mList.Count;
+        return this.mList.size();
     }
 
     public void setLength(int value)
     {
-        this.mList.Capacity = value;
+        this.mList.ensureCapacity(value);
     }
 
     public void RemoveAt(int index)
     {
         if (this.mIsSpeedUpFind)
         {
-            this.effectiveRemove(this.mList[index]);
+            this.effectiveRemove(this.mList.get(index));
         }
         else
         {
-            this.mList.RemoveAt(index);
+            this.mList.remove(index);
         }
     }
 
@@ -200,7 +193,7 @@ public class MList<T>
         {
             if (this.mDic.ContainsKey(item))
             {
-                return this.mDic[item];
+                return this.mDic.get(item);
             }
             else
             {
@@ -209,7 +202,7 @@ public class MList<T>
         }
         else
         {
-            return this.mList.IndexOf(item);
+            return this.mList.indexOf(item);
         }
     }
 
@@ -219,10 +212,11 @@ public class MList<T>
         {
             if (this.mIsSpeedUpFind)
             {
-                this.mDic[item] = index;
+                this.mDic.set(item, index);
             }
 
-            this.mList.Insert(index, item);
+            //this.mList.Insert(index, item);
+            this.mList.add(index, item);
 
             if (this.mIsSpeedUpFind)
             {
@@ -235,7 +229,7 @@ public class MList<T>
         }
     }
 
-    public bool Contains(T item)
+    public boolean Contains(T item)
     {
         if (this.mIsSpeedUpFind)
         {
@@ -243,52 +237,54 @@ public class MList<T>
         }
         else
         {
-            return this.mList.Contains(item);
+            return this.mList.contains(item);
         }
     }
 
-    public void Sort(System.Comparison<T> comparer)
-    {
-        this.mList.Sort(comparer);
-    }
+//    public void Sort(System.Comparison<T> comparer)
+//    {
+//        this.mList.Sort(comparer);
+//    }
 
     public void merge(MList<T> appendList)
     {
         if(appendList != null)
         {
-            foreach(T item in appendList.list())
+            for(T item : appendList.list())
             {
-                this.mList.Add(item);
+                this.mList.add(item);
 
                 if (this.mIsSpeedUpFind)
                 {
-                    this.mDic[item] = this.mList.Count - 1;
+                    this.mDic.set(item, this.mList.size() - 1);
                 }
             }
         }
     }
 
     // 快速移除元素
-    protected bool effectiveRemove(T item)
+    protected boolean effectiveRemove(T item)
     {
-        bool ret = false;
+        boolean ret = false;
 
         if (this.mDic.ContainsKey(item))
         {
             ret = true;
 
-            int idx = this.mDic[item];
+            int idx = this.mDic.get(item);
             this.mDic.Remove(item);
 
-            if (idx == this.mList.Count - 1)    // 如果是最后一个元素，直接移除
+            if (idx == this.mList.size() - 1)    // 如果是最后一个元素，直接移除
             {
-                this.mList.RemoveAt(idx);
+                //this.mList.RemoveAt(idx);
+                this.mList.remove(idx);
             }
             else
             {
-                this.mList[idx] = this.mList[this.mList.Count - 1];
-                this.mList.RemoveAt(this.mList.Count - 1);
-                this.mDic[this.mList[idx]] = idx;
+                this.mList.set(idx, this.mList.get(this.mList.size() - 1));
+                //this.mList.RemoveAt(this.mList.size() - 1);
+                this.mList.remove(this.mList.size() - 1);
+                this.mDic.set(this.mList.get(idx), idx);
             }
         }
 
@@ -297,11 +293,11 @@ public class MList<T>
 
     protected void updateIndex(int idx)
     {
-        int len = this.mList.Count;
+        int len = this.mList.size();
 
         while(idx < len)
         {
-            this.mDic[this.mList[idx]] = idx;
+            this.mDic.set(this.mList.get(idx), idx);
 
             ++idx;
         }

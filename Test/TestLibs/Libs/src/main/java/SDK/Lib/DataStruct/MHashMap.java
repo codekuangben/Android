@@ -5,5 +5,5 @@
  */
 public class MHashMap
 {
-    protected System.Collections.Hashtable mHashtable;
+    //protected System.Collections.Hashtable mHashtable;
 }

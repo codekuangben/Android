@@ -1,5 +1,7 @@
 ﻿package SDK.Lib.DataStruct;
 
+import SDK.Lib.Thread.*;
+
 /**
  * @brief 线程安全列表， T 是 Object ，便于使用 Equal 比较地址
  */
@@ -9,52 +11,62 @@ public class LockList<T>
     protected MMutex mVisitMutex;
     protected T mRetItem;
 
-    public LockList(string name, uint initCapacity = 32/*DataCV.INIT_ELEM_CAPACITY*/, uint maxCapacity = 8 * 1024 * 1024/*DataCV.MAX_CAPACITY*/)
+    public LockList(String name)
+    {
+        this(name, 32, 8 * 1024 * 1024);
+    }
+
+    public LockList(String name, int initCapacity)
+    {
+        this(name, initCapacity, 8 * 1024 * 1024);
+    }
+
+    public LockList(String name, int initCapacity, int maxCapacity)
     {
         mDynamicBuffer = new DynBuffer<T>(initCapacity, maxCapacity);
         mVisitMutex = new MMutex(false, name);
     }
 
-    public uint Count
+    public int getCount()
     {
-        get
+        MLock mlock = new MLock(mVisitMutex);
+        int ret = mDynamicBuffer.mSize;
+        mlock.Dispose();
+        return ret;
+    }
+
+    public T get(int index)
+    {
+        MLock mlock = new MLock(mVisitMutex);
+
         {
-            using (MLock mlock = new MLock(mVisitMutex))
-            {
-                return mDynamicBuffer.mSize;
+            if (index < mDynamicBuffer.mSize) {
+                mlock.Dispose();
+
+                return mDynamicBuffer.mBuffer[index];
+            } else {
+                mlock.Dispose();
+
+                return null;
             }
         }
     }
 
-    public T this[int index]
+    public void set(int index, T value)
     {
-        get
+        MLock mlock = new MLock(mVisitMutex);
+
         {
-            using (MLock mlock = new MLock(mVisitMutex))
-            {
-                if (index < mDynamicBuffer.mSize)
-                {
-                    return mDynamicBuffer.mBuffer[index];
-                }
-                else
-                {
-                    return default(T);
-                }
-            }
+            mDynamicBuffer.mBuffer[index] = value;
         }
 
-        set
-        {
-            using (MLock mlock = new MLock(mVisitMutex))
-            {
-                mDynamicBuffer.mBuffer[index] = value;
-            }
-        }
+        mlock.Dispose();
     }
 
     public void Add(T item)
     {
-        using (MLock mlock = new MLock(mVisitMutex))
+        MLock mlock = new MLock(mVisitMutex);
+
         {
             if (mDynamicBuffer.mSize >= mDynamicBuffer.mCapacity)
             {
@@ -64,30 +76,40 @@ public class LockList<T>
             mDynamicBuffer.mBuffer[mDynamicBuffer.mSize] = item;
             ++mDynamicBuffer.mSize;
         }
+
+        mlock.Dispose();
     }
 
-    public bool Remove(T item)
+    public boolean Remove(T item)
     {
-        using (MLock mlock = new MLock(mVisitMutex))
+        MLock mlock = new MLock(mVisitMutex);
+
         {
             int idx = 0;
-            foreach (var elem in mDynamicBuffer.mBuffer)
+
+            for(T elem : mDynamicBuffer.mBuffer)
             {
-                if(item.Equals(elem))       // 地址比较
+                if(item.equals(elem))       // 地址比较
                 {
                     this.RemoveAt(idx);
+                    mlock.Dispose();
+
                     return true;
                 }
 
                 ++idx;
             }
+
+            mlock.Dispose();
+
             return false;
         }
     }
 
     public T RemoveAt(int index)
     {
-        using (MLock mlock = new MLock(mVisitMutex))
+        MLock mlock = new MLock(mVisitMutex);
+
         {
             if (index < mDynamicBuffer.mSize)
             {
@@ -97,7 +119,7 @@ public class LockList<T>
                 {
                     if (index != mDynamicBuffer.mSize - 1 && 1 != mDynamicBuffer.mSize) // 如果删除不是最后一个元素或者总共就大于一个元素
                     {
-                        Array.Copy(mDynamicBuffer.mBuffer, index + 1, mDynamicBuffer.mBuffer, index, mDynamicBuffer.mSize - 1 - index);
+                        MArray.Copy(mDynamicBuffer.mBuffer, index + 1, mDynamicBuffer.mBuffer, index, mDynamicBuffer.mSize - 1 - index);
                     }
 
                     --mDynamicBuffer.mSize;
@@ -105,8 +127,10 @@ public class LockList<T>
             }
             else
             {
-                mRetItem = default(T);
+                mRetItem = null;
             }
+
+            mlock.Dispose();
 
             return mRetItem;
         }
@@ -114,19 +138,25 @@ public class LockList<T>
 
     public int IndexOf(T item)
     {
-        using (MLock mlock = new MLock(mVisitMutex))
+        MLock mlock = new MLock(mVisitMutex);
+
         {
             int idx = 0;
-            foreach (var elem in mDynamicBuffer.mBuffer)
+            for(T elem : mDynamicBuffer.mBuffer)
             {
-                if (item.Equals(elem))       // 地址比较
+                if (item.equals(elem))       // 地址比较
                 {
                     this.RemoveAt(idx);
+                    mlock.Dispose();
+
                     return idx;
                 }
 
                 ++idx;
             }
+
+            mlock.Dispose();
+
             return -1;
         }
     }

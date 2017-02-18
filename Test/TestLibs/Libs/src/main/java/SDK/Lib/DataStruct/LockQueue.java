@@ -4,7 +4,7 @@ public class LockQueue<T>
 {
     protected LockList<T> mList;
 
-    public LockQueue(string name)
+    public LockQueue(String name)
     {
         mList = new LockList<T>("name");
     }

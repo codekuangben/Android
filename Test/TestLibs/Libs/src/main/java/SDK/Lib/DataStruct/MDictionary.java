@@ -1,117 +1,117 @@
 ﻿package SDK.Lib.DataStruct;
 
+import java.util.Collection;
+import java.util.Map;
+import java.util.HashMap;
+import java.util.Set;
+
 //public class MDictionary<TKey, TValue> where TValue : IComparer<TValue>
 //public class MDictionary<TKey, TValue> where TValue : class
 public class MDictionary<TKey, TValue>
 {
-    protected Dictionary<TKey, TValue> mData;
+    // 注：Dictionary 此类已过时。新的实现应该实现 Map 接口，而不是扩展此类。
+    protected Map<TKey, TValue> mData;
 
     public MDictionary()
     {
-        mData = new Dictionary<TKey, TValue>();
+        mData = new HashMap<TKey, TValue>();
     }
 
-    public Dictionary<TKey, TValue> getData()
+    public Map<TKey, TValue> getData()
     {
         return this.mData;
     }
 
     public int getCount()
     {
-        return this.mData.Count;
+        return this.mData.keySet().size();
     }
 
-    public TValue this[TKey key]
+    public TValue get(TKey key)
     {
-        get
-        {
-            return this.value(key);
-        }
-        set
-        {
-            this.Add(key, value);
-        }
+        return this.value(key);
+    }
+
+    public void set(TKey key, TValue value)
+    {
+        this.Add(key, value);
     }
 
     public TValue value(TKey key)
     {
-        if (this.mData.ContainsKey(key))
+        if (this.mData.containsKey(key))
         {
-            return this.mData[key];
+            return this.mData.get(key);
         }
 
-        return default(TValue);
+        return null;
     }
 
     public TKey key(TValue value)
     {
-        foreach (KeyValuePair<TKey, TValue> kv in this.mData)
+        for (TKey key : this.mData.keySet())
         {
-            if (kv.Value.Equals(value))
+            if (this.mData.get(key).equals(value))
             //if (kv.Value == value)
             {
-                return kv.Key;
+                return key;
             }
         }
-        return default(TKey);
+
+        return null;
     }
 
-    public Dictionary<TKey, TValue>.KeyCollection Keys
+    public Set<TKey> getKeys()
     {
-        get
-        {
-            return this.mData.Keys;
-        }
+        return this.mData.keySet();
     }
 
-    public Dictionary<TKey, TValue>.ValueCollection Values
+    public Collection<TValue> getValues()
     {
-        get
-        {
-            return this.mData.Values;
-        }
+        return this.mData.values();
     }
 
     public int Count()
     {
-        return this.mData.Keys.Count;
+        return this.mData.keySet().size();
     }
 
-    public Dictionary<TKey, TValue>.Enumerator GetEnumerator()
+    public Set<Map.Entry<TKey,TValue>> GetEnumerator()
     {
-        return this.mData.GetEnumerator();
+        return this.mData.entrySet();
     }
 
     public void Add(TKey key, TValue value)
     {
-        this.mData[key] = value;
+        this.mData.put(key, value);
     }
 
     public void Remove(TKey key)
     {
-        this.mData.Remove(key);
+        this.mData.remove(key);
     }
 
     public void Clear()
     {
-        this.mData.Clear();
+        this.mData.clear();
     }
 
-    public bool TryGetValue(TKey key, out TValue value)
+    public boolean TryGetValue(TKey key, TValue value)
     {
-        return this.mData.TryGetValue(key, out value);
+        value = this.mData.get(key);
+        return true;
     }
 
-    public bool ContainsKey(TKey key)
+    public boolean ContainsKey(TKey key)
     {
-        return this.mData.ContainsKey(key);
+        return this.mData.containsKey(key);
     }
 
-    public bool ContainsValue(TValue value)
+    public boolean ContainsValue(TValue value)
     {
-        foreach (KeyValuePair<TKey, TValue> kv in this.mData)
+        for (TKey key : this.mData.keySet())
         {
-            if (kv.Value.Equals(value))
+            if (this.mData.get(key).equals(value))
             //if (kv.Value == value)
             {
                 return true;
@@ -124,13 +124,13 @@ public class MDictionary<TKey, TValue>
     public TValue at(int idx)
     {
         int curidx = 0;
-        TValue ret = default(TValue);
+        TValue ret = null;
 
-        foreach (KeyValuePair<TKey, TValue> kvp in this.mData)
+        for (TKey key : this.mData.keySet())
         {
             if(curidx == idx)
             {
-                ret = kvp.Value;
+                ret = this.mData.get(key);
                 break;
             }
         }

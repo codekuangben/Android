@@ -1,5 +1,7 @@
 ﻿package SDK.Lib.Tools;
 
+import SDK.Lib.EventHandle.IDispatchObject;
+
 /**
  * @brief 对 api 的进一步 wrap
  */
@@ -27,5 +29,17 @@ public class UtilApi
         }
 
         return retEncode;
+    }
+
+    // 判断两个 GameObject 地址是否相等
+    public static boolean isAddressEqual(Object a, Object b)
+    {
+        return a.equals(b);
+    }
+
+    // 判断两个函数是否相等，不能使用 isAddressEqual 判断函数是否相等
+    public static boolean isDelegateEqual(IDispatchObject a, IDispatchObject b)
+    {
+        return a == b;
     }
 }

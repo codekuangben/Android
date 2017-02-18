@@ -1,9 +1,13 @@
 ﻿package SDK.Lib.DelayHandle;
 
+import SDK.Lib.Core.GObject;
+import SDK.Lib.DataStruct.MList;
+import SDK.Lib.Tools.UtilApi;
+
 /**
  * @brief 当需要管理的对象可能在遍历中间添加的时候，需要这个管理器
  */
-public class DelayHandleMgrBase extends  GObject
+public class DelayHandleMgrBase extends GObject
 {
     protected MList<DelayHandleObject> mDeferredAddQueue;
     protected MList<DelayHandleObject> mDeferredDelQueue;
@@ -18,17 +22,22 @@ public class DelayHandleMgrBase extends  GObject
         this.mLoopDepth = 0;
     }
 
-    virtual public void init()
+    public void init()
     {
 
     }
 
-    virtual public void dispose()
+    public void dispose()
     {
 
     }
 
-    virtual protected void addObject(IDelayHandleItem delayObject, float priority = 0.0f)
+    protected void addObject(IDelayHandleItem delayObject)
+    {
+        this.addObject(delayObject, 0);
+    }
+
+    protected void addObject(IDelayHandleItem delayObject, float priority)
     {
         if (this.mLoopDepth > 0)
         {
@@ -44,12 +53,12 @@ public class DelayHandleMgrBase extends  GObject
                 this.mDeferredAddQueue.Add(delayHandleObject);
 
                 delayHandleObject.mDelayObject = delayObject;
-                (delayHandleObject.mDelayParam as DelayAddParam).mPriority = priority;
+                ((DelayAddParam)delayHandleObject.mDelayParam).mPriority = priority;
             }
         }
     }
 
-    virtual protected void removeObject(IDelayHandleItem delayObject)
+    protected void removeObject(IDelayHandleItem delayObject)
     {
         if (this.mLoopDepth > 0)
         {
@@ -71,9 +80,9 @@ public class DelayHandleMgrBase extends  GObject
     }
 
     // 只有没有添加到列表中的才能添加
-    protected bool existAddList(IDelayHandleItem delayObject)
+    protected boolean existAddList(IDelayHandleItem delayObject)
     {
-        foreach(DelayHandleObject item in this.mDeferredAddQueue.list())
+        for(DelayHandleObject item : this.mDeferredAddQueue.list())
         {
             if(UtilApi.isAddressEqual(item.mDelayObject, delayObject))
             {
@@ -85,9 +94,9 @@ public class DelayHandleMgrBase extends  GObject
     }
 
     // 只有没有添加到列表中的才能添加
-    protected bool existDelList(IDelayHandleItem delayObject)
+    protected boolean existDelList(IDelayHandleItem delayObject)
     {
-        foreach (DelayHandleObject item in this.mDeferredDelQueue.list())
+        for (DelayHandleObject item : this.mDeferredDelQueue.list())
         {
             if (UtilApi.isAddressEqual(item.mDelayObject, delayObject))
             {
@@ -101,7 +110,7 @@ public class DelayHandleMgrBase extends  GObject
     // 从延迟添加列表删除一个 Item
     protected void delFromDelayAddList(IDelayHandleItem delayObject)
     {
-        foreach (DelayHandleObject item in this.mDeferredAddQueue.list())
+        for (DelayHandleObject item : this.mDeferredAddQueue.list())
         {
             if (UtilApi.isAddressEqual(item.mDelayObject, delayObject))
             {
@@ -113,7 +122,7 @@ public class DelayHandleMgrBase extends  GObject
     // 从延迟删除列表删除一个 Item
     protected void delFromDelayDelList(IDelayHandleItem delayObject)
     {
-        foreach (DelayHandleObject item in this.mDeferredDelQueue.list())
+        for (DelayHandleObject item : this.mDeferredDelQueue.list())
         {
             if(UtilApi.isAddressEqual(item.mDelayObject, delayObject))
             {
@@ -136,7 +145,7 @@ public class DelayHandleMgrBase extends  GObject
                 elemLen = this.mDeferredAddQueue.Count();
                 while(idx < elemLen)
                 {
-                    this.addObject(this.mDeferredAddQueue[idx].mDelayObject, (this.mDeferredAddQueue[idx].mDelayParam as DelayAddParam).mPriority);
+                    this.addObject(this.mDeferredAddQueue.get(idx).mDelayObject, ((DelayAddParam)this.mDeferredAddQueue.get(idx).mDelayParam).mPriority);
 
                     idx += 1;
                 }
@@ -151,7 +160,7 @@ public class DelayHandleMgrBase extends  GObject
 
                 while(idx < elemLen)
                 {
-                    this.removeObject(this.mDeferredDelQueue[idx].mDelayObject);
+                    this.removeObject(this.mDeferredDelQueue.get(idx).mDelayObject);
 
                     idx += 1;
                 }
@@ -173,7 +182,7 @@ public class DelayHandleMgrBase extends  GObject
         processDelayObjects();
     }
 
-    public bool isInDepth()
+    public boolean isInDepth()
     {
         return this.mLoopDepth > 0;
     }

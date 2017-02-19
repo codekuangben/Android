@@ -1,13 +1,12 @@
-﻿namespace SDK.Lib
+﻿package SDK.Lib.FrameWork;
+
+/**
+ * @brief 生成一些需要的数据结构
+ */
+public class FactoryBuild
 {
-    /**
-     * @brief 生成一些需要的数据结构
-     */
-    public class FactoryBuild
+    public ByteBuffer buildByteBuffer()
     {
-        public ByteBuffer buildByteBuffer()
-        {
-            return new ByteBuffer();
-        }
+        return new ByteBuffer();
     }
 }

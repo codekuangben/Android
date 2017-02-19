@@ -2,12 +2,6 @@
 
 public class MacroDef
 {
-    // Release 自己使用的定义
-    //NET_MULTHREAD;MSG_ENCRIPT;MSG_COMPRESS
-
-    // Debug 自己使用的定义
-    //NET_MULTHREAD;MSG_ENCRIPT;MSG_COMPRESS;THREAD_CALLCHECK;ENABLE_WINLOG;ENABLE_NETLOG;UNIT_TEST;ENABLE_FILELOG
-
     // 宏定义开始
     // 调试不需要网络
     static public boolean DEBUG_NOTNET = false;
@@ -18,12 +12,6 @@ public class MacroDef
     // 是否检查函数接口调用线程
     static public boolean THREAD_CALLCHECK = true;
 
-    // 消息加密
-    static public boolean MSG_ENCRIPT = false;
-
-    // 消息压缩
-    static public boolean MSG_COMPRESS = false;
-
     // 开启窗口日志
     static public boolean ENABLE_WINLOG = true;
 
@@ -33,29 +21,8 @@ public class MacroDef
     // 开启文件日志
     static public boolean ENABLE_FILELOG = false;
 
-    // 使用打包模式加载资源
-    static public boolean PKG_RES_LOAD = false;
-
-    // 非打包文件系统资源加载
-    static public boolean UNPKG_RES_LOAD = false;
-
-    // 是否开启 EnableProtoBuf
-    static public boolean ENABLE_PROTOBUF = false;
-
-    // 是否开启 SharpZipLib
-    static public boolean ENABLE_SHARP_ZIP_LIB = false;
-
     // 单元测试，这个需要宏定义
     static public boolean UNIT_TEST = true;
-
-    // 不使用的代码
-    static public boolean DEPRECATE_CODE = false;
-
-    // 多线程裁剪场景
-    static public boolean MULTITHREADING_CULL = false;
-
-    // Lua 加载方式
-    static public boolean LUA_EDITOR = true;
 
     // 开启日志
     static public boolean ENABLE_LOG = true;

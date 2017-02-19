@@ -1,53 +1,56 @@
-﻿using System.Collections.Generic;
+﻿package SDK.Lib.MsgRoute;
 
-namespace SDK.Lib
+import SDK.Lib.Core.GObject;
+import SDK.Lib.DataStruct.MDictionary;
+import SDK.Lib.EventHandle.AddOnceEventDispatch;
+import SDK.Lib.EventHandle.ICalleeObject;
+import SDK.Lib.EventHandle.IDispatchObject;
+
+public class MsgRouteHandleBase extends GObject, ICalleeObject
 {
-    public class MsgRouteHandleBase : GObject, ICalleeObject
+    public MDictionary<Integer, AddOnceEventDispatch> mId2HandleDic;
+
+    public MsgRouteHandleBase()
     {
-        public MDictionary<int, AddOnceEventDispatch> mId2HandleDic;
+        this.mTypeId = "MsgRouteHandleBase";
 
-        public MsgRouteHandleBase()
+        this.mId2HandleDic = new MDictionary<Integer, AddOnceEventDispatch>();
+    }
+
+    public void addMsgRouteHandle(MsgRouteID msgRouteID, IDispatchObject handle)
+    {
+        if(!this.mId2HandleDic.ContainsKey((int)msgRouteID))
         {
-            this.mTypeId = "MsgRouteHandleBase";
-
-            this.mId2HandleDic = new MDictionary<int, AddOnceEventDispatch>();
+            this.mId2HandleDic[(int)msgRouteID] = new AddOnceEventDispatch();
         }
 
-        public void addMsgRouteHandle(MsgRouteID msgRouteID, MAction<IDispatchObject> handle)
+        this.mId2HandleDic[(int)msgRouteID].addEventHandle(null, handle);
+    }
+
+    public void removeMsgRouteHandle(MsgRouteID msgRouteID, IDispatchObject handle)
+    {
+        if (this.mId2HandleDic.ContainsKey((int)msgRouteID))
         {
-            if(!this.mId2HandleDic.ContainsKey((int)msgRouteID))
-            {
-                this.mId2HandleDic[(int)msgRouteID] = new AddOnceEventDispatch();
-            }
-
-            this.mId2HandleDic[(int)msgRouteID].addEventHandle(null, handle);
+            this.mId2HandleDic[(int)msgRouteID].removeEventHandle(null, handle);
         }
+    }
 
-        public void removeMsgRouteHandle(MsgRouteID msgRouteID, MAction<IDispatchObject> handle)
+    public void handleMsg(IDispatchObject dispObj)
+    {
+        MsgRouteBase msg = (MsgRouteBase)dispObj;
+
+        if (this.mId2HandleDic.ContainsKey((int)msg.mMsgID))
         {
-            if (this.mId2HandleDic.ContainsKey((int)msgRouteID))
-            {
-                this.mId2HandleDic[(int)msgRouteID].removeEventHandle(null, handle);
-            }
+            this.mId2HandleDic[(int)msg.mMsgID].dispatchEvent(msg);
         }
-
-        public virtual void handleMsg(IDispatchObject dispObj)
-        {
-            MsgRouteBase msg = dispObj as MsgRouteBase;
-
-            if (this.mId2HandleDic.ContainsKey((int)msg.mMsgID))
-            {
-                this.mId2HandleDic[(int)msg.mMsgID].dispatchEvent(msg);
-            }
-            else
-            {
-                
-            }
-        }
-
-        public void call(IDispatchObject dispObj)
+        else
         {
 
         }
+    }
+
+    public void call(IDispatchObject dispObj)
+    {
+
     }
 }

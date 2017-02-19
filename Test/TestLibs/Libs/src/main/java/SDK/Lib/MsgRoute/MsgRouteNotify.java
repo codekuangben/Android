@@ -1,40 +1,39 @@
-﻿using System.Collections.Generic;
+﻿package SDK.Lib.MsgRoute;
 
-namespace SDK.Lib
+import SDK.Lib.DataStruct.MList;
+
+public class MsgRouteNotify
 {
-    public class MsgRouteNotify
+    protected MList<MsgRouteDispHandle> mDispList;
+
+    public MsgRouteNotify()
     {
-        protected MList<MsgRouteDispHandle> mDispList;
+        this.mDispList = new MList<MsgRouteDispHandle>();
+    }
 
-        public MsgRouteNotify()
+    public void addOneDisp(MsgRouteDispHandle disp)
+    {
+        if(!this.mDispList.Contains(disp))
         {
-            this.mDispList = new MList<MsgRouteDispHandle>();
+            this.mDispList.Add(disp);
+        }
+    }
+
+    public void removeOneDisp(MsgRouteDispHandle disp)
+    {
+        if(this.mDispList.Contains(disp))
+        {
+            this.mDispList.Remove(disp);
+        }
+    }
+
+    public void handleMsg(MsgRouteBase msg)
+    {
+        for(MsgRouteDispHandle item : this.mDispList.list())
+        {
+            item.handleMsg(msg);
         }
 
-        public void addOneDisp(MsgRouteDispHandle disp)
-        {
-            if(!this.mDispList.Contains(disp))
-            {
-                this.mDispList.Add(disp);
-            }
-        }
-
-        public void removeOneDisp(MsgRouteDispHandle disp)
-        {
-            if(this.mDispList.Contains(disp))
-            {
-                this.mDispList.Remove(disp);
-            }
-        }
-
-        public void handleMsg(MsgRouteBase msg)
-        {
-            foreach(var item in this.mDispList.list())
-            {
-                item.handleMsg(msg);
-            }
-
-            Ctx.mInstance.mPoolSys.deleteObj(msg);
-        }
+        Ctx.mInstance.mPoolSys.deleteObj(msg);
     }
 }

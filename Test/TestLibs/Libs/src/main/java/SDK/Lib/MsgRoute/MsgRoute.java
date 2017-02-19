@@ -1,48 +1,47 @@
-﻿package SDK.Lib.FrameWork;
+﻿package SDK.Lib.MsgRoute;
+
+public class SocketOpenedMR : MsgRouteBase
 {
-    public class SocketOpenedMR : MsgRouteBase
+    public SocketOpenedMR()
+        : base(MsgRouteID.eMRIDSocketOpened)
     {
-        public SocketOpenedMR()
-            : base(MsgRouteID.eMRIDSocketOpened)
-        {
 
-        }
+    }
+}
+
+public class SocketCloseedMR : MsgRouteBase
+{
+    public SocketCloseedMR()
+        : base(MsgRouteID.eMRIDSocketClosed)
+    {
+
+    }
+}
+
+public class LoadedWebResMR : MsgRouteBase
+{
+    public ITask m_task;
+
+    public LoadedWebResMR()
+        : base(MsgRouteID.eMRIDLoadedWebRes)
+    {
+
     }
 
-    public class SocketCloseedMR : MsgRouteBase
+    override public void resetDefault()
     {
-        public SocketCloseedMR()
-            : base(MsgRouteID.eMRIDSocketClosed)
-        {
-
-        }
+        m_task = null;
     }
+}
 
-    public class LoadedWebResMR : MsgRouteBase
+// 线程日志
+public class ThreadLogMR : MsgRouteBase
+{
+    public string mLogSys;
+
+    public ThreadLogMR()
+        : base(MsgRouteID.eMRIDThreadLog)
     {
-        public ITask m_task;
 
-        public LoadedWebResMR()
-            : base(MsgRouteID.eMRIDLoadedWebRes)
-        {
-
-        }
-
-        override public void resetDefault()
-        {
-            m_task = null;
-        }
-    }
-
-    // 线程日志
-    public class ThreadLogMR : MsgRouteBase
-    {
-        public string mLogSys;
-
-        public ThreadLogMR()
-            : base(MsgRouteID.eMRIDThreadLog)
-        {
-
-        }
     }
 }

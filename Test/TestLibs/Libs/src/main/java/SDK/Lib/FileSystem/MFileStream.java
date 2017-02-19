@@ -1,289 +1,376 @@
-﻿using System;
-using System.IO;
-using System.Text;
+﻿package SDK.Lib.FileSystem;
 
-namespace SDK.Lib
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+
+import SDK.Lib.Core.GObject;
+import SDK.Lib.EventHandle.AddOnceAndCallOnceEventDispatch;
+import SDK.Lib.EventHandle.IDispatchObject;
+import SDK.Lib.Tools.GkEncode;
+import SDK.Lib.Tools.MEncoding;
+import SDK.Lib.Tools.UtilApi;
+
+/**
+ * @brief 仅支持本地文件操作，仅支持同步操作
+ */
+public class MFileStream extends GObject implements IDispatchObject
 {
+    public File mFile;
+    public FileInputStream mFileInputStream;
+    public FileOutputStream mFileOutputStream;
+
+    protected String mFilePath;
+    protected FileOpState mFileOpState;
+
+    protected String mText;
+    protected byte[] mBytes;
+
     /**
-     * @brief 仅支持本地文件操作，仅支持同步操作
+     * @brief 仅支持同步操作，目前无视参数 isSyncMode 和 evtDisp。FileMode.CreateNew 如果文件已经存在就抛出异常，FileMode.Append 和 FileAccess.Write 要同时使用
      */
-    public class MFileStream : GObject, IDispatchObject
+    public MFileStream(String filePath)
     {
-        public enum eFileOpState
+        this.mTypeId = "MFileStream";
+
+        this.mFilePath = filePath;
+        this.mFileOpState = FileOpState.eNoOp;
+
+        this.checkAndOpen();
+    }
+
+    public void seek(long offset, MSeekOrigin origin)
+    {
+        if(this.mFileOpState == FileOpState.eOpenSuccess)
         {
-            eNoOp = 0,      // 无操作
-            eOpening = 1,   // 打开中
-            eOpenSuccess = 2,   // 打开成功
-            eOpenFail = 3,      // 打开失败
-            eOpenClose = 4,     // 关闭
-        }
-
-        public FileStream mFileStream;
-        
-        protected string mFilePath;
-        protected FileMode mMode;
-        protected FileAccess mAccess;
-        protected eFileOpState mFileOpState;
-
-        protected string mText;
-        protected byte[] mBytes;
-        protected AddOnceAndCallOnceEventDispatch mOpenedEventDispatch;
-
-        /**
-         * @brief 仅支持同步操作，目前无视参数 isSyncMode 和 evtDisp。FileMode.CreateNew 如果文件已经存在就抛出异常，FileMode.Append 和 FileAccess.Write 要同时使用
-         */
-        public MFileStream(string filePath, MAction<IDispatchObject> openedHandle = null, FileMode mode = FileMode.Open, FileAccess access = FileAccess.Read)
-        {
-            this.mTypeId = "MFileStream";
-
-            this.mFilePath = filePath;
-            this.mMode = mode;
-            this.mAccess = access;
-            this.mFileOpState = eFileOpState.eNoOp;
-
-            this.checkAndOpen(openedHandle);
-        }
-
-        public void seek(long offset, SeekOrigin origin)
-        {
-            if(this.mFileOpState == eFileOpState.eOpenSuccess)
+            if(MSeekOrigin.Begin == origin)
             {
-                this.mFileStream.Seek(offset, origin);
-            }
-        }
-
-        public void addOpenedHandle(MAction<IDispatchObject> openedDisp = null)
-        {
-            if (this.mOpenedEventDispatch == null)
-            {
-                this.mOpenedEventDispatch = new AddOnceAndCallOnceEventDispatch();
-            }
-
-            this.mOpenedEventDispatch.addEventHandle(null, openedDisp);
-        }
-
-        public void dispose()
-        {
-            this.close();
-        }
-
-        protected void syncOpenFileStream()
-        {
-            if (this.mFileOpState == eFileOpState.eNoOp)
-            {
-                this.mFileOpState = eFileOpState.eOpening;
-
                 try
                 {
-                    this.mFileStream = new FileStream(mFilePath, mMode, mAccess);
-                    this.mFileOpState = eFileOpState.eOpenSuccess;
+                    if(null != this.mFileInputStream)
+                    {
+                        this.mFileInputStream.getChannel().position(offset);
+                    }
+
+                    if(null != this.mFileOutputStream)
+                    {
+                        this.mFileOutputStream.getChannel().position(offset);
+                    }
+                }
+                catch (Exception e)
+                {
+
+                }
+            }
+            else if(MSeekOrigin.End == origin)
+            {
+                try
+                {
+                    if(null != this.mFileInputStream)
+                    {
+                        this.mFileInputStream.getChannel().position(this.mFile.length() - 1 - offset);
+                    }
+
+                    if(null != this.mFileOutputStream)
+                    {
+                        this.mFileOutputStream.getChannel().position(this.mFile.length() - 1 - offset);
+                    }
+                }
+                catch (Exception e)
+                {
+
+                }
+            }
+            else
+            {
+                try
+                {
+                    if(null != this.mFileInputStream)
+                    {
+                        this.mFileInputStream.getChannel().position(this.mFileInputStream.getChannel().position() + offset);
+                    }
+
+                    if(null != this.mFileOutputStream)
+                    {
+                        this.mFileOutputStream.getChannel().position(this.mFileOutputStream.getChannel().position() + offset);
+                    }
+                }
+                catch (Exception e)
+                {
+
+                }
+            }
+        }
+    }
+
+    public void dispose()
+    {
+        this.close();
+    }
+
+    protected void checkAndOpen()
+    {
+        if(this.mFileOpState == FileOpState.eNoOp)
+        {
+            this.mFile = new File(this.mFilePath);
+        }
+    }
+
+    protected void syncOpenFileStream()
+    {
+        if (this.mFileOpState == FileOpState.eNoOp)
+        {
+            this.mFileOpState = FileOpState.eOpening;
+
+            try
+            {
+                this.mFile = new File(mFilePath);
+                this.mFileOpState = FileOpState.eOpenSuccess;
+            }
+            catch(Exception exp)
+            {
+                this.mFileOpState = FileOpState.eOpenFail;
+            }
+        }
+    }
+
+    public boolean isValid()
+    {
+        return this.mFileOpState == FileOpState.eOpenSuccess;
+    }
+
+    // 获取总共长度
+    public int getLength()
+    {
+        int len = 0;
+
+        if (this.mFileOpState == FileOpState.eOpenSuccess)
+        {
+            if (this.mFile != null)
+            {
+                len = (int)this.mFile.length();
+            }
+            /*
+            if (mFileStream != null && mFileStream.CanSeek)
+            {
+                try
+                {
+                    len = (int)mFileStream.Seek(0, SeekOrigin.End);     // 移动到文件结束，返回长度
+                    len = (int)mFileStream.Position;                    // Position 移动到 Seek 位置
                 }
                 catch(Exception exp)
                 {
-                    this.mFileOpState = eFileOpState.eOpenFail;
                 }
-
-                this.onAsyncOpened();
             }
+            */
         }
 
-        // 异步打开结束
-        public void onAsyncOpened()
+        return len;
+    }
+
+    protected void close()
+    {
+        if (this.mFileOpState == FileOpState.eOpenSuccess)
         {
-            if (this.mOpenedEventDispatch != null)
+            if (this.mFile != null)
             {
-                this.mOpenedEventDispatch.dispatchEvent(this);
-            }
-        }
-
-        protected void checkAndOpen(MAction<IDispatchObject> openedHandle = null)
-        {
-            if (openedHandle != null)
-            {
-                this.addOpenedHandle(openedHandle);
-            }
-
-            if (this.mFileOpState == eFileOpState.eNoOp)
-            {
-                this.syncOpenFileStream();
-            }
-        }
-
-        public boolean isValid()
-        {
-            return this.mFileOpState == eFileOpState.eOpenSuccess;
-        }
-
-        // 获取总共长度
-        public int getLength()
-        {
-            int len = 0;
-
-            if (this.mFileOpState == eFileOpState.eOpenSuccess)
-            {
-                if (this.mFileStream != null)
+                try
                 {
-                    len = (int)this.mFileStream.Length;
-                }
-                /*
-                if (mFileStream != null && mFileStream.CanSeek)
-                {
-                    try
+                    if(null != this.mFileInputStream)
                     {
-                        len = (int)mFileStream.Seek(0, SeekOrigin.End);     // 移动到文件结束，返回长度
-                        len = (int)mFileStream.Position;                    // Position 移动到 Seek 位置
+                        this.mFileInputStream.close();
+                        this.mFileInputStream = null;
                     }
-                    catch(Exception exp)
+
+                    if(null != this.mFileInputStream)
                     {
+                        this.mFileOutputStream.flush();
+
+                        this.mFileOutputStream.close();
+                        this.mFileOutputStream = null;
                     }
                 }
-                */
-            }
-
-            return len;
-        }
-
-        protected void close()
-        {
-            if (this.mFileOpState == eFileOpState.eOpenSuccess)
-            {
-                if (this.mFileStream != null)
+                catch(Exception e)
                 {
-                    this.mFileStream.Close();
-                    this.mFileStream.Dispose();
-                    this.mFileStream = null;
-                }
 
-                this.mFileOpState = eFileOpState.eOpenClose;
-                this.mFileOpState = eFileOpState.eNoOp;
-            }
-        }
-
-        public string readText(int offset = 0, int count = 0, Encoding encode = null)
-        {
-            this.checkAndOpen();
-
-            string retStr = "";
-            byte[] bytes = null;
-
-            if (encode == null)
-            {
-                encode = Encoding.UTF8;
-            }
-
-            if (count == 0)
-            {
-                count = getLength();
-            }
-
-            if (this.mFileOpState == eFileOpState.eOpenSuccess)
-            {
-                if (this.mFileStream.CanRead)
-                {
-                    try
-                    {
-                        bytes = new byte[count];
-                        this.mFileStream.Read(bytes, 0, count);
-
-                        retStr = encode.GetString(bytes);
-                    }
-                    catch (Exception err)
-                    {
-                            
-                    }
                 }
             }
 
-            return retStr;
+            this.mFileOpState = FileOpState.eOpenClose;
+            this.mFileOpState = FileOpState.eNoOp;
+        }
+    }
+
+    public String readText()
+    {
+        return this.readText(0, 0, null);
+    }
+
+    public String readText(int offset)
+    {
+        return this.readText(offset, 0, null);
+    }
+
+    public String readText(int offset, int count)
+    {
+        return this.readText(offset, count, null);
+    }
+
+    public String readText(int offset, int count, MEncoding encode)
+    {
+        this.checkAndOpen();
+
+        String retStr = "";
+        byte[] bytes = null;
+
+        if (encode == null)
+        {
+            encode = MEncoding.UTF8;
         }
 
-        public byte[] readByte(int offset = 0, int count = 0)
+        if (count == 0)
         {
-            this.checkAndOpen();
+            count = getLength();
+        }
 
-            if (count == 0)
-            {
-                count = getLength();
-            }
-
-            byte[] bytes = null;
-
-            if (this.mFileStream.CanRead)
+        if (this.mFileOpState == FileOpState.eOpenSuccess)
+        {
+            if (this.mFile.canRead())
             {
                 try
                 {
                     bytes = new byte[count];
-                    this.mFileStream.Read(bytes, 0, count);
+                    this.mFileInputStream.read(bytes, 0, count);
+
+                    retStr = encode.GetString(bytes);
                 }
                 catch (Exception err)
                 {
-                        
+
                 }
             }
-
-            return bytes;
         }
 
-        public void writeText(string text, GkEncode gkEncode = GkEncode.eUTF8)
+        return retStr;
+    }
+
+    public byte[] readByte()
+    {
+        return this.readByte(0, 0);
+    }
+
+    public byte[] readByte(int offset)
+    {
+        return this.readByte(offset, 0);
+    }
+
+    public byte[] readByte(int offset, int count)
+    {
+        this.checkAndOpen();
+
+        if (count == 0)
         {
-            Encoding encode = UtilApi.convGkEncode2EncodingEncoding(gkEncode);
+            count = getLength();
+        }
 
-            this.checkAndOpen();
+        byte[] bytes = null;
 
-            if (this.mFileStream.CanWrite)
+        if (this.mFile.canRead())
+        {
+            try
             {
-                //if (encode == null)
-                //{
-                //    encode = GkEncode.UTF8;
-                //}
+                bytes = new byte[count];
+                this.mFileInputStream.read(bytes, 0, count);
+            }
+            catch (Exception err)
+            {
 
-                byte[] bytes = encode.GetBytes(text);
-                if (bytes != null)
+            }
+        }
+
+        return bytes;
+    }
+
+    public void writeText(String text)
+    {
+        this.writeText(text, GkEncode.eUTF8);
+    }
+
+    public void writeText(String text, GkEncode gkEncode)
+    {
+        MEncoding encode = UtilApi.convGkEncode2EncodingEncoding(gkEncode);
+
+        this.checkAndOpen();
+
+        if (this.mFile.canWrite())
+        {
+            //if (encode == null)
+            //{
+            //    encode = GkEncode.UTF8;
+            //}
+
+            byte[] bytes = encode.GetBytes(text);
+
+            if (bytes != null)
+            {
+                try
+                {
+                    this.mFileOutputStream.write(bytes, 0, bytes.length);
+                }
+                catch (Exception err)
+                {
+
+                }
+            }
+        }
+    }
+
+    public void writeByte(byte[] bytes)
+    {
+        this.writeByte(bytes, 0, 0);
+    }
+
+    public void writeByte(byte[] bytes, int offset)
+    {
+        this.writeByte(bytes, offset, 0);
+    }
+
+    public void writeByte(byte[] bytes, int offset, int count)
+    {
+        this.checkAndOpen();
+
+        if (this.mFile.canWrite())
+        {
+            if (bytes != null)
+            {
+                if (count == 0)
+                {
+                    count = bytes.length;
+                }
+
+                if (count != 0)
                 {
                     try
                     {
-                        this.mFileStream.Write(bytes, 0, bytes.Length);
+                        this.mFileOutputStream.write(bytes, offset, count);
                     }
                     catch (Exception err)
                     {
-                            
+
                     }
                 }
             }
         }
+    }
 
-        public void writeByte(byte[] bytes, int offset = 0, int count = 0)
-        {
-            this.checkAndOpen();
+    public void writeLine(String text)
+    {
+        this.writeLine(text, GkEncode.eUTF8);
+    }
 
-            if (this.mFileStream.CanWrite)
-            {
-                if (bytes != null)
-                {
-                    if (count == 0)
-                    {
-                        count = bytes.Length;
-                    }
-
-                    if (count != 0)
-                    {
-                        try
-                        {
-                            this.mFileStream.Write(bytes, offset, count);
-                        }
-                        catch (Exception err)
-                        {
-                                
-                        }
-                    }
-                }
-            }
-        }
-
-        public void writeLine(string text, GkEncode gkEncode = GkEncode.eUTF8)
-        {
-            text = text + UtilApi.CR_LF;
-            writeText(text, gkEncode);
-        }
+    public void writeLine(String text, GkEncode gkEncode)
+    {
+        text = text + UtilApi.CR_LF;
+        writeText(text, gkEncode);
     }
 }

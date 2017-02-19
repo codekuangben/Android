@@ -23,6 +23,16 @@ public class MEncoding
         this.mEncodeStr = encodeStr;
     }
 
+    public String GetString(byte[] bytes)
+    {
+        return  this.GetString(bytes, 0, bytes.length);
+    }
+
+    public String GetString(byte[] bytes, int startIndex)
+    {
+        return this.GetString(bytes, startIndex, bytes.length - startIndex);
+    }
+
     public String GetString(byte[] bytes, int startIndex, int len)
     {
         String ret = "";

@@ -10,6 +10,8 @@ import SDK.Lib.EventHandle.IDispatchObject;
  */
 public class UtilApi
 {
+    public static final String CR_LF = "\\r\\n";
+
     static public MEncoding convGkEncode2EncodingEncoding(GkEncode gkEncode)
     {
         MEncoding retEncode = MEncoding.UTF8;

@@ -1,27 +1,26 @@
-﻿namespace SDK.Lib
+﻿package SDK.Lib.FrameWork;
+
+public class Singleton<T>
 {
-    public class Singleton<T> where T : class, IMyDispose, new()
+    protected static T msSingleton;
+
+    public static T getSingletonPtr()
     {
-	    protected static T msSingleton;
-
-        public static T getSingletonPtr()
+        if (null == msSingleton)
         {
-            if (null == msSingleton)
-            {
-                msSingleton = new T();
-                msSingleton.init();
-            }
-
-            return msSingleton;
+            msSingleton = new T();
+            msSingleton.init();
         }
 
-        public static void deleteSingletonPtr()
+        return msSingleton;
+    }
+
+    public static void deleteSingletonPtr()
+    {
+        if (null != msSingleton)
         {
-            if (null != msSingleton)
-            {
-                msSingleton.dispose();
-                msSingleton = null;
-            }
+            msSingleton.dispose();
+            msSingleton = null;
         }
     }
 }

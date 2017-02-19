@@ -1,4 +1,4 @@
-﻿namespace SDK.Lib
+﻿package SDK.Lib.FrameWork;
 {
     public class SocketOpenedMR : MsgRouteBase
     {

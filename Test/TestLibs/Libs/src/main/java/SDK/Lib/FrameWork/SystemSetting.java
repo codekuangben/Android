@@ -1,67 +1,51 @@
-﻿using UnityEngine;
+﻿package SDK.Lib.FrameWork;
 
-namespace SDK.Lib
+/**
+ * @brief 系统设置
+ */
+public class SystemSetting
 {
-    /**
-     * @brief 系统设置
-     */
-    public class SystemSetting
+    public static final String USERNAME = "username";
+    public static final String PASSWORD = "password";
+    public static final String NICKNAME = "nickname";
+
+    public void setString(String key, String value)
     {
-        public const string USERNAME = "username";
-        public const string PASSWORD = "password";
-        public const string NICKNAME = "nickname";
 
-        public void setString(string key, string value)
-        {
-            PlayerPrefs.SetString(key, value);
-        }
+    }
 
-        public string getString(string key)
-        {
-            if (hasKey(key))
-            {
-                return PlayerPrefs.GetString(key);
-            }
+    public String getString(String key)
+    {
+        return "";
+    }
 
-            return default(string);
-        }
+    public void setInt(String key, int value)
+    {
 
-        public void setInt(string key, int value)
-        {
-            PlayerPrefs.SetInt(key, value);
-        }
+    }
 
-        public int getInt(string key)
-        {
-            if(hasKey(key))
-            {
-                return PlayerPrefs.GetInt(key);
-            }
-            return 0;
-        }
+    public int getInt(String key)
+    {
+        return 0;
+    }
 
-        public void setFloat(string key, float value)
-        {
-            PlayerPrefs.SetFloat(key, value);
-        }
+    public void setFloat(String key, float value)
+    {
 
-        public float getFloat(string key)
-        {
-            if (hasKey(key))
-            {
-                return PlayerPrefs.GetFloat(key);
-            }
-            return 0f;
-        }
+    }
 
-        public boolean hasKey(string key)
-        {
-            return PlayerPrefs.HasKey(key);
-        }
+    public float getFloat(String key)
+    {
+        return 0f;
+    }
 
-        public void SetServerIP()
-        {
-            KBEngine.KBEngineApp.app.setServerIP();
-        }
+    public boolean hasKey(String key)
+    {
+        return true;
+    }
+
+    public void SetServerIP()
+    {
+
     }
 }

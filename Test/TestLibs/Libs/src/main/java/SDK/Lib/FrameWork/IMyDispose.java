@@ -1,8 +1,7 @@
-﻿namespace SDK.Lib
+﻿package SDK.Lib.FrameWork;
+
+public interface IMyDispose
 {
-    public interface IMyDispose
-    {
-        void init();
-        void dispose();
-    }
+    public void init();
+    public void dispose();
 }

@@ -1,35 +1,34 @@
-﻿using System.Collections.Generic;
+﻿package SDK.Lib.Task;
 
-namespace SDK.Lib
+import SDK.Lib.DataStruct.MList;
+
+public class TaskThreadPool
 {
-    public class TaskThreadPool
+    protected MList<TaskThread> mList;
+
+    public TaskThreadPool()
     {
-        protected List<TaskThread> mList;
 
-        public TaskThreadPool()
+    }
+
+    public void initThreadPool(int numThread, TaskQueue taskQueue)
+    {
+        mList = new MList<TaskThread>(numThread);
+        int idx = 0;
+        for(idx = 0; idx < numThread; ++idx)
         {
-
+            mList.Add(new TaskThread(String.format("TaskThread{0}", idx), taskQueue));
+            mList.get(idx).start();
         }
+    }
 
-        public void initThreadPool(int numThread, TaskQueue taskQueue)
+    public void notifyIdleThread()
+    {
+        for(TaskThread item : mList.list())
         {
-            mList = new List<TaskThread>(numThread);
-            int idx = 0;
-            for(idx = 0; idx < numThread; ++idx)
+            if(item.notifySelf())       // 如果唤醒某个线程就退出，如果一个都没有唤醒，说明当前线程都比较忙，需要等待
             {
-                mList.Add(new TaskThread(string.Format("TaskThread{0}", idx), taskQueue));
-                mList[idx].start();
-            }
-        }
-
-        public void notifyIdleThread()
-        {
-            foreach(var item in mList)
-            {
-                if(item.notifySelf())       // 如果唤醒某个线程就退出，如果一个都没有唤醒，说明当前线程都比较忙，需要等待
-                {
-                    break;
-                }
+                break;
             }
         }
     }

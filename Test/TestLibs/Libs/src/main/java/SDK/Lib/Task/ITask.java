@@ -1,8 +1,7 @@
-﻿namespace SDK.Lib
+﻿package SDK.Lib.Task;
+
+public interface ITask
 {
-    public interface ITask
-    {
-        void runTask();             // 执行任务
-        void handleResult();        // 处理结果
-    }
+    void runTask();             // 执行任务
+    void handleResult();        // 处理结果
 }

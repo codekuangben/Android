@@ -1,7 +1,6 @@
-﻿namespace SDK.Lib
+﻿package SDK.Lib.ObjectPool;
+
+public interface IRecycle
 {
-    public interface IRecycle
-    {
-        void resetDefault();
-    }
+    void resetDefault();
 }

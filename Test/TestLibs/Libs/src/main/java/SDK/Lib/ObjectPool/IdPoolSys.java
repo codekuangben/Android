@@ -1,51 +1,54 @@
-﻿namespace SDK.Lib
+﻿package SDK.Lib.ObjectPool;
+
+import SDK.Lib.DataStruct.MDictionary;
+import SDK.Lib.DataStruct.MList;
+import SDK.Lib.MsgRoute.IRecycle;
+
+/**
+ * @brief 有 Id 的缓存池
+ */
+public class IdPoolSys
 {
-    /**
-     * @brief 有 Id 的缓存池
-     */
-    public class IdPoolSys
+    protected MDictionary<String, MList<SDK.Lib.MsgRoute.IRecycle>> mId2PoolDic;
+
+    public IdPoolSys()
     {
-        protected MDictionary<string, MList<IRecycle>> mId2PoolDic;
+        this.mId2PoolDic = new MDictionary<String, MList<IRecycle>>();
+    }
 
-        public IdPoolSys()
+    public void init()
+    {
+
+    }
+
+    public void dispose()
+    {
+
+    }
+
+    public IRecycle getObject(String id)
+    {
+        IRecycle ret = null;
+
+        if (this.mId2PoolDic.ContainsKey(id))
         {
-            this.mId2PoolDic = new MDictionary<string, MList<IRecycle>>();
-        }
-
-        public void init()
-        {
-
-        }
-
-        public void dispose()
-        {
-
-        }
-
-        public IRecycle getObject(string id)
-        {
-            IRecycle ret = null;
-
-            if (this.mId2PoolDic.ContainsKey(id))
+            if (this.mId2PoolDic.get(id).Count() > 0)
             {
-                if (this.mId2PoolDic[id].Count() > 0)
-                {
-                    ret = this.mId2PoolDic[id][0];
-                    this.mId2PoolDic[id].RemoveAt(0);
-                }
+                ret = this.mId2PoolDic.get(id).get(0);
+                this.mId2PoolDic.get(id).RemoveAt(0);
             }
-
-            return ret;
         }
 
-        public void deleteObj(string id, IRecycle obj)
+        return ret;
+    }
+
+    public void deleteObj(String id, IRecycle obj)
+    {
+        if (!this.mId2PoolDic.ContainsKey(id))
         {
-            if (!this.mId2PoolDic.ContainsKey(id))
-            {
-                this.mId2PoolDic[id] = new MList<IRecycle>();
-            }
-
-            this.mId2PoolDic[id].Add(obj);
+            this.mId2PoolDic.set(id, new MList<IRecycle>());
         }
+
+        this.mId2PoolDic.get(id).Add(obj);
     }
 }

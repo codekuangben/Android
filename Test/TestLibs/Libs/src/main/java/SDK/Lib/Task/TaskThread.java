@@ -1,49 +1,53 @@
-﻿namespace SDK.Lib
+﻿package SDK.Lib.Task;
+
+import SDK.Lib.Thread.MCondition;
+import SDK.Lib.Thread.MThread;
+
+/**
+ * @brief 任务线程
+ */
+public class TaskThread extends MThread
 {
-    /**
-     * @brief 任务线程
-     */
-    public class TaskThread : MThread
+    protected TaskQueue mTaskQueue;
+    protected MCondition mCondition;
+    protected ITask mCurTask;
+
+    public TaskThread(String name, TaskQueue taskQueue)
     {
-        protected TaskQueue mTaskQueue;
-        protected MCondition mCondition;
-        protected ITask mCurTask;
+        super(null, null);
 
-        public TaskThread(string name, TaskQueue taskQueue)
-            : base(null, null)
-        {
-            mTaskQueue = taskQueue;
-            mCondition = new MCondition(name);
-        }
+        mTaskQueue = taskQueue;
+        mCondition = new MCondition(name);
+    }
 
-        /**
-         *brief 线程回调函数
-         */
-        override public void threadHandle()
+    /**
+     *brief 线程回调函数
+     */
+    @Override
+    public void run()
+    {
+        while (!mIsExitFlag)
         {
-            while (!mIsExitFlag)
+            mCurTask = mTaskQueue.pop();
+            if(mCurTask != null)
             {
-                mCurTask = mTaskQueue.pop();
-                if(mCurTask != default(ITask))
-                {
-                    mCurTask.runTask();
-                }
-                else
-                {
-                    mCondition.wait();
-                }
+                mCurTask.runTask();
+            }
+            else
+            {
+                mCondition.waitImpl();
             }
         }
+    }
 
-        public boolean notifySelf()
+    public boolean notifySelf()
+    {
+        if(mCondition.getCanEnterWait())
         {
-            if(mCondition.canEnterWait)
-            {
-                mCondition.notifyAll();
-                return true;
-            }
-
-            return false;
+            mCondition.notifyAll();
+            return true;
         }
+
+        return false;
     }
 }

@@ -1,21 +1,22 @@
-﻿namespace SDK.Lib
+﻿package SDK.Lib.Task;
+
+import SDK.Lib.DataStruct.LockQueue;
+
+public class TaskQueue extends LockQueue<ITask>
 {
-    public class TaskQueue : LockQueue<ITask>
+    public TaskThreadPool mTaskThreadPool;
+
+    public TaskQueue(String name)
     {
-        public TaskThreadPool mTaskThreadPool;
+        super(name);
+    }
 
-        public TaskQueue(string name)
-            : base(name)
-        {
+    @Override
+    public void push(ITask item)
+    {
+        super.push(item);
 
-        }
-
-        public new void push(ITask item)
-        {
-            base.push(item);
-
-            // 检查是否有线程空闲，如果有就唤醒
-            mTaskThreadPool.notifyIdleThread();
-        }
+        // 检查是否有线程空闲，如果有就唤醒
+        mTaskThreadPool.notifyIdleThread();
     }
 }

@@ -13,7 +13,8 @@ public class TClassOp
     /**
      * @brief 获取类型信息中父类信息
      */
-    static public <T> Class getTClass(Class<T> classT, int index)
+    //static public <T> Class getTClass(Class<T> classT, int index)
+    static public Class getTClass(Class classT, int index)
     {
         Type genType = classT.getGenericSuperclass();
 
@@ -37,7 +38,8 @@ public class TClassOp
         return (Class)params[index];
     }
 
-    static public <T> T createObject(Class<T> classT)
+    //static public <T> T createObject(Class<T> classT)
+    static public <T> T createObject(Class classT)
     {
         Constructor constructor = null;
 
@@ -67,7 +69,8 @@ public class TClassOp
         return ret;
     }
 
-    static public <T> T[] createArray(Class<T> type, int initCapacity)
+    //static public <T> T[] createArray(Class<T> type, int initCapacity)
+    static public <T> T[] createArray(Class type, int initCapacity)
     {
         return (T[]) Array.newInstance(type, initCapacity);
     }

@@ -1,10 +1,9 @@
-﻿namespace SDK.Lib
+﻿package SDK.Lib.Log;
+
+public enum LogColor
 {
-    public enum LogColor
-    {
-        eLC_LOG = 0,
-        eLC_WARN = 1,
-        eLC_ERROR = 2,
-        eLC_Count,
-    }
+    eLC_LOG,
+    eLC_WARN,
+    eLC_ERROR,
+    eLC_Count,
 }

@@ -1,5 +1,8 @@
 ﻿package SDK.Lib.Tools;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import SDK.Lib.EventHandle.IDispatchObject;
 
 /**
@@ -51,5 +54,32 @@ public class UtilApi
     static public int getScreenHeight()
     {
         return 1000;
+    }
+
+    static public String getFormatTime()
+    {
+        Date currentTime = new Date();
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String dateString = formatter.format(currentTime);
+        return dateString;
+    }
+
+    static public void printCallStack()
+    {
+        Throwable ex = new Throwable();
+
+        StackTraceElement[] stackElements = ex.getStackTrace();
+
+        if(stackElements != null)
+        {
+            for(int i = 0; i < stackElements.length; i++)
+            {
+                System.out.println(stackElements[i].getClassName());
+                System.out.println(stackElements[i].getFileName());
+                System.out.println(stackElements[i].getLineNumber());
+                System.out.println(stackElements[i].getMethodName());
+                System.out.println("-----------------------------------");
+            }
+        }
     }
 }

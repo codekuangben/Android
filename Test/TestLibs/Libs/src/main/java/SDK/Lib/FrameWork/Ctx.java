@@ -5,10 +5,12 @@ import SDK.Lib.FrameHandle.FrameTimerMgr;
 import SDK.Lib.FrameHandle.ITickedObject;
 import SDK.Lib.FrameHandle.LogicTickMgr;
 import SDK.Lib.FrameHandle.ResizeMgr;
+import SDK.Lib.FrameHandle.SystemFrameData;
 import SDK.Lib.FrameHandle.SystemTimeData;
 import SDK.Lib.FrameHandle.TickMgr;
 import SDK.Lib.FrameHandle.TickPriority;
 import SDK.Lib.FrameHandle.TimerMgr;
+import SDK.Lib.Log.LogSys;
 import SDK.Lib.MsgRoute.MsgRouteNotify;
 import SDK.Lib.MsgRoute.SysMsgRoute;
 import SDK.Lib.ObjectPool.IdPoolSys;
@@ -50,6 +52,7 @@ public class Ctx
     public IdPoolSys mIdPoolSys;
     public SysMsgRoute mSysMsgRoute;
     public SystemTimeData mSystemTimeData;
+    public SystemFrameData mSystemFrameData;
 
     public Ctx()
     {
@@ -93,6 +96,7 @@ public class Ctx
         this.mLogicTickMgr = new LogicTickMgr();
         this.mSysMsgRoute = new SysMsgRoute("");
         this.mSystemTimeData = new SystemTimeData();
+        this.mSystemFrameData = new SystemFrameData();
     }
 
     public void logicInit()
@@ -110,6 +114,8 @@ public class Ctx
         this.mLogicTickMgr.init();
         this.mSysMsgRoute.init();
         this.mSystemTimeData.init();
+
+        this.mSystemFrameData.init();
 
         this.addEventHandle();
     }
@@ -165,6 +171,11 @@ public class Ctx
         {
             this.mSystemTimeData.dispose();
             this.mSystemTimeData = null;
+        }
+        if(null != this.mSystemFrameData)
+        {
+            this.mSystemFrameData.dispose();
+            this.mSystemFrameData = null;
         }
     }
 

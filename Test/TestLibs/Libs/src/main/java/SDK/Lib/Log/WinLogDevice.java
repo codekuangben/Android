@@ -1,26 +1,30 @@
-﻿using UnityEngine;
+﻿package SDK.Lib.Log;
 
-namespace SDK.Lib
+/**
+ * @brief 文件日志
+ */
+public class WinLogDevice extends LogDeviceBase
 {
-    /**
-     * @brief 文件日志
-     */
-    public class WinLogDevice : LogDeviceBase
+    @Override
+    public void logout(String message)
     {
-        public override void logout(string message, LogColor type = LogColor.eLC_LOG)
+        this.logout(message, LogColor.eLC_LOG);
+    }
+
+    @Override
+    public void logout(String message, LogColor type)
+    {
+        if (type == LogColor.eLC_LOG)
         {
-            if (type == LogColor.eLC_LOG)
-            {
-                Debug.Log(message);
-            }
-            else if (type == LogColor.eLC_WARN)
-            {
-                Debug.LogWarning(message);
-            }
-            else if (type == LogColor.eLC_ERROR)
-            {
-                Debug.LogError(message);
-            }
+            //Debug.Log(message);
+        }
+        else if (type == LogColor.eLC_WARN)
+        {
+            //Debug.LogWarning(message);
+        }
+        else if (type == LogColor.eLC_ERROR)
+        {
+            //Debug.LogError(message);
         }
     }
 }

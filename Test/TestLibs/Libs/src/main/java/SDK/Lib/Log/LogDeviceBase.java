@@ -1,20 +1,21 @@
-﻿namespace SDK.Lib
+﻿package SDK.Lib.Log;
+
+/**
+ * @brief 日志设备
+ */
+public abstract class LogDeviceBase
 {
-    /**
-     * @brief 日志设备
-     */
-    public abstract class LogDeviceBase
+    public void initDevice()
     {
-        public virtual void initDevice()
-        {
-    
-        }
 
-        public virtual void closeDevice()
-        {
-
-        }
-
-        abstract public void logout(string message, LogColor type = LogColor.eLC_LOG);
     }
+
+    public void closeDevice()
+    {
+
+    }
+
+    abstract public void logout(String message);
+
+    abstract public void logout(String message, LogColor type);
 }

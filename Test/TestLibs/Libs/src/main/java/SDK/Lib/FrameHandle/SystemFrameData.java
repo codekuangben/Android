@@ -7,6 +7,16 @@ public class SystemFrameData
     protected float mCurTime;          // 当前一秒内时间
     protected int mFps;                // 帧率
 
+    public void init()
+    {
+
+    }
+
+    public void dispose()
+    {
+
+    }
+
     public int getTotalFrameCount()
     {
         return this.mTotalFrameCount;

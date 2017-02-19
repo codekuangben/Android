@@ -33,5 +33,7 @@ public class MacroDef
     // 开启错误
     static public boolean ENABLE_ERROR = true;
 
+    // 压缩
+    static public boolean MSG_COMPRESS = true;
     // 宏定义结束
 }

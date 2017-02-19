@@ -118,7 +118,7 @@ public class EventDispatch extends DelayHandleMgrBase
     @Override
     protected void addObject(IDelayHandleItem delayObject, float priority)
     {
-        if (this.isInDepth())
+        if (this.mLoopDepth.isInDepth())
         {
             super.addObject(delayObject, priority);
         }
@@ -132,7 +132,7 @@ public class EventDispatch extends DelayHandleMgrBase
     @Override
     protected void removeObject(IDelayHandleItem delayObject)
     {
-        if (this.isInDepth())
+        if (this.mLoopDepth.isInDepth())
         {
             super.removeObject(delayObject);
         }
@@ -149,7 +149,7 @@ public class EventDispatch extends DelayHandleMgrBase
     {
         //try
         //{
-        this.incDepth();
+        this.mLoopDepth.incDepth();
 
         //foreach (EventDispatchFunctionObject handle in this.mHandleList.list())
 
@@ -169,7 +169,7 @@ public class EventDispatch extends DelayHandleMgrBase
             ++idx;
         }
 
-        this.decDepth();
+        this.mLoopDepth.decDepth();
         //}
         //catch (Exception ex)
         //{
@@ -179,7 +179,7 @@ public class EventDispatch extends DelayHandleMgrBase
 
     public void clearEventHandle()
     {
-        if (this.isInDepth())
+        if (this.mLoopDepth.isInDepth())
         {
             //foreach (EventDispatchFunctionObject item in this.mHandleList.list())
             int idx = 0;

@@ -1,5 +1,7 @@
 ﻿package SDK.Lib.ObjectPool;
 
+import java.lang.reflect.Method;
+
 import SDK.Lib.DataStruct.LockList;
 
 /**
@@ -10,23 +12,38 @@ public class PoolSys
     //protected List<object> mPoolList = new List<object>();
     protected LockList<IRecycle> mPoolList = new LockList<IRecycle>("PoolSys_List");
 
-    public T newObject<T>()
+    public <T> T newObject(Class<T> classT)
     {
         T retObj = null;
         // 查找
         int idx = 0;
-        for(idx = 0; idx < mPoolList.Count; ++idx)
+        for(idx = 0; idx < mPoolList.getCount(); ++idx)
         {
-            if (typeof(T) == mPoolList[idx].GetType())
+            if (classT == mPoolList.get(idx).getClass())
             {
-                retObj = (T)mPoolList[idx];
+                retObj = (T)mPoolList.get(idx);
                 mPoolList.RemoveAt(idx);
 
-                MethodInfo myMethodInfo = retObj.GetType().GetMethod("resetDefault");
+                Method myMethodInfo = null;
+                try
+                {
+                    myMethodInfo = retObj.getClass().getMethod("resetDefault");
+                }
+                catch(Exception e)
+                {
+
+                }
 
                 if (myMethodInfo != null)
                 {
-                    myMethodInfo.Invoke(retObj, null);
+                    try
+                    {
+                        myMethodInfo.invoke(retObj, null);
+                    }
+                    catch(Exception e)
+                    {
+
+                    }
                 }
 
                 return retObj;

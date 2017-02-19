@@ -3,34 +3,34 @@
     public class CoroutineTaskBase
     {
         protected eCoroutineTaskState mState;
-        protected bool mNeedRemove;
+        protected boolean mNeedRemove;
 
         public CoroutineTaskBase()
         {
             mNeedRemove = true;
         }
 
-        public bool isRuning()
+        public boolean isRuning()
         {
             return mState == eCoroutineTaskState.eRunning;
         }
 
-        public bool isPause()
+        public boolean isPause()
         {
             return mState == eCoroutineTaskState.ePaused;
         }
 
-        public bool isStop()
+        public boolean isStop()
         {
             return mState == eCoroutineTaskState.eStopped;
         }
 
-        public void setNeedRemove(bool value)
+        public void setNeedRemove(boolean value)
         {
             mNeedRemove = value;
         }
 
-        public bool isNeedRemove()
+        public boolean isNeedRemove()
         {
             return mNeedRemove;
         }

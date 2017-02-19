@@ -24,11 +24,11 @@ namespace SDK.Lib
         public string[] mPathLst;
         public ResLoadType mResLoadType;   // 资源加载类型
         public string mDataPath;
-        //public bool m_bNeedNet = false;                       // 是否需要网络
+        //public boolean m_bNeedNet = false;                       // 是否需要网络
         public string mNetLogPhp;       // Php 处理文件
         public List<string> mPakExtNameList;       // 打包的扩展名字列表
 
-        public bool mIsActorMoveUseFixUpdate;    // Actor 移动是否使用固定更新，主要是方便参与物理运算
+        public boolean mIsActorMoveUseFixUpdate;    // Actor 移动是否使用固定更新，主要是方便参与物理运算
 
         public Config()
         {

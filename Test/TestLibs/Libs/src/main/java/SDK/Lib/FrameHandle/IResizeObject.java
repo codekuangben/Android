@@ -2,5 +2,5 @@
 
 public interface IResizeObject
 {
-    void onResize(int viewWidth, int viewHeight);
+    public void onResize(int viewWidth, int viewHeight);
 }

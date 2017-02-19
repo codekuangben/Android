@@ -42,4 +42,14 @@ public class UtilApi
     {
         return a == b;
     }
+
+    static public int getScreenWidth()
+    {
+        return 1000;
+    }
+
+    static public int getScreenHeight()
+    {
+        return 1000;
+    }
 }

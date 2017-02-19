@@ -54,7 +54,7 @@ namespace SDK.Lib
             return 0f;
         }
 
-        public bool hasKey(string key)
+        public boolean hasKey(string key)
         {
             return PlayerPrefs.HasKey(key);
         }

@@ -1,7 +1,11 @@
 ﻿package SDK.Lib.FrameHandle;
 
+import SDK.Lib.DataStruct.MList;
+import SDK.Lib.DelayHandle.DelayHandleMgrBase;
+import SDK.Lib.DelayHandle.IDelayHandleItem;
+
 // 每一帧执行的对象管理器
-public class TickObjectMgrBase : DelayHandleMgrBase, ITickedObject, IDelayHandleItem
+public class TickObjectMgrBase extends DelayHandleMgrBase implements ITickedObject, IDelayHandleItem
 {
     protected MList<ITickedObject> mTickObjectList;
 
@@ -10,27 +14,29 @@ public class TickObjectMgrBase : DelayHandleMgrBase, ITickedObject, IDelayHandle
         this.mTickObjectList = new MList<ITickedObject>();
     }
 
-    override public void init()
+    @Override
+    public void init()
     {
 
     }
 
-    override public void dispose()
+    @Override
+    public void dispose()
     {
 
     }
 
-    public void setClientDispose(bool isDispose)
+    public void setClientDispose(boolean isDispose)
     {
 
     }
 
-    public bool isClientDispose()
+    public boolean isClientDispose()
     {
         return false;
     }
 
-    virtual public void onTick(float delta)
+    public void onTick(float delta)
     {
         this.mLoopDepth.incDepth();
 
@@ -39,7 +45,7 @@ public class TickObjectMgrBase : DelayHandleMgrBase, ITickedObject, IDelayHandle
         this.mLoopDepth.decDepth();
     }
 
-    virtual protected void onExecTick(float delta)
+    protected void onExecTick(float delta)
     {
         int idx = 0;
         int count = this.mTickObjectList.Count();
@@ -47,9 +53,9 @@ public class TickObjectMgrBase : DelayHandleMgrBase, ITickedObject, IDelayHandle
 
         while (idx < count)
         {
-            tickObject = this.mTickObjectList[idx];
+            tickObject = this.mTickObjectList.get(idx);
 
-            if (!(tickObject as IDelayHandleItem).isClientDispose())
+            if (!((IDelayHandleItem)tickObject).isClientDispose())
             {
                 tickObject.onTick(delta);
             }
@@ -58,32 +64,40 @@ public class TickObjectMgrBase : DelayHandleMgrBase, ITickedObject, IDelayHandle
         }
     }
 
-    override protected void addObject(IDelayHandleItem tickObject, float priority = 0.0f)
+    @Override
+    protected void addObject(IDelayHandleItem tickObject)
+    {
+        this.addObject(tickObject, 0);
+    }
+
+    @Override
+    protected void addObject(IDelayHandleItem tickObject, float priority)
     {
         if (this.mLoopDepth.isInDepth())
         {
-            base.addObject(tickObject);
+            super.addObject(tickObject);
         }
         else
         {
-            if (this.mTickObjectList.IndexOf(tickObject as ITickedObject) == -1)
+            if (this.mTickObjectList.IndexOf((ITickedObject)tickObject) == -1)
             {
-                this.mTickObjectList.Add(tickObject as ITickedObject);
+                this.mTickObjectList.Add((ITickedObject)tickObject);
             }
         }
     }
 
-    override protected void removeObject(IDelayHandleItem tickObject)
+    @Override
+    protected void removeObject(IDelayHandleItem tickObject)
     {
         if (this.mLoopDepth.isInDepth())
         {
-            base.removeObject(tickObject);
+            super.removeObject(tickObject);
         }
         else
         {
-            if (this.mTickObjectList.IndexOf(tickObject as ITickedObject) != -1)
+            if (this.mTickObjectList.IndexOf((ITickedObject)tickObject) != -1)
             {
-                this.mTickObjectList.Remove(tickObject as ITickedObject);
+                this.mTickObjectList.Remove((ITickedObject)tickObject);
             }
         }
     }

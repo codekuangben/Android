@@ -174,7 +174,7 @@ public class ClientBuffer
         this.mRawBuffer.circularBuffer.clear();
     }
 
-    public void send(bool bnet = true)
+    public void send(boolean bnet = true)
     {
         mTmpData.clear();
         mTmpData.writeUnsignedInt32(mSendData.length);      // 填充长度
@@ -201,7 +201,7 @@ public class ClientBuffer
     }
 
     // TODO: KBEngine 引擎发送
-    public void send_KBE(bool isSendToNet = true)
+    public void send_KBE(boolean isSendToNet = true)
     {
         mTmpData.clear();
 
@@ -298,7 +298,7 @@ public class ClientBuffer
         uint origMsgLen = 0;    // 原始的消息长度，后面判断头部是否添加压缩标志
         uint compressMsgLen = 0;
         uint cryptLen = 0;
-        bool bHeaderChange = false; // 消息内容最前面的四个字节中消息的长度是否需要最后修正
+        boolean bHeaderChange = false; // 消息内容最前面的四个字节中消息的长度是否需要最后修正
 
         while (mSocketSendBA.bytesAvailable > 0)
         {

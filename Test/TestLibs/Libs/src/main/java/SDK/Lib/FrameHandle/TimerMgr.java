@@ -3,6 +3,11 @@
 */
 package SDK.Lib.FrameHandle;
 
+import SDK.Lib.DataStruct.MList;
+import SDK.Lib.DelayHandle.DelayHandleMgrBase;
+import SDK.Lib.DelayHandle.IDelayHandleItem;
+import SDK.Lib.Tools.UtilApi;
+
 public class TimerMgr extends DelayHandleMgrBase
 {
     protected MList<TimerItemBase> mTimerList;     // 当前所有的定时器列表
@@ -12,46 +17,56 @@ public class TimerMgr extends DelayHandleMgrBase
         this.mTimerList = new MList<TimerItemBase>();
     }
 
-    override public void init()
+    @Override
+    public void init()
     {
 
     }
 
-    override public void dispose()
+    @Override
+    public void dispose()
     {
 
     }
 
-    protected override void addObject(IDelayHandleItem delayObject, float priority = 0.0f)
+    @Override
+    protected void addObject(IDelayHandleItem delayObject)
+    {
+        this.addObject(delayObject, 0);
+    }
+
+    @Override
+    protected void addObject(IDelayHandleItem delayObject, float priority)
     {
         // 检查当前是否已经在队列中
-        if (!this.mTimerList.Contains(delayObject as TimerItemBase))
+        if (!this.mTimerList.Contains((TimerItemBase)delayObject))
         {
             if (this.mLoopDepth.isInDepth())
             {
-                base.addObject(delayObject, priority);
+                super.addObject(delayObject, priority);
             }
             else
             {
-                this.mTimerList.Add(delayObject as TimerItemBase);
+                this.mTimerList.Add((TimerItemBase)delayObject);
             }
         }
     }
 
-    protected override void removeObject(IDelayHandleItem delayObject)
+    @Override
+    protected void removeObject(IDelayHandleItem delayObject)
     {
         // 检查当前是否在队列中
-        if (this.mTimerList.Contains(delayObject as TimerItemBase))
+        if (this.mTimerList.Contains((TimerItemBase)delayObject))
         {
-            (delayObject as TimerItemBase).mDisposed = true;
+            ((TimerItemBase)delayObject).mDisposed = true;
 
             if (this.mLoopDepth.isInDepth())
             {
-                base.removeObject(delayObject);
+                super.removeObject(delayObject);
             }
             else
             {
-                foreach (TimerItemBase item in this.mTimerList.list())
+                for(TimerItemBase item : this.mTimerList.list())
                 {
                     if (UtilApi.isAddressEqual(item, delayObject))
                     {
@@ -63,22 +78,15 @@ public class TimerMgr extends DelayHandleMgrBase
         }
     }
 
-    // 从 Lua 中添加定时器，这种定时器尽量整个定时器周期只与 Lua 通信一次
-    public void addTimer(TimerItemBase delayObject, float priority = 0.0f)
+    public void addTimer(TimerItemBase delayObject)
     {
-        this.addObject(delayObject, priority);
+        this.addTimer(delayObject, 0);
     }
 
-    public void addTimer(LuaTable luaTimer)
+    // 从 Lua 中添加定时器，这种定时器尽量整个定时器周期只与 Lua 通信一次
+    public void addTimer(TimerItemBase delayObject, float priority)
     {
-        LuaTable table = luaTimer["pthis"] as LuaTable;
-        LuaFunction function = luaTimer["func"] as LuaFunction;
-
-        TimerItemBase timer = new TimerItemBase();
-        timer.mTotalTime = Convert.ToSingle(luaTimer["totaltime"]);
-        timer.setLuaFunctor(table, function);
-
-        this.addTimer(timer);
+        this.addObject(delayObject, priority);
     }
 
     public void removeTimer(TimerItemBase timer)
@@ -90,7 +98,7 @@ public class TimerMgr extends DelayHandleMgrBase
     {
         this.mLoopDepth.incDepth();
 
-        foreach (TimerItemBase timerItem in this.mTimerList.list())
+        for(TimerItemBase timerItem : this.mTimerList.list())
         {
             if (!timerItem.isClientDispose())
             {

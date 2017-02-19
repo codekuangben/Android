@@ -17,7 +17,7 @@ public class LogicTickMgr extends TickMgr
     {
         if(this.mTimeInterval.canExec(delta))
         {
-            base.onExecAdvance(delta);
+            super.onExecAdvance(delta);
         }
     }
 }

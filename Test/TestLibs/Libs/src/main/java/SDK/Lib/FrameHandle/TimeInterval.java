@@ -31,9 +31,9 @@ public class TimeInterval
         this.mCurTime = value;
     }
 
-    public bool canExec(float delta)
+    public boolean canExec(float delta)
     {
-        bool ret = false;
+        boolean ret = false;
 
         this.mTotalTime += delta;
         this.mCurTime += delta;

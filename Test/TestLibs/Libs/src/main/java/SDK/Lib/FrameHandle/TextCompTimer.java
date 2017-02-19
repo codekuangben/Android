@@ -1,12 +1,13 @@
 ﻿package SDK.Lib.FrameHandle;
 
-public class TextCompTimer : DaoJiShiTimer
+public class TextCompTimer extends DaoJiShiTimer
 {
-    protected Text mText;
+    //protected Text mText;
 
-    protected override void onPreCallBack()
+    @Override
+    protected void onPreCallBack()
     {
-        base.onPreCallBack();
-        this.mText.text = UtilLogic.formatTime((int)this.mCurRunTime);
+        super.onPreCallBack();
+        //this.mText.text = UtilLogic.formatTime((int)this.mCurRunTime);
     }
 }

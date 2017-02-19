@@ -13,9 +13,9 @@ namespace SDK.Lib
         protected MList<LogDeviceBase> mLogDeviceList;
         protected MList<LogTypeId>[] mEnableLogTypeList;
 
-        protected bool[] mEnableLog;    // 全局开关
-        protected bool[] mIsOutStack;     // 是否显示堆栈信息
-        protected bool[] mIsOutTimeStamp;   // 是否有时间戳
+        protected boolean[] mEnableLog;    // 全局开关
+        protected boolean[] mIsOutStack;     // 是否显示堆栈信息
+        protected boolean[] mIsOutTimeStamp;   // 是否有时间戳
 
         // 构造函数仅仅是初始化变量，不涉及逻辑
         public LogSys()
@@ -59,17 +59,17 @@ namespace SDK.Lib
             this.mEnableLogTypeList[(int)LogColor.eLC_ERROR] = new MList<LogTypeId>();
             //this.mEnableLogTypeList[(int)LogColor.eLC_ERROR].Add(LogTypeId.eLogLoadBug);
 
-            this.mEnableLog = new bool[(int)LogColor.eLC_Count];
+            this.mEnableLog = new boolean[(int)LogColor.eLC_Count];
             this.mEnableLog[(int)LogColor.eLC_LOG] = true;
             this.mEnableLog[(int)LogColor.eLC_WARN] = false;
             this.mEnableLog[(int)LogColor.eLC_ERROR] = false;
 
-            this.mIsOutStack = new bool[(int)LogColor.eLC_Count];
+            this.mIsOutStack = new boolean[(int)LogColor.eLC_Count];
             this.mIsOutStack[(int)LogColor.eLC_LOG] = false;
             this.mIsOutStack[(int)LogColor.eLC_WARN] = false;
             this.mIsOutStack[(int)LogColor.eLC_ERROR] = false;
 
-            this.mIsOutTimeStamp = new bool[(int)LogColor.eLC_Count];
+            this.mIsOutTimeStamp = new boolean[(int)LogColor.eLC_Count];
             this.mIsOutStack[(int)LogColor.eLC_LOG] = false;
             this.mIsOutStack[(int)LogColor.eLC_WARN] = false;
             this.mIsOutStack[(int)LogColor.eLC_ERROR] = false;
@@ -88,17 +88,17 @@ namespace SDK.Lib
             this.closeDevice();
         }
 
-        public void setEnableLog(bool value)
+        public void setEnableLog(boolean value)
         {
             this.mEnableLog[(int)LogColor.eLC_LOG] = value;
         }
 
-        public void setEnableWarn(bool value)
+        public void setEnableWarn(boolean value)
         {
             this.mEnableLog[(int)LogColor.eLC_WARN] = value;
         }
 
-        public void setEnableError(bool value)
+        public void setEnableError(boolean value)
         {
             this.mEnableLog[(int)LogColor.eLC_ERROR] = value;
         }
@@ -182,7 +182,7 @@ namespace SDK.Lib
             log(message);
         }
 
-        protected bool isInFilter(LogTypeId logTypeId, LogColor logColor)
+        protected boolean isInFilter(LogTypeId logTypeId, LogColor logColor)
         {
             if (this.mEnableLog[(int)logColor])
             {

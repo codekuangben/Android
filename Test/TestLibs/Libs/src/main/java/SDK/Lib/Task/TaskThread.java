@@ -35,7 +35,7 @@
             }
         }
 
-        public bool notifySelf()
+        public boolean notifySelf()
         {
             if(mCondition.canEnterWait)
             {

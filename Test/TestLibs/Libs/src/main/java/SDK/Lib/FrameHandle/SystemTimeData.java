@@ -5,7 +5,7 @@ public class SystemTimeData
     protected long mPreTime;           // 上一次更新时的秒数
     protected long mCurTime;           // 正在获取的时间
     protected float mDeltaSec;         // 两帧之间的间隔
-    protected bool mIsFixFrameRate;     // 固定帧率
+    protected boolean mIsFixFrameRate;     // 固定帧率
     protected float mFixFrameRate;       // 固定帧率
     protected float mScale;             // delta 缩放
 
@@ -24,16 +24,14 @@ public class SystemTimeData
         this.mFixedTimestep = 0.02f;
     }
 
-    public float deltaSec
+    public float getDeltaSec()
     {
-        get
-        {
-            return this.mDeltaSec;
-        }
-        set
-        {
-            this.mDeltaSec = value;
-        }
+        return this.mDeltaSec;
+    }
+
+    public void setDeltaSec(float value)
+    {
+        this.mDeltaSec = value;
     }
 
     public float getFixedTimestep()
@@ -48,22 +46,20 @@ public class SystemTimeData
         }
     }
 
-    public long curTime
+    public long getCurTime()
     {
-        get
-        {
-            return this.mCurTime;
-        }
-        set
-        {
-            this.mCurTime = value;
-        }
+        return this.mCurTime;
+    }
+
+    public void setCurTime(long value)
+    {
+        this.mCurTime = value;
     }
 
     public void nextFrame()
     {
         this.mPreTime = this.mCurTime;
-        this.mCurTime = DateTime.Now.Ticks;
+        this.mCurTime = System.currentTimeMillis()/1000;
 
         if (mIsFixFrameRate)
         {
@@ -73,8 +69,7 @@ public class SystemTimeData
         {
             if (this.mPreTime != 0f)     // 第一帧跳过，因为这一帧不好计算间隔
             {
-                TimeSpan ts = new TimeSpan(this.mCurTime - this.mPreTime);
-                this.mDeltaSec = (float)(ts.TotalSeconds);
+                this.mDeltaSec = (float)(this.mCurTime - this.mPreTime);
             }
             else
             {

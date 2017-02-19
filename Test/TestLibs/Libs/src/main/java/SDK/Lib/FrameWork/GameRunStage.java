@@ -62,12 +62,12 @@ namespace SDK.Lib
             }
         }
 
-        public bool isPreInStage(EGameStage eGameStage)
+        public boolean isPreInStage(EGameStage eGameStage)
         {
             return this.m_eCurGameStage == eGameStage;
         }
 
-        public bool isCurInStage(EGameStage eGameStage)
+        public boolean isCurInStage(EGameStage eGameStage)
         {
             return this.m_eCurGameStage == eGameStage;
         }

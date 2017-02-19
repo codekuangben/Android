@@ -14,22 +14,22 @@ namespace SDK.Lib
             mState = eCoroutineTaskState.eStopped;
         }
 
-        public bool isRuning()
+        public boolean isRuning()
         {
             return mState == eCoroutineTaskState.eRunning;
         }
 
-        public bool isPause()
+        public boolean isPause()
         {
             return mState == eCoroutineTaskState.ePaused;
         }
 
-        public bool isStop()
+        public boolean isStop()
         {
             return mState == eCoroutineTaskState.eStopped;
         }
 
-        public bool isEmpty()
+        public boolean isEmpty()
         {
             return mCoroutineTaskList.length() == 0;
         }

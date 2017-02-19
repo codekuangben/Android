@@ -1,6 +1,11 @@
 ﻿package SDK.Lib.FrameHandle;
 
-public class ResizeMgr : DelayHandleMgrBase, ITickedObject, IDelayHandleItem
+import SDK.Lib.DataStruct.MList;
+import SDK.Lib.DelayHandle.DelayHandleMgrBase;
+import SDK.Lib.DelayHandle.IDelayHandleItem;
+import SDK.Lib.Tools.UtilApi;
+
+public class ResizeMgr extends DelayHandleMgrBase implements ITickedObject, IDelayHandleItem
 {
     protected int mPreWidth;       // 之前宽度
     protected int mPreHeight;
@@ -17,12 +22,14 @@ public class ResizeMgr : DelayHandleMgrBase, ITickedObject, IDelayHandleItem
         this.mResizeList = new MList<IResizeObject>();
     }
 
-    override public void init()
+    @Override
+    public void init()
     {
 
     }
 
-    override public void dispose()
+    @Override
+    public void dispose()
     {
         this.mResizeList.Clear();
     }
@@ -47,31 +54,44 @@ public class ResizeMgr : DelayHandleMgrBase, ITickedObject, IDelayHandleItem
         return this.mCurHalfHeight;
     }
 
-    override protected void addObject(IDelayHandleItem delayObject, float priority = 0.0f)
+    @Override
+    protected void addObject(IDelayHandleItem delayObject)
+    {
+        this.addObject(delayObject, 0);
+    }
+
+    @Override
+    protected void addObject(IDelayHandleItem delayObject, float priority)
     {
         if(this.mLoopDepth.isInDepth())
         {
-            base.addObject(delayObject, priority);
+            super.addObject(delayObject, priority);
         }
         else
         {
-            this.addResizeObject(delayObject as IResizeObject, priority);
+            this.addResizeObject((IResizeObject)delayObject, priority);
         }
     }
 
-    override protected void removeObject(IDelayHandleItem delayObject)
+    @Override
+    protected void removeObject(IDelayHandleItem delayObject)
     {
         if(this.mLoopDepth.isInDepth())
         {
-            base.removeObject(delayObject);
+            super.removeObject(delayObject);
         }
         else
         {
-            this.removeResizeObject(delayObject as IResizeObject);
+            this.removeResizeObject((IResizeObject)delayObject);
         }
     }
 
-    public void addResizeObject(IResizeObject obj, float priority = 0)
+    public void addResizeObject(IResizeObject obj)
+    {
+        this.addResizeObject(obj, 0);
+    }
+
+    public void addResizeObject(IResizeObject obj, float priority)
     {
         if (!this.mResizeList.Contains(obj))
         {
@@ -105,18 +125,18 @@ public class ResizeMgr : DelayHandleMgrBase, ITickedObject, IDelayHandleItem
 
     public void onResize(int viewWidth, int viewHeight)
     {
-        foreach (IResizeObject resizeObj in mResizeList.list())
+        for(IResizeObject resizeObj : mResizeList.list())
         {
             resizeObj.onResize(viewWidth, viewHeight);
         }
     }
 
-    public void setClientDispose(bool isDispose)
+    public void setClientDispose(boolean isDispose)
     {
 
     }
 
-    public bool isClientDispose()
+    public boolean isClientDispose()
     {
         return false;
     }

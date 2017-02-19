@@ -56,7 +56,7 @@ namespace SDK.Lib
             Ctx.mInstance.mResLoadMgr.unload(res.getResUniqueId(), onLoadEventHandle);
         }
 
-        public bool doFilter(ref string str)
+        public boolean doFilter(ref string str)
         {
             if (m_filterArr == null)
             {
@@ -67,7 +67,7 @@ namespace SDK.Lib
         }
 
         // 过滤字符串
-        public bool doRegexFilter(ref string str)
+        public boolean doRegexFilter(ref string str)
         {
             foreach(string item in m_filterArr)
             {
@@ -76,7 +76,7 @@ namespace SDK.Lib
             return true;
         }
 
-        public bool doMatchFilter(string str)
+        public boolean doMatchFilter(string str)
         {
             foreach (string item in m_filterArr)
             {
@@ -86,7 +86,7 @@ namespace SDK.Lib
         }
 
         // 判断是否有过滤文字
-        public bool IsMatch(string str)
+        public boolean IsMatch(string str)
         {
             if (m_filterArr == null)
             {

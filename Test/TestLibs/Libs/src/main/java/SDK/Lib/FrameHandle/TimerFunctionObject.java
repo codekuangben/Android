@@ -1,91 +1,35 @@
 package SDK.Lib.FrameHandle;
 
+import SDK.Lib.EventHandle.ICalleeObject;
+import SDK.Lib.Tools.UtilApi;
+
 public class TimerFunctionObject
 {
-    public Action<TimerItemBase> mHandle;
-    protected LuaCSDispatchFunctionObject mLuaCSDispatchFunctionObject;
+    public ICalleeObjectTimer mHandle;
 
     public TimerFunctionObject()
     {
         this.mHandle = null;
     }
 
-    public LuaCSDispatchFunctionObject luaCSDispatchFunctionObject
-    {
-        get
-        {
-            return this.mLuaCSDispatchFunctionObject;
-        }
-        set
-        {
-            this.mLuaCSDispatchFunctionObject = value;
-        }
-    }
-
-    public void setFuncObject(Action<TimerItemBase> handle)
+    public void setFuncObject(ICalleeObjectTimer handle)
     {
         this.mHandle = handle;
     }
 
-    public void setLuaTable(LuaTable luaTable)
+    public boolean isValid()
     {
-        if(this.mLuaCSDispatchFunctionObject == null)
-        {
-            this.mLuaCSDispatchFunctionObject = new LuaCSDispatchFunctionObject();
-        }
-
-        this.mLuaCSDispatchFunctionObject.setTable(luaTable);
+        return this.mHandle != null;
     }
 
-    public void setLuaFunction(LuaFunction function)
+    public boolean isEqual(ICalleeObject handle)
     {
-        if(this.mLuaCSDispatchFunctionObject == null)
-        {
-            this.mLuaCSDispatchFunctionObject = new LuaCSDispatchFunctionObject();
-        }
+        boolean ret = false;
 
-        this.mLuaCSDispatchFunctionObject.setFunction(function);
-    }
-
-    public void setLuaFunctor(LuaTable luaTable, LuaFunction function)
-    {
-        if(this.mLuaCSDispatchFunctionObject == null)
-        {
-            this.mLuaCSDispatchFunctionObject = new LuaCSDispatchFunctionObject();
-        }
-
-        this.mLuaCSDispatchFunctionObject.setTable(luaTable);
-        this.mLuaCSDispatchFunctionObject.setFunction(function);
-    }
-
-    public bool isValid()
-    {
-        return this.mHandle != null || (this.mLuaCSDispatchFunctionObject != null && this.mLuaCSDispatchFunctionObject.isValid());
-    }
-
-    public bool isEqual(MAction<IDispatchObject> handle, LuaTable luaTable = null, LuaFunction luaFunction = null)
-    {
-        bool ret = false;
         if(handle != null)
         {
             ret = UtilApi.isAddressEqual(this.mHandle, handle);
             if(!ret)
-            {
-                return ret;
-            }
-        }
-        if(luaTable != null)
-        {
-            ret = this.mLuaCSDispatchFunctionObject.isTableEqual(luaTable);
-            if(!ret)
-            {
-                return ret;
-            }
-        }
-        if(luaTable != null)
-        {
-            ret = this.mLuaCSDispatchFunctionObject.isFunctionEqual(luaFunction);
-            if (!ret)
             {
                 return ret;
             }
@@ -98,12 +42,7 @@ public class TimerFunctionObject
     {
         if (null != this.mHandle)
         {
-            this.mHandle(dispObj);
-        }
-
-        if(this.mLuaCSDispatchFunctionObject != null)
-        {
-            this.mLuaCSDispatchFunctionObject.call(dispObj);
+            this.mHandle.call(dispObj);
         }
     }
 }

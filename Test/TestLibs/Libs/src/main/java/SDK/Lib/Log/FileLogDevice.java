@@ -45,7 +45,7 @@ namespace SDK.Lib
             }
         }
 
-        public bool isValid()
+        public boolean isValid()
         {
             return null != mFileStream;
         }

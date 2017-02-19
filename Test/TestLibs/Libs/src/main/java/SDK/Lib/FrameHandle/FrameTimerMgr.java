@@ -4,6 +4,7 @@
 package SDK.Lib.FrameHandle;
 
 import SDK.Lib.DataStruct.MList;
+import SDK.Lib.DelayHandle.DelayHandleMgrBase;
 import SDK.Lib.DelayHandle.IDelayHandleItem;
 import SDK.Lib.Tools.UtilApi;
 

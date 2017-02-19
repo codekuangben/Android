@@ -1,19 +1,22 @@
 ﻿package SDK.Lib.FrameHandle;
 
+import SDK.Lib.DelayHandle.IDelayHandleItem;
+import SDK.Lib.EventHandle.IDispatchObject;
+
 /**
  * @brief 定时器，这个是不断增长的
  */
-public class TimerItemBase : IDelayHandleItem, IDispatchObject
+public class TimerItemBase implements IDelayHandleItem, IDispatchObject
 {
     public float mInternal;        // 定时器间隔
     public float mTotalTime;       // 总共定时器时间
     public float mCurRunTime;      // 当前定时器运行的时间
     public float mCurCallTime;     // 当前定时器已经调用的时间
-    public bool mIsInfineLoop;      // 是否是无限循环
+    public boolean mIsInfineLoop;      // 是否是无限循环
     public float mIntervalLeftTime;     // 定时器调用间隔剩余时间
     public TimerFunctionObject mTimerDisp;       // 定时器分发
-    public bool mDisposed;             // 是否已经被释放
-    public bool mIsContinuous;          // 是否是连续的定时器
+    public boolean mDisposed;             // 是否已经被释放
+    public boolean mIsContinuous;          // 是否是连续的定时器
 
     public TimerItemBase()
     {
@@ -28,43 +31,43 @@ public class TimerItemBase : IDelayHandleItem, IDispatchObject
         this.mIsContinuous = false;
     }
 
-    public void setFuncObject(Action<TimerItemBase> handle)
+    public void setFuncObject(ICalleeObjectTimer handle)
     {
         this.mTimerDisp.setFuncObject(handle);
     }
 
-    virtual public void setTotalTime(float value)
+    public void setTotalTime(float value)
     {
         this.mTotalTime = value;
     }
 
-    virtual public float getRunTime()
+    public float getRunTime()
     {
         return this.mCurRunTime;
     }
 
-    virtual public float getCallTime()
+    public float getCallTime()
     {
         return this.mCurCallTime;
     }
 
-    virtual public float getLeftRunTime()
+    public float getLeftRunTime()
     {
         return this.mTotalTime - this.mCurRunTime;
     }
 
-    virtual public float getLeftCallTime()
+    public float getLeftCallTime()
     {
         return this.mTotalTime - this.mCurCallTime;
     }
 
     // 在调用回调函数之前处理
-    protected virtual void onPreCallBack()
+    protected void onPreCallBack()
     {
 
     }
 
-    public virtual void OnTimer(float delta)
+    public void OnTimer(float delta)
     {
         if (this.mDisposed)
         {
@@ -95,7 +98,7 @@ public class TimerItemBase : IDelayHandleItem, IDispatchObject
         }
     }
 
-    public virtual void disposeAndDisp()
+    public void disposeAndDisp()
     {
         if (this.mIsContinuous)
         {
@@ -136,7 +139,7 @@ public class TimerItemBase : IDelayHandleItem, IDispatchObject
         }
     }
 
-    public virtual void checkAndDisp()
+    public void checkAndDisp()
     {
         if(this.mIsContinuous)
         {
@@ -182,7 +185,7 @@ public class TimerItemBase : IDelayHandleItem, IDispatchObject
         }
     }
 
-    public virtual void reset()
+    public void reset()
     {
         this.mCurRunTime = 0;
         this.mCurCallTime = 0;
@@ -190,28 +193,23 @@ public class TimerItemBase : IDelayHandleItem, IDispatchObject
         this.mDisposed = false;
     }
 
-    public void setClientDispose(bool isDispose)
+    public void setClientDispose(boolean isDispose)
     {
 
     }
 
-    public bool isClientDispose()
+    public boolean isClientDispose()
     {
         return false;
     }
 
-    public void setLuaFunctor(LuaTable luaTable, LuaFunction function)
-    {
-        this.mTimerDisp.setLuaFunctor(luaTable, function);
-    }
-
     public void startTimer()
     {
-        Ctx.mInstance.mTimerMgr.addTimer(this);
+        //Ctx.mInstance.mTimerMgr.addTimer(this);
     }
 
     public void stopTimer()
     {
-        Ctx.mInstance.mTimerMgr.removeTimer(this);
+        //Ctx.mInstance.mTimerMgr.removeTimer(this);
     }
 }

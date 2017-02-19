@@ -1,5 +1,7 @@
 ﻿package SDK.Lib.FrameHandle;
 
+import SDK.Lib.DelayHandle.IDelayHandleItem;
+
 /**
  * @brief 定时器，这个是不断增长的
  */
@@ -10,7 +12,7 @@ public class FrameTimerItem implements IDelayHandleItem
     public int mCurFrame;              // 当前已经调用的定时器的时间
     public int mCurLeftFrame;          // 剩余帧数
     public boolean mIsInfineLoop;      // 是否是无限循环
-    public Action<FrameTimerItem> mTimerDisp;       // 定时器分发
+    public ICalleeObjectFrameTimer mTimerDisp;       // 定时器分发
     public boolean mDisposed;             // 是否已经被释放
 
     //protected int m_preFrame = 0;
@@ -51,7 +53,7 @@ public class FrameTimerItem implements IDelayHandleItem
 
                 if (this.mTimerDisp != null)
                 {
-                    this.mTimerDisp(this);
+                    this.mTimerDisp.call(this);
                 }
             }
         }
@@ -62,7 +64,7 @@ public class FrameTimerItem implements IDelayHandleItem
                 this.mDisposed = true;
                 if (this.mTimerDisp != null)
                 {
-                    this.mTimerDisp(this);
+                    this.mTimerDisp.call(this);
                 }
             }
             else
@@ -72,7 +74,7 @@ public class FrameTimerItem implements IDelayHandleItem
                     this.mCurLeftFrame = 0;
                     if (this.mTimerDisp != null)
                     {
-                        this.mTimerDisp(this);
+                        this.mTimerDisp.call(this);
                     }
                 }
             }

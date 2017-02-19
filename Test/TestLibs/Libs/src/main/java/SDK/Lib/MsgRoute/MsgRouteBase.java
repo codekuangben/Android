@@ -1,19 +1,8 @@
 ﻿package SDK.Lib.MsgRoute;
 
-public enum MsgRouteType
-{
-    eMRT_BASIC,      // 基本类型
-}
+import SDK.Lib.EventHandle.IDispatchObject;
 
-public enum MsgRouteID
-{
-    eMRIDSocketOpened,      // socket Opened
-    eMRIDSocketClosed,      // socket Closed
-    eMRIDLoadedWebRes,      // web 资源加载完成
-    eMRIDThreadLog,      // 线程打日志
-}
-
-public class MsgRouteBase : IRecycle, IDispatchObject
+public class MsgRouteBase implements IRecycle, IDispatchObject
 {
     public MsgRouteType mMsgType;
     public MsgRouteID mMsgID;          // 只需要一个 ID 就行了
@@ -24,7 +13,7 @@ public class MsgRouteBase : IRecycle, IDispatchObject
         mMsgID = id;
     }
 
-    virtual public void resetDefault()
+    public void resetDefault()
     {
 
     }

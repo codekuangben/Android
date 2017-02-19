@@ -1,5 +1,9 @@
 ﻿package SDK.Lib.MsgRoute;
 
+import SDK.Lib.EventHandle.EventDispatchGroup;
+import SDK.Lib.EventHandle.IDispatchObject;
+import SDK.Lib.FrameWork.Ctx;
+
 public class MsgRouteDispHandle
 {
     protected EventDispatchGroup mEventDispatchGroup;
@@ -9,28 +13,27 @@ public class MsgRouteDispHandle
         this.mEventDispatchGroup = new EventDispatchGroup();
     }
 
-    public void addRouteHandle(int evtId, MsgRouteHandleBase pThis, MAction<IDispatchObject> handle)
+    public void addRouteHandle(int evtId, MsgRouteHandleBase pThis, IDispatchObject handle)
     {
         this.mEventDispatchGroup.addEventHandle(evtId, pThis, handle);
     }
 
-    public void removeRouteHandle(int evtId, MsgRouteHandleBase pThis, MAction<IDispatchObject> handle)
+    public void removeRouteHandle(int evtId, MsgRouteHandleBase pThis, IDispatchObject handle)
     {
         this.mEventDispatchGroup.removeEventHandle(evtId, pThis, handle);
     }
 
-    public virtual void handleMsg(MsgRouteBase msg)
+    public void handleMsg(MsgRouteBase msg)
     {
-        string textStr = "";
+        String textStr = "";
 
         if(this.mEventDispatchGroup.hasEventHandle((int)msg.mMsgType))
         {
-            textStr = Ctx.mInstance.mLangMgr.getText(LangTypeId.eMsgRoute1, LangItemID.eItem2);
             this.mEventDispatchGroup.dispatchEvent((int)msg.mMsgType, msg);
         }
         else
         {
-            textStr = Ctx.mInstance.mLangMgr.getText(LangTypeId.eMsgRoute1, LangItemID.eItem3);
+
         }
     }
 }

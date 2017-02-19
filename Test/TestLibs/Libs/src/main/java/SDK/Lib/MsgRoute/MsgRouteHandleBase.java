@@ -6,7 +6,7 @@ import SDK.Lib.EventHandle.AddOnceEventDispatch;
 import SDK.Lib.EventHandle.ICalleeObject;
 import SDK.Lib.EventHandle.IDispatchObject;
 
-public class MsgRouteHandleBase extends GObject, ICalleeObject
+public class MsgRouteHandleBase extends GObject implements ICalleeObject
 {
     public MDictionary<Integer, AddOnceEventDispatch> mId2HandleDic;
 
@@ -19,19 +19,19 @@ public class MsgRouteHandleBase extends GObject, ICalleeObject
 
     public void addMsgRouteHandle(MsgRouteID msgRouteID, IDispatchObject handle)
     {
-        if(!this.mId2HandleDic.ContainsKey((int)msgRouteID))
+        if(!this.mId2HandleDic.ContainsKey(msgRouteID.ordinal()))
         {
-            this.mId2HandleDic.set((int)msgRouteID, new AddOnceEventDispatch());
+            this.mId2HandleDic.set(msgRouteID.ordinal(), new AddOnceEventDispatch());
         }
 
-        this.mId2HandleDic.get((int)msgRouteID).addEventHandle(null, handle);
+        this.mId2HandleDic.get(msgRouteID.ordinal()).addEventHandle(null, handle);
     }
 
     public void removeMsgRouteHandle(MsgRouteID msgRouteID, IDispatchObject handle)
     {
-        if (this.mId2HandleDic.ContainsKey((int)msgRouteID))
+        if (this.mId2HandleDic.ContainsKey(msgRouteID.ordinal()))
         {
-            this.mId2HandleDic.get((int)msgRouteID).removeEventHandle(null, handle);
+            this.mId2HandleDic.get(msgRouteID.ordinal()).removeEventHandle(null, handle);
         }
     }
 
@@ -39,9 +39,9 @@ public class MsgRouteHandleBase extends GObject, ICalleeObject
     {
         MsgRouteBase msg = (MsgRouteBase)dispObj;
 
-        if (this.mId2HandleDic.ContainsKey((int)msg.mMsgID))
+        if (this.mId2HandleDic.ContainsKey(msg.mMsgID.ordinal()))
         {
-            this.mId2HandleDic.get((int)msg.mMsgID).dispatchEvent(msg);
+            this.mId2HandleDic.get(msg.mMsgID.ordinal()).dispatchEvent(msg);
         }
         else
         {

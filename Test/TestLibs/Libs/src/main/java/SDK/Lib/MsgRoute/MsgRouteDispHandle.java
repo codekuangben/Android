@@ -27,9 +27,9 @@ public class MsgRouteDispHandle
     {
         String textStr = "";
 
-        if(this.mEventDispatchGroup.hasEventHandle((int)msg.mMsgType))
+        if(this.mEventDispatchGroup.hasEventHandle(msg.mMsgType.ordinal()))
         {
-            this.mEventDispatchGroup.dispatchEvent((int)msg.mMsgType, msg);
+            this.mEventDispatchGroup.dispatchEvent(msg.mMsgType.ordinal(), msg);
         }
         else
         {

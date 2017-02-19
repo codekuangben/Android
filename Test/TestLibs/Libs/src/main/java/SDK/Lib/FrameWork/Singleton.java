@@ -1,15 +1,21 @@
 ﻿package SDK.Lib.FrameWork;
 
+import SDK.Lib.Tools.TClassOp;
+
 public class Singleton<T>
 {
-    protected static T msSingleton;
+    // 模板对象不能是静态对象
+    //protected static T msSingleton;
+    protected static Object msSingleton;
 
-    public static T getSingletonPtr()
+    //public Singleton(Class<T> classT)
+
+    public static Object getSingletonPtr()
     {
         if (null == msSingleton)
         {
-            msSingleton = new T();
-            msSingleton.init();
+            //msSingleton = TClassOp.createObject();
+            //msSingleton.init();
         }
 
         return msSingleton;
@@ -19,7 +25,7 @@ public class Singleton<T>
     {
         if (null != msSingleton)
         {
-            msSingleton.dispose();
+            //msSingleton.dispose();
             msSingleton = null;
         }
     }

@@ -1,5 +1,7 @@
 ﻿package SDK.Lib.FrameWork;
 
+import SDK.Lib.MsgRoute.MsgRouteBase;
+
 /**
  * @brief 主循环
  */
@@ -56,11 +58,5 @@ public class EngineLoop
     public void fixedUpdate()
     {
         Ctx.mInstance.mProcessSys.ProcessNextFixedFrame();
-    }
-
-    // 循环执行完成后，再次
-    public void postUpdate()
-    {
-        Ctx.mInstance.mPlayerMgr.postUpdate();
     }
 }

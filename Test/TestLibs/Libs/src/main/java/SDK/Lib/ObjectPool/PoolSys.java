@@ -3,6 +3,7 @@
 import java.lang.reflect.Method;
 
 import SDK.Lib.DataStruct.LockList;
+import SDK.Lib.Tools.TClassOp;
 
 /**
  * @brief 对象池
@@ -50,7 +51,7 @@ public class PoolSys
             }
         }
 
-        retObj = new T();
+        retObj = TClassOp.createObject(classT);
 
         return retObj;
     }

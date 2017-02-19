@@ -1,5 +1,7 @@
 ﻿package SDK.Lib.FrameHandle;
 
+import SDK.Lib.FrameWork.Ctx;
+
 public class SystemTimeData
 {
     protected long mPreTime;           // 上一次更新时的秒数
@@ -22,6 +24,16 @@ public class SystemTimeData
         this.mScale = 1;
 
         this.mFixedTimestep = 0.02f;
+    }
+
+    public void init()
+    {
+
+    }
+
+    public void dispose()
+    {
+
     }
 
     public float getDeltaSec()

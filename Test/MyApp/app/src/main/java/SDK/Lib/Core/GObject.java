@@ -1,4 +1,4 @@
-﻿package SDK.Lib.Core;
+package SDK.Lib.Core;
 
 public class GObject
 {

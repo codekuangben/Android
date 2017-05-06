@@ -1,4 +1,4 @@
-/**
+﻿/**
 *@brief 环形缓冲区，不支持多线程写操作
 */
 package SDK.Lib.DataStruct;

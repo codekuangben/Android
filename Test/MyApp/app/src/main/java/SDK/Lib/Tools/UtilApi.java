@@ -1,9 +1,12 @@
-package SDK.Lib.Tools;
+﻿package SDK.Lib.Tools;
+
+import android.view.View;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import SDK.Lib.EventHandle.IDispatchObject;
+import android.support.v7.app.AppCompatActivity;
 
 /**
  * @brief 对 api 的进一步 wrap
@@ -83,5 +86,23 @@ public class UtilApi
                 System.out.println("-----------------------------------");
             }
         }
+    }
+
+    static public View findViewById(AppCompatActivity activity, int id)
+    {
+        View ret = null;
+
+        ret = activity.findViewById(id);
+
+        return ret;
+    }
+
+    static public View findViewById(View view, int id)
+    {
+        View ret = null;
+
+        ret = view.findViewById(id);
+
+        return ret;
     }
 }

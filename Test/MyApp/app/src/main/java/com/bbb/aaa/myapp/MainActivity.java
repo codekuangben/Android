@@ -9,7 +9,12 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class MainActivity extends AppCompatActivity {
+import android.view.View.OnClickListener;
+
+import AppFrame.UI.UIMain.UIMain;
+
+public class MainActivity extends AppCompatActivity implements OnClickListener {
+    protected UIMain mUIMain;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +31,9 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
+        mUIMain = new UIMain();
+        mUIMain.init();
     }
 
     @Override
@@ -48,5 +56,18 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onClick(View view)
+    {
+        findViewById(R.id.BtnTestPing).setOnClickListener(MainActivity.this);
+
+        switch(view.getId())
+        {
+            case R.id.BtnTestPing:
+
+                break;
+        }
     }
 }

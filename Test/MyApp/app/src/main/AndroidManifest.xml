@@ -21,7 +21,12 @@
         <activity
             android:name=".NetActivity"
             android:label="@string/title_activity_net"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="com.bbb.aaa.myapp.NetActivity"/>
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

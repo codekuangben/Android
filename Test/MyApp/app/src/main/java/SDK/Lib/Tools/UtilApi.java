@@ -2,6 +2,7 @@ package SDK.Lib.Tools;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.view.View;
 
 import java.text.SimpleDateFormat;
@@ -108,9 +109,25 @@ public class UtilApi
         return ret;
     }
 
-    // "com.litreily.SecondActivity"
+    /**
+     * @param packageAndClassPath = com.bbb.aaa.myapp.NetActivity
+     * @brief 需要在 AndroidManifest.xml 添加
+     * <intent-filter>
+            <action android:name="com.bbb.aaa.myapp.NetActivity"/>
+            <category android:name="android.intent.category.DEFAULT" />
+        </intent-filter>
+     */
     static public void startActivity(Activity activity, String packageAndClassPath)
     {
-        activity.startActivity(new Intent(packageAndClassPath));
+        Intent intent = new Intent(packageAndClassPath);
+        activity.startActivity(intent);
+    }
+
+    // http://www.baidu.com 不是 www.baidu.com
+    static public void openURL(Activity activity, String url)
+    {
+        Uri uri = Uri.parse(url);
+        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+        activity.startActivity(intent);
     }
 }

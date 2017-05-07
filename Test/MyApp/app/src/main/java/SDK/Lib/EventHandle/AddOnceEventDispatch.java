@@ -1,4 +1,4 @@
-﻿package SDK.Lib.EventHandle;
+package SDK.Lib.EventHandle;
 
 /**
  * @brief 事件回调函数只能添加一次

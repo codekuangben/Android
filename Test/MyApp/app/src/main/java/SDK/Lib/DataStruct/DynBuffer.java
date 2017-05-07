@@ -1,4 +1,4 @@
-﻿package SDK.Lib.DataStruct;
+package SDK.Lib.DataStruct;
 
 import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;

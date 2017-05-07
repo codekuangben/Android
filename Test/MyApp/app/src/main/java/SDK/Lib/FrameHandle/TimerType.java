@@ -1,4 +1,4 @@
-﻿/**
+/**
 * @brief 定时器类型
 */
 package SDK.Lib.FrameHandle;

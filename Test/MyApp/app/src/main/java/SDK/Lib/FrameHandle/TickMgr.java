@@ -1,4 +1,4 @@
-﻿/**
+/**
 * @brief 心跳管理器
 */
 package SDK.Lib.FrameHandle;

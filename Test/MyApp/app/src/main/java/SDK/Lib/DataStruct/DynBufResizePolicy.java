@@ -1,4 +1,4 @@
-﻿package SDK.Lib.DataStruct;
+package SDK.Lib.DataStruct;
 
 public class DynBufResizePolicy
 {

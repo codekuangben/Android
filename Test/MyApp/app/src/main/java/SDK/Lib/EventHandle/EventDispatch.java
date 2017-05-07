@@ -1,4 +1,4 @@
-﻿package SDK.Lib.EventHandle;
+package SDK.Lib.EventHandle;
 
 import SDK.Lib.DataStruct.MList;
 import SDK.Lib.DelayHandle.*;

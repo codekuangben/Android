@@ -1,4 +1,4 @@
-﻿package SDK.Lib.DelayHandle;
+package SDK.Lib.DelayHandle;
 
 import SDK.Lib.Core.GObject;
 import SDK.Lib.DataStruct.MList;

@@ -1,4 +1,4 @@
-﻿package SDK.Lib.FrameHandle;
+package SDK.Lib.FrameHandle;
 
 public class TextCompTimer extends DaoJiShiTimer
 {

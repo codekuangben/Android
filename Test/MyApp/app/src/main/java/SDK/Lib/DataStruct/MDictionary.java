@@ -1,4 +1,4 @@
-﻿package SDK.Lib.DataStruct;
+package SDK.Lib.DataStruct;
 
 import java.util.Collection;
 import java.util.Map;

@@ -1,4 +1,4 @@
-﻿package SDK.Lib.DelayHandle;
+package SDK.Lib.DelayHandle;
 
 /**
  * @brief 延迟添加的对象

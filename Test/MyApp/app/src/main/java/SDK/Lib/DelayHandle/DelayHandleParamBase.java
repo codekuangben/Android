@@ -1,4 +1,4 @@
-﻿package SDK.Lib.DelayHandle;
+package SDK.Lib.DelayHandle;
 
 public class DelayHandleParamBase
 {

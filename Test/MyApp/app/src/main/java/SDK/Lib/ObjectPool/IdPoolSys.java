@@ -2,14 +2,13 @@ package SDK.Lib.ObjectPool;
 
 import SDK.Lib.DataStruct.MDictionary;
 import SDK.Lib.DataStruct.MList;
-import SDK.Lib.MsgRoute.IRecycle;
 
 /**
  * @brief 有 Id 的缓存池
  */
 public class IdPoolSys
 {
-    protected MDictionary<String, MList<SDK.Lib.MsgRoute.IRecycle>> mId2PoolDic;
+    protected MDictionary<String, MList<IRecycle>> mId2PoolDic;
 
     public IdPoolSys()
     {

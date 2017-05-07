@@ -11,6 +11,7 @@ import android.view.MenuItem;
 
 import android.view.View.OnClickListener;
 
+import AppFrame.App.MyApp;
 import AppFrame.UI.UIMain.UIMain;
 import AppFrame.UI.UIMain.UIMainCV;
 
@@ -60,6 +61,9 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 
     protected void init()
     {
+        MyApp myApp = new MyApp();
+        myApp.init();
+
         UIMainCV.BtnId_TestPing = R.id.BtnTestPing;
 
         mUIMain = new UIMain();

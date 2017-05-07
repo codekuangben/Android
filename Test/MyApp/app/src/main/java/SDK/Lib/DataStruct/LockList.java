@@ -27,6 +27,11 @@ public class LockList<T>
         mVisitMutex = new MMutex(false, name);
     }
 
+    public DynBuffer<T> getDynamicBuffer()
+    {
+        return this.mDynamicBuffer;
+    }
+
     public int getCount()
     {
         MLock mlock = new MLock(mVisitMutex);

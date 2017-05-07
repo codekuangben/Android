@@ -12,10 +12,11 @@ public class DynBuffer<T>
 {
     public int mCapacity;         // 分配的内存空间大小，单位大小是字节
     public int mMaxCapacity;      // 最大允许分配的存储空间大小
-    public int mSize;              // 存储在当前缓冲区中的数量
-    public T[] mBuffer;            // 当前环形缓冲区
+    public int mSize;             // 存储在当前缓冲区中的数量
+    public T[] mBuffer;           // 当前环形缓冲区
 
-    private Class<T> mClassT;   // 传递的模板类型的类型信息
+    private Class<T> mClassT;     // 传递的模板类型的类型信息
+    //private Class mClassT;     // 传递的模板类型的类型信息
 
     public DynBuffer()      // mono 模板类中使用常亮报错， vs 可以
     {
@@ -34,6 +35,16 @@ public class DynBuffer<T>
         this.mSize = 0;
         //this.mBuffer = new T[mCapacity];
         //this.mBuffer = (T[]) new Object[this.mCapacity];
+        this.mBuffer = this.createArray(mClassT, this.mCapacity);
+    }
+
+    public void setClassType(Class<T> classType)
+    {
+        this.mClassT = classType;
+    }
+
+    public void createBuffer()
+    {
         this.mBuffer = this.createArray(mClassT, this.mCapacity);
     }
 

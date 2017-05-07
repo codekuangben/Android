@@ -11,7 +11,14 @@ import SDK.Lib.Tools.TClassOp;
 public class PoolSys
 {
     //protected List<object> mPoolList = new List<object>();
-    protected LockList<IRecycle> mPoolList = new LockList<IRecycle>("PoolSys_List");
+    protected LockList<IRecycle> mPoolList;
+
+    public PoolSys()
+    {
+        this.mPoolList = new LockList<IRecycle>("PoolSys_List");
+        this.mPoolList.getDynamicBuffer().setClassType(IRecycle.class);
+        this.mPoolList.getDynamicBuffer().createBuffer();
+    }
 
     //public <T> T newObject(Class<T> classT)
     public <T> T newObject(Class classT)

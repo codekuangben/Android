@@ -1,4 +1,4 @@
-﻿package SDK.Lib.ObjectPool;
+package SDK.Lib.ObjectPool;
 
 import java.lang.reflect.Method;
 

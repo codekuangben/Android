@@ -1,4 +1,4 @@
-﻿package SDK.Lib.MsgRoute;
+package SDK.Lib.MsgRoute;
 
 import SDK.Lib.EventHandle.EventDispatchGroup;
 import SDK.Lib.EventHandle.IDispatchObject;

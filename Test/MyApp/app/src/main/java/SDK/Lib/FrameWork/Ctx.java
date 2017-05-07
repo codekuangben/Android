@@ -1,4 +1,4 @@
-﻿package SDK.Lib.FrameWork;
+package SDK.Lib.FrameWork;
 
 import SDK.Lib.FrameHandle.FixedTickMgr;
 import SDK.Lib.FrameHandle.FrameTimerMgr;

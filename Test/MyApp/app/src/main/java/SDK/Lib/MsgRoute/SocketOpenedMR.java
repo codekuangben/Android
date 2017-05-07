@@ -1,4 +1,4 @@
-﻿package SDK.Lib.MsgRoute;
+package SDK.Lib.MsgRoute;
 
 public class SocketOpenedMR extends MsgRouteBase
 {

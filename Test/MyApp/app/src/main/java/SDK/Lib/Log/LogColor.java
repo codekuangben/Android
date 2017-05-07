@@ -1,4 +1,4 @@
-﻿package SDK.Lib.Log;
+package SDK.Lib.Log;
 
 public enum LogColor
 {

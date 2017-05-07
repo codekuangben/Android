@@ -1,4 +1,4 @@
-﻿package SDK.Lib.Thread;
+package SDK.Lib.Thread;
 
 /**
  * @brief 单一对象同步

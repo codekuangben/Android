@@ -1,4 +1,4 @@
-﻿package SDK.Lib.FrameWork;
+package SDK.Lib.FrameWork;
 
 /**
  * @brief 宏定义说明区域

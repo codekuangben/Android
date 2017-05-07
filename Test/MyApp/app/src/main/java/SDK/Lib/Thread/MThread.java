@@ -1,4 +1,4 @@
-﻿package SDK.Lib.Thread;
+package SDK.Lib.Thread;
 
 /**
  *@brief 基本的线程

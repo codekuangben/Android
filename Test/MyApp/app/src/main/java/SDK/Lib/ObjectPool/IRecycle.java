@@ -1,4 +1,4 @@
-﻿package SDK.Lib.ObjectPool;
+package SDK.Lib.ObjectPool;
 
 public interface IRecycle
 {

@@ -1,4 +1,4 @@
-﻿package SDK.Lib.Tools;
+package SDK.Lib.Tools;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

@@ -1,4 +1,4 @@
-﻿package SDK.Lib.FrameWork;
+package SDK.Lib.FrameWork;
 
 /**
  * @brief 系统设置

@@ -1,4 +1,4 @@
-﻿package SDK.Lib.Task;
+package SDK.Lib.Task;
 
 import SDK.Lib.Thread.MCondition;
 import SDK.Lib.Thread.MThread;

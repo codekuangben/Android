@@ -1,4 +1,4 @@
-﻿package SDK.Lib.FrameWork;
+package SDK.Lib.FrameWork;
 
 /**
  * @brief 全局性的事件

@@ -1,4 +1,4 @@
-﻿package SDK.Lib.FrameWork;
+package SDK.Lib.FrameWork;
 
 import SDK.Lib.EventHandle.AddOnceEventDispatch;
 import SDK.Lib.EventHandle.ICalleeObject;

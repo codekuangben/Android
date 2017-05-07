@@ -1,4 +1,4 @@
-﻿package SDK.Lib.ObjectPool;
+package SDK.Lib.ObjectPool;
 
 import SDK.Lib.DataStruct.MDictionary;
 import SDK.Lib.DataStruct.MList;

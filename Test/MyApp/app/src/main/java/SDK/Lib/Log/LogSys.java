@@ -1,4 +1,4 @@
-﻿package SDK.Lib.Log;
+package SDK.Lib.Log;
 
 import SDK.Lib.DataStruct.LockList;
 import SDK.Lib.DataStruct.MList;

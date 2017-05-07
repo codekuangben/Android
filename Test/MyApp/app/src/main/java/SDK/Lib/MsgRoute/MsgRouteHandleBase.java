@@ -1,4 +1,4 @@
-﻿package SDK.Lib.MsgRoute;
+package SDK.Lib.MsgRoute;
 
 import SDK.Lib.Core.GObject;
 import SDK.Lib.DataStruct.MDictionary;

@@ -28,7 +28,7 @@ public class UIMain extends Form
         switch(view.getId())
         {
             case R.id.BtnTestPing:
-
+                UtilApi.startActivity(this.mMainActivity, "com.bbb.aaa.myapp.NetActivity");
                 break;
         }
     }

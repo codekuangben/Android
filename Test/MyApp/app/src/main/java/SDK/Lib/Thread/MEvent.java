@@ -13,6 +13,7 @@ public class MEvent
     public MEvent(boolean initialState)
     {
         //this.mEvent = new CyclicBarrier(2);
+        this.mEvent = new Object();
     }
 
     synchronized public void WaitOne()

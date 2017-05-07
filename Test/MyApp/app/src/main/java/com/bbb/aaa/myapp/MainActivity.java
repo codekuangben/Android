@@ -67,15 +67,14 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
 
         UIMainCV.BtnId_TestPing = R.id.BtnTestPing;
 
-        mUIMain = new UIMain();
-        mUIMain.init();
+        this.mUIMain = new UIMain();
+        this.mUIMain.setMainActivity(this);
+        this.mUIMain.init();
     }
 
     @Override
     public void onClick(View view)
     {
-        mUIMain.onClick(view);
-
-        UtilApi.startActivity(this, "com.bbb.aaa.myapp.NetActivity");
+        this.mUIMain.onClick(view);
     }
 }

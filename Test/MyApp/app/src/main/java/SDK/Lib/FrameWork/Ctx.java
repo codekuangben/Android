@@ -106,8 +106,9 @@ public class Ctx
         this.mTickMgr.init();
         this.mFixedTickMgr.init();
 
-        this.mTaskQueue.mTaskThreadPool = this.mTaskThreadPool;
-        this.mTaskThreadPool.initThreadPool(2, this.mTaskQueue);
+        // TODO: Thread 没有测试
+        //this.mTaskQueue.mTaskThreadPool = this.mTaskThreadPool;
+        //this.mTaskThreadPool.initThreadPool(2, this.mTaskQueue);
 
         this.mGlobalDelegate.init();
         this.mResizeMgr.init();

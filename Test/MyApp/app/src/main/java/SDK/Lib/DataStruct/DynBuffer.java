@@ -35,7 +35,7 @@ public class DynBuffer<T>
         this.mSize = 0;
         //this.mBuffer = new T[mCapacity];
         //this.mBuffer = (T[]) new Object[this.mCapacity];
-        this.mBuffer = this.createArray(mClassT, this.mCapacity);
+        //this.mBuffer = this.createArray(mClassT, this.mCapacity);
     }
 
     public void setClassType(Class<T> classType)

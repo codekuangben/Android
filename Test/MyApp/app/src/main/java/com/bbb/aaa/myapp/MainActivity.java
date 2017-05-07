@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View.OnClickListener;
 
 import AppFrame.UI.UIMain.UIMain;
+import AppFrame.UI.UIMain.UIMainCV;
 
 public class MainActivity extends AppCompatActivity implements OnClickListener {
     protected UIMain mUIMain;
@@ -32,8 +33,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
             }
         });
 
-        mUIMain = new UIMain();
-        mUIMain.init();
+        this.init();
     }
 
     @Override
@@ -58,16 +58,17 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
         return super.onOptionsItemSelected(item);
     }
 
+    protected void init()
+    {
+        UIMainCV.BtnId_TestPing = R.id.BtnTestPing;
+
+        mUIMain = new UIMain();
+        mUIMain.init();
+    }
+
     @Override
     public void onClick(View view)
     {
-        findViewById(R.id.BtnTestPing).setOnClickListener(MainActivity.this);
-
-        switch(view.getId())
-        {
-            case R.id.BtnTestPing:
-
-                break;
-        }
+        mUIMain.onClick(view);
     }
 }

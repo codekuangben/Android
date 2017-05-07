@@ -160,7 +160,7 @@ public class ByteBuffer implements IDispatchObject
         return this;
     }
 
-    public ByteBuffer readUnsignedInt8(byte tmpByte)
+    public byte readUnsignedInt8(byte tmpByte)
     {
         if (canRead(Byte.SIZE))
         {
@@ -168,10 +168,10 @@ public class ByteBuffer implements IDispatchObject
             advPos(Byte.SIZE);
         }
 
-        return this;
+        return tmpByte;
     }
 
-    public ByteBuffer readInt16(short tmpShort)
+    public short readInt16(short tmpShort)
     {
         if (canRead(Short.SIZE))
         {
@@ -180,10 +180,10 @@ public class ByteBuffer implements IDispatchObject
             advPos(Short.SIZE);
         }
 
-        return this;
+        return tmpShort;
     }
 
-    public ByteBuffer readUnsignedInt16(short tmpUshort)
+    public short readUnsignedInt16(short tmpUshort)
     {
         if (canRead(Short.SIZE))
         {
@@ -192,10 +192,10 @@ public class ByteBuffer implements IDispatchObject
             advPos(Short.SIZE);
         }
 
-        return this;
+        return tmpUshort;
     }
 
-    public ByteBuffer readInt32(int tmpInt)
+    public int readInt32(int tmpInt)
     {
         if (canRead(Integer.SIZE))
         {
@@ -204,10 +204,10 @@ public class ByteBuffer implements IDispatchObject
             advPos(Integer.SIZE);
         }
 
-        return this;
+        return tmpInt;
     }
 
-    public ByteBuffer readUnsignedInt32(int tmpUint)
+    public int readUnsignedInt32(int tmpUint)
     {
         if (canRead(Integer.SIZE))
         {
@@ -217,10 +217,10 @@ public class ByteBuffer implements IDispatchObject
             advPos(Integer.SIZE);
         }
 
-        return this;
+        return tmpUint;
     }
 
-    public ByteBuffer readInt64(long tmpLong)
+    public long readInt64(long tmpLong)
     {
         if (canRead(Long.SIZE))
         {
@@ -229,10 +229,10 @@ public class ByteBuffer implements IDispatchObject
             advPos(Long.SIZE);
         }
 
-        return this;
+        return tmpLong;
     }
 
-    public ByteBuffer readUnsignedInt64(long tmpUlong)
+    public long readUnsignedInt64(long tmpUlong)
     {
         if (canRead(Long.SIZE))
         {
@@ -241,10 +241,10 @@ public class ByteBuffer implements IDispatchObject
             advPos(Long.SIZE);
         }
 
-        return this;
+        return tmpUlong;
     }
 
-    public ByteBuffer readFloat(float tmpFloat)
+    public float readFloat(float tmpFloat)
     {
         if (canRead(Float.SIZE))
         {
@@ -262,10 +262,10 @@ public class ByteBuffer implements IDispatchObject
             advPos(Float.SIZE);
         }
 
-        return this;
+        return tmpFloat;
     }
 
-    public ByteBuffer readDouble(double tmpDouble)
+    public double readDouble(double tmpDouble)
     {
         if (canRead(Double.SIZE))
         {
@@ -283,7 +283,7 @@ public class ByteBuffer implements IDispatchObject
             advPos(Double.SIZE);
         }
 
-        return this;
+        return tmpDouble;
     }
 
     //public ByteBuffer readMultiByte(ref string tmpStr, uint len, Encoding charSet)

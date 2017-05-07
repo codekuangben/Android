@@ -40,11 +40,14 @@ public class LockList<T>
         MLock mlock = new MLock(mVisitMutex);
 
         {
-            if (index < mDynamicBuffer.mSize) {
+            if (index < mDynamicBuffer.mSize)
+            {
                 mlock.Dispose();
 
                 return mDynamicBuffer.mBuffer[index];
-            } else {
+            }
+            else
+            {
                 mlock.Dispose();
 
                 return null;

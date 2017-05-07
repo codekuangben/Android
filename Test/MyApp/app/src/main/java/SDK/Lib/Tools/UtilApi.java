@@ -1,5 +1,6 @@
 package SDK.Lib.Tools;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.view.View;
 
@@ -107,8 +108,9 @@ public class UtilApi
         return ret;
     }
 
-    static public void startActivity()
+    // "com.litreily.SecondActivity"
+    static public void startActivity(Activity activity, String packageAndClassPath)
     {
-        startActivity(new Intent("com.litreily.SecondActivity"));
+        activity.startActivity(new Intent(packageAndClassPath));
     }
 }

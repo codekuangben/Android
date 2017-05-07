@@ -14,6 +14,7 @@ import android.view.View.OnClickListener;
 import AppFrame.App.MyApp;
 import AppFrame.UI.UIMain.UIMain;
 import AppFrame.UI.UIMain.UIMainCV;
+import SDK.Lib.Tools.UtilApi;
 
 public class MainActivity extends AppCompatActivity implements OnClickListener {
     protected UIMain mUIMain;
@@ -74,5 +75,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
     public void onClick(View view)
     {
         mUIMain.onClick(view);
+
+        UtilApi.startActivity(this, "com.bbb.aaa.myapp.NetActivity");
     }
 }

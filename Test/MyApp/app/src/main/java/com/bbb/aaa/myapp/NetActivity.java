@@ -7,7 +7,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
-public class NetActivity extends AppCompatActivity {
+import android.view.View.OnClickListener;
+
+import AppFrame.UI.UINet.UINet;
+import AppFrame.UI.UINet.UINetCV;
+
+public class NetActivity extends AppCompatActivity implements OnClickListener{
+    protected UINet mUINet;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +30,22 @@ public class NetActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
+        this.init();
     }
 
+    protected void init()
+    {
+        UINetCV.BtnId_TestPing = R.id.NetBtnId_TestPing;
+
+        this.mUINet = new UINet();
+        this.mUINet.setActivity(this);
+        this.mUINet.init();
+    }
+
+    @Override
+    public void onClick(View view)
+    {
+        this.mUINet.onClick(view);
+    }
 }

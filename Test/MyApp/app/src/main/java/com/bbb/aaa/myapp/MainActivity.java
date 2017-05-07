@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity implements OnClickListener {
         UIMainCV.BtnId_TestPing = R.id.BtnTestPing;
 
         this.mUIMain = new UIMain();
-        this.mUIMain.setMainActivity(this);
+        this.mUIMain.setActivity(this);
         this.mUIMain.init();
     }
 

@@ -13,4 +13,21 @@
     tools:context="com.bbb.aaa.myapp.NetActivity"
     tools:showIn="@layout/activity_net">
 
+    <Button
+        android:text="TestPing"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="104dp"
+        android:layout_marginTop="110dp"
+        android:id="@+id/NetBtnId_TestPing" />
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="47dp"
+        android:id="@+id/NetTextView_Log" />
 </RelativeLayout>

@@ -10,17 +10,10 @@ import SDK.Lib.UI.UICore.Form;
 
 public class UIMain extends Form
 {
-    protected MainActivity mMainActivity;
-
     @Override
     public void onInit()
     {
-        UtilApi.findViewById(this.mMainActivity, UIMainCV.BtnId_TestPing).setOnClickListener(this.mMainActivity);
-    }
-
-    public void setMainActivity(MainActivity value)
-    {
-        this.mMainActivity = value;
+        UtilApi.findViewById(this.mActivity, UIMainCV.BtnId_TestPing).setOnClickListener((MainActivity)this.mActivity);
     }
 
     public void onClick(View view)
@@ -28,8 +21,8 @@ public class UIMain extends Form
         switch(view.getId())
         {
             case R.id.BtnTestPing:
-                UtilApi.startActivity(this.mMainActivity, "com.bbb.aaa.myapp.NetActivity");
-                //UtilApi.openURL(this.mMainActivity, "http://www.baidu.com");
+                UtilApi.startActivity(this.mActivity, "com.bbb.aaa.myapp.NetActivity");
+                //UtilApi.openURL(this.mActivity, "http://www.baidu.com");
                 break;
         }
     }

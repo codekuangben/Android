@@ -91,7 +91,7 @@ public class UtilApi
         }
     }
 
-    static public View findViewById(AppCompatActivity activity, int id)
+    static public View findViewById(Activity activity, int id)
     {
         View ret = null;
 
@@ -129,5 +129,15 @@ public class UtilApi
         Uri uri = Uri.parse(url);
         Intent intent = new Intent(Intent.ACTION_VIEW, uri);
         activity.startActivity(intent);
+    }
+
+    static public void exit()
+    {
+        System.exit(0);
+    }
+
+    static public void finishActivity(Activity activity)
+    {
+        activity.finish();
     }
 }

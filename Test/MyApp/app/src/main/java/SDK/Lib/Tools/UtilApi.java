@@ -1,5 +1,6 @@
 package SDK.Lib.Tools;
 
+import android.content.Intent;
 import android.view.View;
 
 import java.text.SimpleDateFormat;
@@ -104,5 +105,10 @@ public class UtilApi
         ret = view.findViewById(id);
 
         return ret;
+    }
+
+    static public void startActivity()
+    {
+        startActivity(new Intent("com.litreily.SecondActivity"));
     }
 }

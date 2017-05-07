@@ -28,8 +28,8 @@ public class UIMain extends Form
         switch(view.getId())
         {
             case R.id.BtnTestPing:
-                //UtilApi.startActivity(this.mMainActivity, "com.bbb.aaa.myapp.NetActivity");
-                UtilApi.openURL(this.mMainActivity, "http://www.baidu.com");
+                UtilApi.startActivity(this.mMainActivity, "com.bbb.aaa.myapp.NetActivity");
+                //UtilApi.openURL(this.mMainActivity, "http://www.baidu.com");
                 break;
         }
     }

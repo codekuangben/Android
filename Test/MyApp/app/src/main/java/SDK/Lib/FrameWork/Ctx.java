@@ -65,6 +65,7 @@ public class Ctx
         {
             mInstance = new Ctx();
         }
+
         return mInstance;
     }
 

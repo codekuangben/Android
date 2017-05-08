@@ -28,6 +28,7 @@ public class EventDispatchFunctionObject implements IDelayHandleItem
     public boolean isEqual(ICalleeObject pThis, IDispatchObject handle)
     {
         boolean ret = false;
+
         if(pThis != null)
         {
             ret = UtilApi.isAddressEqual(this.mThis, pThis);
@@ -51,15 +52,15 @@ public class EventDispatchFunctionObject implements IDelayHandleItem
 
     public void call(IDispatchObject dispObj)
     {
-        if(mThis != null)
+        if(this.mThis != null)
         {
-            mThis.call(dispObj);
+            this.mThis.call(dispObj);
         }
 
-//        if(null != this.mHandle)
-//        {
-//            this.mHandle(dispObj);
-//        }
+        //if(null != this.mHandle)
+        //{
+        //    this.mHandle(dispObj);
+        //}
     }
 
     public void setClientDispose(boolean isDispose)

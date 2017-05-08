@@ -7,7 +7,7 @@ import SDK.Lib.DelayHandle.*;
  * @brief 事件分发，之分发一类事件，不同类型的事件使用不同的事件分发
  * @brief 注意，事件分发缺点就是，可能被调用的对象已经释放，但是没有清掉事件处理器，结果造成空指针
  */
-public class EventDispatch extends DelayHandleMgrBase
+public class EventDispatch extends DelayPriorityHandleMgrBase
 {
     protected int mEventId;
     protected MList<EventDispatchFunctionObject> mHandleList;
@@ -55,7 +55,7 @@ public class EventDispatch extends DelayHandleMgrBase
 
     public void addDispatch(EventDispatchFunctionObject dispatch)
     {
-        this.addObject(dispatch);
+        this.addObject(dispatch, 0.0f);
     }
 
     public void removeDispatch(EventDispatchFunctionObject dispatch)
@@ -107,12 +107,6 @@ public class EventDispatch extends DelayHandleMgrBase
         {
 
         }
-    }
-
-    @Override
-    protected void addObject(IDelayHandleItem delayObject)
-    {
-        this.addObject(delayObject, 0);
     }
 
     @Override
@@ -248,7 +242,7 @@ public class EventDispatch extends DelayHandleMgrBase
         return this.mHandleList.Count() > 0;
     }
 
-    public int getEventHandle()
+    public int getEventHandleCount()
     {
         return this.mHandleList.Count();
     }

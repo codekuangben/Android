@@ -1,11 +1,11 @@
 package SDK.Lib.FrameHandle;
 
 import SDK.Lib.DataStruct.MList;
-import SDK.Lib.DelayHandle.DelayHandleMgrBase;
+import SDK.Lib.DelayHandle.DelayPriorityHandleMgrBase;
 import SDK.Lib.DelayHandle.IDelayHandleItem;
 import SDK.Lib.Tools.UtilApi;
 
-public class ResizeMgr extends DelayHandleMgrBase implements ITickedObject, IDelayHandleItem
+public class ResizeMgr extends DelayPriorityHandleMgrBase implements ITickedObject, IDelayHandleItem
 {
     protected int mPreWidth;       // 之前宽度
     protected int mPreHeight;
@@ -55,12 +55,6 @@ public class ResizeMgr extends DelayHandleMgrBase implements ITickedObject, IDel
     }
 
     @Override
-    protected void addObject(IDelayHandleItem delayObject)
-    {
-        this.addObject(delayObject, 0);
-    }
-
-    @Override
     protected void addObject(IDelayHandleItem delayObject, float priority)
     {
         if(this.mLoopDepth.isInDepth())
@@ -107,7 +101,7 @@ public class ResizeMgr extends DelayHandleMgrBase implements ITickedObject, IDel
         }
     }
 
-    public void onTick(float delta)
+    public void onTick(float delta, TickMode tickMode)
     {
         this.mPreWidth = this.mCurWidth;
         this.mCurWidth = UtilApi.getScreenWidth();

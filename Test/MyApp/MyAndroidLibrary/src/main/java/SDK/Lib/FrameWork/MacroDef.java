@@ -38,5 +38,8 @@ public class MacroDef
 
     // 加密
     static public  boolean MSG_ENCRIPT = false;
+
+    // 开启配置
+    static public  boolean ENABLE_PROFILE = false;
     // 宏定义结束
 }

@@ -5,5 +5,5 @@ package SDK.Lib.EventHandle;
  */
 public interface ICalleeObject
 {
-    public void call(IDispatchObject dispObj);
+    public void call(IDispatchObject dispObj, int eventId);
 }

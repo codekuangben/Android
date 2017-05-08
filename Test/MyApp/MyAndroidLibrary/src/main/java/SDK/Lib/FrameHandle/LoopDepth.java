@@ -1,13 +1,15 @@
 package SDK.Lib.FrameHandle;
 
-import SDK.Lib.EventHandle.ICalleeObjectNoRetNoParam;
+import SDK.Lib.EventHandle.ICalleeObject;
+import SDK.Lib.EventHandle.IDispatchObject;
+import SDK.Lib.Functor.CallFuncObjectNoParam;
 
 public class LoopDepth
 {
     private int mLoopDepth;         // 是否在循环中，支持多层嵌套，就是循环中再次调用循环
-    private ICalleeObjectNoRetNoParam mIncHandle;     // 增加处理器
-    private ICalleeObjectNoRetNoParam mDecHandle;     // 减少处理器
-    private ICalleeObjectNoRetNoParam mZeroHandle;    // 减少到 0 处理器
+    private CallFuncObjectNoParam mIncHandle;     // 增加处理器
+    private CallFuncObjectNoParam mDecHandle;     // 减少处理器
+    private CallFuncObjectNoParam mZeroHandle;    // 减少到 0 处理器
 
     public LoopDepth()
     {
@@ -17,19 +19,34 @@ public class LoopDepth
         this.mZeroHandle = null;
     }
 
-    public void setIncHandle(ICalleeObjectNoRetNoParam value)
+    public void setIncHandle(ICalleeObject pThis, IDispatchObject value)
     {
-        this.mIncHandle = value;
+        if(null == this.mIncHandle)
+        {
+            this.mIncHandle = new CallFuncObjectNoParam();
+        }
+
+        this.mIncHandle.setThisAndHandleNoParam(pThis, value);
     }
 
-    public void setDecHandle(ICalleeObjectNoRetNoParam value)
+    public void setDecHandle(ICalleeObject pThis, IDispatchObject value)
     {
-        this.mDecHandle = value;
+        if (null == this.mDecHandle)
+        {
+            this.mDecHandle = new CallFuncObjectNoParam();
+        }
+
+        this.mDecHandle.setThisAndHandleNoParam(pThis, value);
     }
 
-    public void setZeroHandle(ICalleeObjectNoRetNoParam value)
+    public void setZeroHandle(ICalleeObject pThis, IDispatchObject value)
     {
-        this.mZeroHandle = value;
+        if (null == this.mZeroHandle)
+        {
+            this.mZeroHandle = new CallFuncObjectNoParam();
+        }
+
+        this.mZeroHandle.setThisAndHandleNoParam(pThis, value);
     }
 
     public void incDepth()

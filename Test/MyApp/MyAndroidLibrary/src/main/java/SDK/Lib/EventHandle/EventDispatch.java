@@ -64,7 +64,7 @@ public class EventDispatch extends DelayPriorityHandleMgrBase
     }
 
     // 相同的函数只能增加一次，Lua ，Python 这些语言不支持同时存在几个相同名字的函数，只支持参数可以赋值，因此不单独提供同一个名字不同参数的接口了
-    public void addEventHandle(ICalleeObject pThis, IDispatchObject handle)
+    public void addEventHandle(ICalleeObject pThis, IDispatchObject handle, int eventId)
     {
         if (null != pThis || null != handle)
         {
@@ -72,7 +72,7 @@ public class EventDispatch extends DelayPriorityHandleMgrBase
 
             if (null != handle)
             {
-                funcObject.setFuncObject(pThis, handle);
+                funcObject.setFuncObject(pThis, handle, eventId);
             }
 
             this.addDispatch(funcObject);
@@ -83,7 +83,7 @@ public class EventDispatch extends DelayPriorityHandleMgrBase
         }
     }
 
-    public void removeEventHandle(ICalleeObject pThis, IDispatchObject handle)
+    public void removeEventHandle(ICalleeObject pThis, IDispatchObject handle, int eventId)
     {
         int idx = 0;
         int elemLen = 0;
@@ -91,7 +91,7 @@ public class EventDispatch extends DelayPriorityHandleMgrBase
 
         while (idx < elemLen)
         {
-            if (this.mHandleList.get(idx).isEqual(pThis, handle))
+            if (this.mHandleList.get(idx).isEqual(pThis, handle, eventId))
             {
                 break;
             }
@@ -196,7 +196,7 @@ public class EventDispatch extends DelayPriorityHandleMgrBase
     }
 
     // 这个判断说明相同的函数只能加一次，但是如果不同资源使用相同的回调函数就会有问题，但是这个判断可以保证只添加一次函数，值得，因此不同资源需要不同回调函数
-    public boolean isExistEventHandle(ICalleeObject pThis, IDispatchObject handle)
+    public boolean isExistEventHandle(ICalleeObject pThis, IDispatchObject handle, int eventId)
     {
         boolean bFinded = false;
         //foreach (EventDispatchFunctionObject item in this.mHandleList.list())
@@ -208,7 +208,7 @@ public class EventDispatch extends DelayPriorityHandleMgrBase
         {
             item = this.mHandleList.get(idx);
 
-            if (item.isEqual(pThis, handle))
+            if (item.isEqual(pThis, handle, eventId))
             {
                 bFinded = true;
                 break;

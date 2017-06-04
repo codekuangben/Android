@@ -14,16 +14,10 @@ cd %BASE_DIR%
 :: set path envionment variable
 set path=%path%;"F:\ProgramFiles\android\Android Studio\gradle\gradle-2.14.1\bin"
 
-::gradle.bat -v
-::gradle.bat tasks
-::gradle.bat clean
-::gradle.bat build
-::gradle.bat compileReleaseSource
-
-gradlew.bat -v
-gradlew.bat tasks
-gradlew.bat clean
-gradlew.bat build
-gradlew.bat compileReleaseSource
+call gradlew.bat -v
+call gradlew.bat tasks
+call gradlew.bat clean
+call gradlew.bat build
+call gradlew.bat compileReleaseSource
 
 pause

@@ -26,5 +26,6 @@ public class TestByteBuffer extends TestBase
     protected void testBasic()
     {
         MByteBuffer byteBuffer = new MByteBuffer();
+        byteBuffer.writeInt8('a');
     }
 }

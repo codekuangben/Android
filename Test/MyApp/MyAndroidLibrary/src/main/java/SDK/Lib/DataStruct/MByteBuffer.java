@@ -151,10 +151,11 @@ public class MByteBuffer implements IDispatchObject
 
     public MByteBuffer readInt8(char tmpByte)
     {
-        if (canRead(Character.SIZE))
+        if (this.canRead(Character.SIZE))
         {
-            tmpByte = (char)mDynBuffer.getBuffer()[(int)mPos];
-            advPos(Character.SIZE);
+            tmpByte = (char)this.mDynBuffer.getBuffer()[(int)this.mPos];
+
+            this.advPos(Character.SIZE);
         }
 
         return this;
@@ -162,10 +163,11 @@ public class MByteBuffer implements IDispatchObject
 
     public byte readUnsignedInt8(byte tmpByte)
     {
-        if (canRead(Byte.SIZE))
+        if (this.canRead(Byte.SIZE))
         {
-            tmpByte = mDynBuffer.getBuffer()[(int)mPos];
-            advPos(Byte.SIZE);
+            tmpByte = this.mDynBuffer.getBuffer()[(int)this.mPos];
+
+            this.advPos(Byte.SIZE);
         }
 
         return tmpByte;
@@ -173,11 +175,11 @@ public class MByteBuffer implements IDispatchObject
 
     public short readInt16(short tmpShort)
     {
-        if (canRead(Short.SIZE))
+        if (this.canRead(Short.SIZE))
         {
-            tmpShort = MBitConverter.ToInt16(mDynBuffer.getBuffer(), (int)mPos, mEndian);
+            tmpShort = MBitConverter.ToInt16(this.mDynBuffer.getBuffer(), (int)this.mPos, this.mEndian);
 
-            advPos(Short.SIZE);
+            this.advPos(Short.SIZE);
         }
 
         return tmpShort;
@@ -185,11 +187,11 @@ public class MByteBuffer implements IDispatchObject
 
     public short readUnsignedInt16(short tmpUshort)
     {
-        if (canRead(Short.SIZE))
+        if (this.canRead(Short.SIZE))
         {
-            tmpUshort = MBitConverter.ToUInt16(mDynBuffer.getBuffer(), (int)mPos, mEndian);
+            tmpUshort = MBitConverter.ToUInt16(this.mDynBuffer.getBuffer(), (int)this.mPos, this.mEndian);
 
-            advPos(Short.SIZE);
+            this.advPos(Short.SIZE);
         }
 
         return tmpUshort;
@@ -197,11 +199,11 @@ public class MByteBuffer implements IDispatchObject
 
     public int readInt32(int tmpInt)
     {
-        if (canRead(Integer.SIZE))
+        if (this.canRead(Integer.SIZE))
         {
-            tmpInt = MBitConverter.ToInt32(mDynBuffer.getBuffer(), (int)mPos, mEndian);
+            tmpInt = MBitConverter.ToInt32(this.mDynBuffer.getBuffer(), (int)this.mPos, this.mEndian);
 
-            advPos(Integer.SIZE);
+            this.advPos(Integer.SIZE);
         }
 
         return tmpInt;
@@ -209,12 +211,12 @@ public class MByteBuffer implements IDispatchObject
 
     public int readUnsignedInt32(int tmpUint)
     {
-        if (canRead(Integer.SIZE))
+        if (this.canRead(Integer.SIZE))
         {
             // 如果字节序和本地字节序不同，需要转换
-            tmpUint = MBitConverter.ToUInt32(mDynBuffer.getBuffer(), (int)mPos, mEndian);
+            tmpUint = MBitConverter.ToUInt32(this.mDynBuffer.getBuffer(), (int)this.mPos, this.mEndian);
 
-            advPos(Integer.SIZE);
+            this.advPos(Integer.SIZE);
         }
 
         return tmpUint;
@@ -222,11 +224,11 @@ public class MByteBuffer implements IDispatchObject
 
     public long readInt64(long tmpLong)
     {
-        if (canRead(Long.SIZE))
+        if (this.canRead(Long.SIZE))
         {
-            tmpLong = MBitConverter.ToInt64(mDynBuffer.getBuffer(), (int)mPos, mEndian);
+            tmpLong = MBitConverter.ToInt64(this.mDynBuffer.getBuffer(), (int)this.mPos, this.mEndian);
 
-            advPos(Long.SIZE);
+            this.advPos(Long.SIZE);
         }
 
         return tmpLong;
@@ -234,11 +236,11 @@ public class MByteBuffer implements IDispatchObject
 
     public long readUnsignedInt64(long tmpUlong)
     {
-        if (canRead(Long.SIZE))
+        if (this.canRead(Long.SIZE))
         {
-            tmpUlong = MBitConverter.ToUInt64(mDynBuffer.getBuffer(), (int)mPos, mEndian);
+            tmpUlong = MBitConverter.ToUInt64(this.mDynBuffer.getBuffer(), (int)this.mPos, this.mEndian);
 
-            advPos(Long.SIZE);
+            this.advPos(Long.SIZE);
         }
 
         return tmpUlong;
@@ -248,18 +250,18 @@ public class MByteBuffer implements IDispatchObject
     {
         if (canRead(Float.SIZE))
         {
-            if (mEndian != SystemEndian.msLocalEndian)
+            if (this.mEndian != SystemEndian.msLocalEndian)
             {
-                MArray.Copy(mDynBuffer.getBuffer(), (int)mPos, mReadFloatBytes, 0, Float.SIZE);
-                MArray.Reverse(mReadFloatBytes, 0, Float.SIZE);
-                tmpFloat = MBitConverter.ToFloat(mReadFloatBytes, (int)mPos);
+                MArray.Copy(this.mDynBuffer.getBuffer(), (int)this.mPos, this.mReadFloatBytes, 0, Float.SIZE);
+                MArray.Reverse(this.mReadFloatBytes, 0, Float.SIZE);
+                tmpFloat = MBitConverter.ToFloat(this.mReadFloatBytes, (int)this.mPos);
             }
             else
             {
-                tmpFloat = MBitConverter.ToFloat(mDynBuffer.getBuffer(), (int)mPos);
+                tmpFloat = MBitConverter.ToFloat(this.mDynBuffer.getBuffer(), (int)this.mPos);
             }
 
-            advPos(Float.SIZE);
+            this.advPos(Float.SIZE);
         }
 
         return tmpFloat;
@@ -267,20 +269,20 @@ public class MByteBuffer implements IDispatchObject
 
     public double readDouble(double tmpDouble)
     {
-        if (canRead(Double.SIZE))
+        if (this.canRead(Double.SIZE))
         {
             if (mEndian != SystemEndian.msLocalEndian)
             {
-                MArray.Copy(mDynBuffer.getBuffer(), (int)mPos, mReadDoubleBytes, 0, Double.SIZE);
-                MArray.Reverse(mReadDoubleBytes, 0, Double.SIZE);
-                tmpDouble = MBitConverter.ToDouble(mReadDoubleBytes, (int)mPos);
+                MArray.Copy(this.mDynBuffer.getBuffer(), (int)this.mPos, this.mReadDoubleBytes, 0, Double.SIZE);
+                MArray.Reverse(this.mReadDoubleBytes, 0, Double.SIZE);
+                tmpDouble = MBitConverter.ToDouble(this.mReadDoubleBytes, (int)this.mPos);
             }
             else
             {
-                tmpDouble = MBitConverter.ToDouble(mDynBuffer.getBuffer(), (int)mPos);
+                tmpDouble = MBitConverter.ToDouble(this.mDynBuffer.getBuffer(), (int)this.mPos);
             }
 
-            advPos(Double.SIZE);
+            this.advPos(Double.SIZE);
         }
 
         return tmpDouble;
@@ -292,10 +294,10 @@ public class MByteBuffer implements IDispatchObject
         MEncoding charSet = UtilApi.convGkEncode2EncodingEncoding(gkCharSet);
 
         // 如果是 unicode ，需要大小端判断
-        if (canRead(len))
+        if (this.canRead(len))
         {
-            tmpStr = charSet.GetString(mDynBuffer.getBuffer(), (int)mPos, (int)len);
-            advPos(len);
+            tmpStr = charSet.GetString(this.mDynBuffer.getBuffer(), (int)this.mPos, (int)len);
+            this.advPos(len);
         }
 
         return this;
@@ -304,10 +306,10 @@ public class MByteBuffer implements IDispatchObject
     // 这个是字节读取，没有大小端的区别
     public MByteBuffer readBytes(byte[] tmpBytes, int len)
     {
-        if (canRead(len))
+        if (this.canRead(len))
         {
-            MArray.Copy(mDynBuffer.getBuffer(), (int)mPos, tmpBytes, 0, (int)len);
-            advPos(len);
+            MArray.Copy(this.mDynBuffer.getBuffer(), (int)this.mPos, tmpBytes, 0, (int)len);
+            this.advPos(len);
         }
 
         return this;
@@ -316,58 +318,60 @@ public class MByteBuffer implements IDispatchObject
     // 如果要使用 writeInt8 ，直接使用 writeMultiByte 这个函数
     public void writeInt8(char value)
     {
-        if (!canWrite(Byte.SIZE))
+        if (!this.canWrite(Byte.SIZE))
         {
-            extendDeltaCapicity(Byte.SIZE);
+            this.extendDeltaCapicity(Byte.SIZE);
         }
-        mDynBuffer.getBuffer()[mPos] = (byte)value;
-        advPosAndLen(Byte.SIZE);
+
+        this.mDynBuffer.getBuffer()[this.mPos] = (byte)value;
+        this.advPosAndLen(Byte.SIZE);
     }
 
     public void writeUnsignedInt8(byte value)
     {
-        if (!canWrite(Byte.SIZE))
+        if (!this.canWrite(Byte.SIZE))
         {
-            extendDeltaCapicity(Byte.SIZE);
+            this.extendDeltaCapicity(Byte.SIZE);
         }
-        mDynBuffer.getBuffer()[mPos] = value;
-        advPosAndLen(Byte.SIZE);
+
+        this.mDynBuffer.getBuffer()[this.mPos] = value;
+        this.advPosAndLen(Byte.SIZE);
     }
 
     public void writeInt16 (short value)
     {
-        if (!canWrite(Short.SIZE))
+        if (!this.canWrite(Short.SIZE))
         {
-            extendDeltaCapicity(Short.SIZE);
+            this.extendDeltaCapicity(Short.SIZE);
         }
 
-        MBitConverter.GetBytes(value, mDynBuffer.getBuffer(), (int)mPos, mEndian);
+        MBitConverter.GetBytes(value, this.mDynBuffer.getBuffer(), (int)this.mPos, this.mEndian);
 
-        advPosAndLen(Short.SIZE);
+        this.advPosAndLen(Short.SIZE);
     }
 
     public void writeUnsignedInt16(short value)
     {
-        if (!canWrite(Short.SIZE))
+        if (!this.canWrite(Short.SIZE))
         {
-            extendDeltaCapicity(Short.SIZE);
+            this.extendDeltaCapicity(Short.SIZE);
         }
 
-        MBitConverter.GetBytes(value, mDynBuffer.getBuffer(), (int)mPos, mEndian);
+        MBitConverter.GetBytes(value, this.mDynBuffer.getBuffer(), (int)this.mPos, this.mEndian);
 
-        advPosAndLen(Short.SIZE);
+        this.advPosAndLen(Short.SIZE);
     }
 
     public void writeInt32(int value)
     {
-        if (!canWrite(Integer.SIZE))
+        if (!this.canWrite(Integer.SIZE))
         {
-            extendDeltaCapicity(Integer.SIZE);
+            this.extendDeltaCapicity(Integer.SIZE);
         }
 
-        MBitConverter.GetBytes(value, mDynBuffer.getBuffer(), (int)mPos, mEndian);
+        MBitConverter.GetBytes(value, this.mDynBuffer.getBuffer(), (int)this.mPos, this.mEndian);
 
-        advPosAndLen(Integer.SIZE);
+        this.advPosAndLen(Integer.SIZE);
     }
 
     public void writeUnsignedInt32 (int value)
@@ -377,79 +381,79 @@ public class MByteBuffer implements IDispatchObject
 
     public void writeUnsignedInt32 (int value, boolean bchangeLen)
     {
-        if (!canWrite(Integer.SIZE))
+        if (!this.canWrite(Integer.SIZE))
         {
-            extendDeltaCapicity(Integer.SIZE);
+            this.extendDeltaCapicity(Integer.SIZE);
         }
 
-        MBitConverter.GetBytes(value, mDynBuffer.getBuffer(), (int)mPos, mEndian);
+        MBitConverter.GetBytes(value, this.mDynBuffer.getBuffer(), (int)this.mPos, this.mEndian);
 
         if (bchangeLen)
         {
-            advPosAndLen(Integer.SIZE);
+            this.advPosAndLen(Integer.SIZE);
         }
         else
         {
-            advPos(Integer.SIZE);
+            this.advPos(Integer.SIZE);
         }
     }
 
     public void writeInt64(long value)
     {
-        if (!canWrite(Long.SIZE))
+        if (!this.canWrite(Long.SIZE))
         {
-            extendDeltaCapicity(Long.SIZE);
+            this.extendDeltaCapicity(Long.SIZE);
         }
 
-        MBitConverter.GetBytes(value, mDynBuffer.getBuffer(), (int)mPos, mEndian);
+        MBitConverter.GetBytes(value, this.mDynBuffer.getBuffer(), (int)this.mPos, this.mEndian);
 
-        advPosAndLen(Long.SIZE);
+        this.advPosAndLen(Long.SIZE);
     }
 
     public void writeUnsignedInt64(long value)
     {
-        if (!canWrite(Long.SIZE))
+        if (!this.canWrite(Long.SIZE))
         {
-            extendDeltaCapicity(Long.SIZE);
+            this.extendDeltaCapicity(Long.SIZE);
         }
 
-        MBitConverter.GetBytes(value, mDynBuffer.getBuffer(), (int)mPos, mEndian);
+        MBitConverter.GetBytes(value, this.mDynBuffer.getBuffer(), (int)this.mPos, this.mEndian);
 
-        advPosAndLen(Long.SIZE);
+        this.advPosAndLen(Long.SIZE);
     }
 
     public void writeFloat(float value)
     {
-        if (!canWrite(Float.SIZE))
+        if (!this.canWrite(Float.SIZE))
         {
-            extendDeltaCapicity(Float.SIZE);
+            this.extendDeltaCapicity(Float.SIZE);
         }
 
-        mWriteFloatBytes = MBitConverter.GetBytes(value);
-        if (mEndian != SystemEndian.msLocalEndian)
+        this.mWriteFloatBytes = MBitConverter.GetBytes(value);
+        if (this.mEndian != SystemEndian.msLocalEndian)
         {
-            MArray.Reverse(mWriteFloatBytes);
+            MArray.Reverse(this.mWriteFloatBytes);
         }
-        MArray.Copy(mWriteFloatBytes, 0, mDynBuffer.getBuffer(), mPos, Float.SIZE);
+        MArray.Copy(this.mWriteFloatBytes, 0, this.mDynBuffer.getBuffer(), this.mPos, Float.SIZE);
 
-        advPosAndLen(Float.SIZE);
+        this.advPosAndLen(Float.SIZE);
     }
 
     public void writeDouble(double value)
     {
-        if (!canWrite(Double.SIZE))
+        if (!this.canWrite(Double.SIZE))
         {
-            extendDeltaCapicity(Double.SIZE);
+            this.extendDeltaCapicity(Double.SIZE);
         }
 
-        mWriteDoubleBytes = MBitConverter.GetBytes(value);
-        if (mEndian != SystemEndian.msLocalEndian)
+        this.mWriteDoubleBytes = MBitConverter.GetBytes(value);
+        if (this.mEndian != SystemEndian.msLocalEndian)
         {
-            MArray.Reverse(mWriteDoubleBytes);
+            MArray.Reverse(this.mWriteDoubleBytes);
         }
-        MArray.Copy(mWriteDoubleBytes, 0, mDynBuffer.getBuffer(), mPos, Double.SIZE);
+        MArray.Copy(this.mWriteDoubleBytes, 0, this.mDynBuffer.getBuffer(), this.mPos, Double.SIZE);
 
-        advPosAndLen(Double.SIZE);
+        this.advPosAndLen(Double.SIZE);
     }
 
     public void writeBytes(byte[] value, int start, int len)
@@ -462,18 +466,18 @@ public class MByteBuffer implements IDispatchObject
     {
         if (len > 0)            // 如果有长度才写入
         {
-            if (!canWrite(len))
+            if (!this.canWrite(len))
             {
-                extendDeltaCapicity(len);
+                this.extendDeltaCapicity(len);
             }
-            MArray.Copy(value, start, mDynBuffer.getBuffer(), mPos, len);
+            MArray.Copy(value, start, this.mDynBuffer.getBuffer(), this.mPos, len);
             if (bchangeLen)
             {
-                advPosAndLen(len);
+                this.advPosAndLen(len);
             }
             else
             {
-                advPos(len);
+                this.advPos(len);
             }
         }
     }
@@ -495,31 +499,31 @@ public class MByteBuffer implements IDispatchObject
                 len = num;
             }
 
-            if (!canWrite((int)len))
+            if (!this.canWrite((int)len))
             {
-                extendDeltaCapicity((int)len);
+                this.extendDeltaCapicity((int)len);
             }
 
             if (num < len)
             {
-                MArray.Copy(charSet.GetBytes(value), 0, mDynBuffer.getBuffer(), mPos, num);
+                MArray.Copy(charSet.GetBytes(value), 0, this.mDynBuffer.getBuffer(), this.mPos, num);
                 // 后面补齐 0
-                MArray.Clear(mDynBuffer.getBuffer(), (int)(mPos + num), len - num);
+                MArray.Clear(this.mDynBuffer.getBuffer(), (int)(this.mPos + num), len - num);
             }
             else
             {
-                MArray.Copy(charSet.GetBytes(value), 0, mDynBuffer.getBuffer(), mPos, len);
+                MArray.Copy(charSet.GetBytes(value), 0, this.mDynBuffer.getBuffer(), this.mPos, len);
             }
-            advPosAndLen((int)len);
+            this.advPosAndLen((int)len);
         }
         else
         {
-            if (!canWrite((int)len))
+            if (!this.canWrite((int)len))
             {
-                extendDeltaCapicity((int)len);
+                this.extendDeltaCapicity((int)len);
             }
 
-            advPosAndLen((int)len);
+            this.advPosAndLen((int)len);
         }
     }
 
@@ -547,38 +551,38 @@ public class MByteBuffer implements IDispatchObject
         this.setPosition(destStartPos + srclen_);
         if (lastLeft > 0)
         {
-            writeBytes(mDynBuffer.getBuffer(), destStartPos + destlen_, lastLeft, false);          // 这个地方自己区域覆盖自己区域，可以保证自己不覆盖自己区域
+            writeBytes(this.mDynBuffer.getBuffer(), destStartPos + destlen_, lastLeft, false);          // 这个地方自己区域覆盖自己区域，可以保证自己不覆盖自己区域
         }
 
         this.setPosition(destStartPos);
-        writeBytes(srcBytes, srcStartPos, srclen_, false);
+        this.writeBytes(srcBytes, srcStartPos, srclen_, false);
     }
 
     public void insertUnsignedInt32(int value)
     {
         this.setLength(this.getLength() + Integer.SIZE);       // 扩大长度
-        writeUnsignedInt32(value);     // 写入
+        this.writeUnsignedInt32(value);     // 写入
     }
 
     public MByteBuffer readUnsignedLongByOffset(long tmpUlong, int offset)
     {
         this.setPosition(offset);
-        readUnsignedInt64(tmpUlong);
+        this.readUnsignedInt64(tmpUlong);
         return this;
     }
 
     // 写入 EOF 结束符
     public void end()
     {
-        mDynBuffer.getBuffer()[this.getLength()] = 0;
+        this.mDynBuffer.getBuffer()[this.getLength()] = 0;
     }
 
     public MByteBuffer readBoolean(boolean tmpBool)
     {
-        if (canRead(Byte.SIZE))
+        if (this.canRead(Byte.SIZE))
         {
-            tmpBool = MBitConverter.ToBoolean(mDynBuffer.getBuffer(), (int)mPos);
-            advPos(Byte.SIZE);
+            tmpBool = MBitConverter.ToBoolean(this.mDynBuffer.getBuffer(), (int)this.mPos);
+            this.advPos(Byte.SIZE);
         }
 
         return this;

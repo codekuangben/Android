@@ -1,5 +1,6 @@
 package AppFrame.App;
 
+import AppFrame.Test.TestBasic.TestMain;
 import SDK.Lib.Core.GObject;
 import SDK.Lib.FrameWork.Ctx;
 
@@ -22,6 +23,10 @@ public class MyApp extends GObject
         // 初始化 App
         ToolSetSys.instance();
         ToolSetSys.mInstance.init();
+
+        // 单元测试
+        TestMain testMain = new TestMain();
+        testMain.run();
     }
 
     public  void dispose()

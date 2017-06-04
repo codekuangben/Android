@@ -4,9 +4,9 @@ import SDK.Lib.EventHandle.*;
 import SDK.Lib.Tools.*;
 
 /**
- *@brief ByteBuffer 功能
+ *@brief MByteBuffer 功能
  */
-public class ByteBuffer implements IDispatchObject
+public class MByteBuffer implements IDispatchObject
 {
     // 读写临时缓存，这个如果是单线程其实可以共享的
     public byte[] mWriteFloatBytes = null;
@@ -21,22 +21,22 @@ public class ByteBuffer implements IDispatchObject
 
     protected byte[] mPadBytes;
 
-    public ByteBuffer()
+    public MByteBuffer()
     {
         this(BufferCV.INIT_CAPACITY, BufferCV.MAX_CAPACITY, EEndian.eLITTLE_ENDIAN);
     }
 
-    public ByteBuffer(int initCapacity)
+    public MByteBuffer(int initCapacity)
     {
         this(initCapacity, BufferCV.MAX_CAPACITY, EEndian.eLITTLE_ENDIAN);
     }
 
-    public ByteBuffer(int initCapacity, int maxCapacity)
+    public MByteBuffer(int initCapacity, int maxCapacity)
     {
         this(initCapacity, maxCapacity, EEndian.eLITTLE_ENDIAN);
     }
 
-    public ByteBuffer(int initCapacity, int maxCapacity, EEndian endian)
+    public MByteBuffer(int initCapacity, int maxCapacity, EEndian endian)
     {
         this.mEndian = endian;        // 缓冲区默认是小端的数据，因为服务器是 linux 的
         this.mDynBuffer = new DynByteBuffer(initCapacity, maxCapacity);
@@ -149,7 +149,7 @@ public class ByteBuffer implements IDispatchObject
         this.mPos -= (int)delta;
     }
 
-    public ByteBuffer readInt8(char tmpByte)
+    public MByteBuffer readInt8(char tmpByte)
     {
         if (canRead(Character.SIZE))
         {
@@ -286,8 +286,8 @@ public class ByteBuffer implements IDispatchObject
         return tmpDouble;
     }
 
-    //public ByteBuffer readMultiByte(ref string tmpStr, uint len, Encoding charSet)
-    public ByteBuffer readMultiByte(String tmpStr, int len, GkEncode gkCharSet)
+    //public MByteBuffer readMultiByte(ref string tmpStr, uint len, Encoding charSet)
+    public MByteBuffer readMultiByte(String tmpStr, int len, GkEncode gkCharSet)
     {
         MEncoding charSet = UtilApi.convGkEncode2EncodingEncoding(gkCharSet);
 
@@ -302,7 +302,7 @@ public class ByteBuffer implements IDispatchObject
     }
 
     // 这个是字节读取，没有大小端的区别
-    public ByteBuffer readBytes(byte[] tmpBytes, int len)
+    public MByteBuffer readBytes(byte[] tmpBytes, int len)
     {
         if (canRead(len))
         {
@@ -560,7 +560,7 @@ public class ByteBuffer implements IDispatchObject
         writeUnsignedInt32(value);     // 写入
     }
 
-    public ByteBuffer readUnsignedLongByOffset(long tmpUlong, int offset)
+    public MByteBuffer readUnsignedLongByOffset(long tmpUlong, int offset)
     {
         this.setPosition(offset);
         readUnsignedInt64(tmpUlong);
@@ -573,7 +573,7 @@ public class ByteBuffer implements IDispatchObject
         mDynBuffer.getBuffer()[this.getLength()] = 0;
     }
 
-    public ByteBuffer readBoolean(boolean tmpBool)
+    public MByteBuffer readBoolean(boolean tmpBool)
     {
         if (canRead(Byte.SIZE))
         {

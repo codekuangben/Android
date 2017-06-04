@@ -7,8 +7,8 @@ public class MsgBuffer
 {
     protected CircularBuffer mCircularBuffer;  // 环形缓冲区
 
-    protected ByteBuffer mHeaderBA;            // 主要是用来分析头的大小
-    protected ByteBuffer mMsgBodyBA;           // 返回的字节数组
+    protected MByteBuffer mHeaderBA;            // 主要是用来分析头的大小
+    protected MByteBuffer mMsgBodyBA;           // 返回的字节数组
 
     public MsgBuffer()
     {
@@ -23,16 +23,16 @@ public class MsgBuffer
     public MsgBuffer(int initCapacity, int maxCapacity)
     {
         mCircularBuffer = new CircularBuffer(initCapacity, maxCapacity);
-        mHeaderBA = new ByteBuffer();
-        mMsgBodyBA = new ByteBuffer();
+        mHeaderBA = new MByteBuffer();
+        mMsgBodyBA = new MByteBuffer();
     }
 
-    public ByteBuffer getHeaderBA()
+    public MByteBuffer getHeaderBA()
     {
         return mHeaderBA;
     }
 
-    public ByteBuffer getMsgBodyBA()
+    public MByteBuffer getMsgBodyBA()
     {
         return mMsgBodyBA;
     }

@@ -1,17 +1,16 @@
-﻿package SDK.Lib.DelayHandle;
+package SDK.Lib.DelayHandle;
 
 import SDK.Lib.Core.GObject;
 import SDK.Lib.DataStruct.NoOrPriorityList.INoOrPriorityList;
 import SDK.Lib.DataStruct.NoOrPriorityList.INoOrPriorityObject;
 import SDK.Lib.EventHandle.ICalleeObject;
-import SDK.Lib.EventHandle.ICalleeObjectNoRetNoParam;
 import SDK.Lib.EventHandle.IDispatchObject;
 import SDK.Lib.FrameHandle.LoopDepth;
 
 /**
  * @brief 当需要管理的对象可能在遍历中间添加的时候，需要这个管理器
  */
-public class DelayNoOrPriorityHandleMgrBase extends GObject implements ICalleeObjectNoRetNoParam
+public class DelayNoOrPriorityHandleMgrBase extends GObject implements ICalleeObject
 {
     protected INoOrPriorityList mDeferredAddQueue;
     protected INoOrPriorityList mDeferredDelQueue;
@@ -21,7 +20,7 @@ public class DelayNoOrPriorityHandleMgrBase extends GObject implements ICalleeOb
     public DelayNoOrPriorityHandleMgrBase()
     {
         this.mLoopDepth = new LoopDepth();
-        this.mLoopDepth.setZeroHandle(this);
+        this.mLoopDepth.setZeroHandle(this, null);
     }
 
     public void init()
@@ -68,7 +67,7 @@ public class DelayNoOrPriorityHandleMgrBase extends GObject implements ICalleeOb
         }
     }
 
-    public void call()
+    public void call(IDispatchObject dispObj, int eventId)
     {
         this.processDelayObjects();
     }

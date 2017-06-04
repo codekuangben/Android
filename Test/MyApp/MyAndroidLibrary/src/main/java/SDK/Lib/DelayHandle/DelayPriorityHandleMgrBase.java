@@ -1,4 +1,4 @@
-﻿package SDK.Lib.DelayHandle;
+package SDK.Lib.DelayHandle;
 
 import SDK.Lib.DataStruct.NoOrPriorityList.PriorityList.PriorityList;
 

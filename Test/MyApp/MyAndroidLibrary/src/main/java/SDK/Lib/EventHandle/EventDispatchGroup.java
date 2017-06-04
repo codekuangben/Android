@@ -22,7 +22,7 @@ public class EventDispatchGroup
         }
     }
 
-    public void addEventHandle(int groupID, ICalleeObject pThis, IDispatchObject handle)
+    public void addEventHandle(int groupID, ICalleeObject pThis, IDispatchObject handle, int eventId)
     {
         // 如果没有就创建一个
         if (!this.mGroupID2DispatchDic.ContainsKey(groupID))
@@ -30,14 +30,14 @@ public class EventDispatchGroup
             addEventDispatch(groupID, new EventDispatch());
         }
 
-        this.mGroupID2DispatchDic.get(groupID).addEventHandle(pThis, handle);
+        this.mGroupID2DispatchDic.get(groupID).addEventHandle(pThis, handle, eventId);
     }
 
-    public void removeEventHandle(int groupID, ICalleeObject pThis, IDispatchObject handle)
+    public void removeEventHandle(int groupID, ICalleeObject pThis, IDispatchObject handle, int eventId)
     {
         if (this.mGroupID2DispatchDic.ContainsKey(groupID))
         {
-            this.mGroupID2DispatchDic.get(groupID).removeEventHandle(pThis, handle);
+            this.mGroupID2DispatchDic.get(groupID).removeEventHandle(pThis, handle, eventId);
 
             // 如果已经没有了
             if (!this.mGroupID2DispatchDic.get(groupID).hasEventHandle())

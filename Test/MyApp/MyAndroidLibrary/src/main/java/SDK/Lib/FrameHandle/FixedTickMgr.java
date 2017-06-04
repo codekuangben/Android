@@ -8,8 +8,8 @@ public class FixedTickMgr extends TickMgr
     }
 
     @Override
-    protected void onExecAdvance(float delta)
+    protected void onExecAdvance(float delta, TickMode tickMode)
     {
-        super.onExecAdvance(delta);
+        super.onExecAdvance(delta, tickMode);
     }
 }

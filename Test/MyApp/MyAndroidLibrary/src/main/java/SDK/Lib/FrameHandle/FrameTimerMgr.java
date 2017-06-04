@@ -4,11 +4,11 @@
 package SDK.Lib.FrameHandle;
 
 import SDK.Lib.DataStruct.MList;
-import SDK.Lib.DelayHandle.DelayHandleMgrBase;
+import SDK.Lib.DelayHandle.DelayPriorityHandleMgrBase;
 import SDK.Lib.DelayHandle.IDelayHandleItem;
 import SDK.Lib.Tools.UtilApi;
 
-public class FrameTimerMgr extends DelayHandleMgrBase
+public class FrameTimerMgr extends DelayPriorityHandleMgrBase
 {
     protected MList<FrameTimerItem> mTimerList;     // 当前所有的定时器列表
 
@@ -27,12 +27,6 @@ public class FrameTimerMgr extends DelayHandleMgrBase
     public void dispose()
     {
 
-    }
-
-    @Override
-    protected void addObject(IDelayHandleItem delayObject)
-    {
-        this.addObject(delayObject, 0);
     }
 
     @Override
@@ -62,7 +56,7 @@ public class FrameTimerMgr extends DelayHandleMgrBase
 
             if (this.mLoopDepth.isInDepth())
             {
-                super.addObject(delayObject);
+                super.addObject(delayObject, 0);
             }
             else
             {

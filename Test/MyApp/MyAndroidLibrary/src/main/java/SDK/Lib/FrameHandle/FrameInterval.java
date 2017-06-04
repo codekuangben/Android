@@ -1,4 +1,4 @@
-﻿package SDK.Lib.FrameHandle;
+package SDK.Lib.FrameHandle;
 
 /**
  * @brief 帧间隔

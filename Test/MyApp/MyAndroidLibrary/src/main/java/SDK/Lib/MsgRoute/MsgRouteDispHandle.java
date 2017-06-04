@@ -13,14 +13,14 @@ public class MsgRouteDispHandle
         this.mEventDispatchGroup = new EventDispatchGroup();
     }
 
-    public void addRouteHandle(int evtId, MsgRouteHandleBase pThis, IDispatchObject handle)
+    public void addRouteHandle(int evtId, MsgRouteHandleBase pThis, IDispatchObject handle, int eventId)
     {
-        this.mEventDispatchGroup.addEventHandle(evtId, pThis, handle);
+        this.mEventDispatchGroup.addEventHandle(evtId, pThis, handle, eventId);
     }
 
-    public void removeRouteHandle(int evtId, MsgRouteHandleBase pThis, IDispatchObject handle)
+    public void removeRouteHandle(int groupID, MsgRouteHandleBase pThis, IDispatchObject handle, int eventId)
     {
-        this.mEventDispatchGroup.removeEventHandle(evtId, pThis, handle);
+        this.mEventDispatchGroup.removeEventHandle(groupID, pThis, handle, eventId);
     }
 
     public void handleMsg(MsgRouteBase msg)

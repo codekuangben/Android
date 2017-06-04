@@ -1,4 +1,4 @@
-﻿package SDK.Lib.Functor;
+package SDK.Lib.Functor;
 
 import SDK.Lib.EventHandle.ICalleeObject;
 import SDK.Lib.EventHandle.IDispatchObject;

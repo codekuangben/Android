@@ -1,4 +1,4 @@
-﻿package SDK.Lib.DataStruct.NoOrPriorityList.PriorityList;
+package SDK.Lib.DataStruct.NoOrPriorityList.PriorityList;
 
 public enum PrioritySort
 {

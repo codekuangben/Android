@@ -1,4 +1,4 @@
-﻿package SDK.Lib.DataStruct.NoOrPriorityList.PriorityList;
+package SDK.Lib.DataStruct.NoOrPriorityList.PriorityList;
 
 import SDK.Lib.DataStruct.NoOrPriorityList.INoOrPriorityObject;
 

@@ -1,4 +1,4 @@
-﻿package SDK.Lib.DataStruct.NoOrPriorityList.NoPriorityList;
+package SDK.Lib.DataStruct.NoOrPriorityList.NoPriorityList;
 
 import SDK.Lib.Core.GObject;
 import SDK.Lib.DataStruct.MDictionary;

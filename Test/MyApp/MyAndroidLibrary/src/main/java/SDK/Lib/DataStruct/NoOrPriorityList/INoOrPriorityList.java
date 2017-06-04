@@ -1,4 +1,4 @@
-﻿package SDK.Lib.DataStruct.NoOrPriorityList;
+package SDK.Lib.DataStruct.NoOrPriorityList;
 
 /**
  * @brief 非优先级或者优先级列表

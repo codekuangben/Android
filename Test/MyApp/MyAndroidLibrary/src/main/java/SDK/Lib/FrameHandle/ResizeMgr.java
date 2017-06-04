@@ -1,11 +1,12 @@
 package SDK.Lib.FrameHandle;
 
 import SDK.Lib.DataStruct.MList;
+import SDK.Lib.DataStruct.NoOrPriorityList.INoOrPriorityObject;
 import SDK.Lib.DelayHandle.DelayPriorityHandleMgrBase;
 import SDK.Lib.DelayHandle.IDelayHandleItem;
 import SDK.Lib.Tools.UtilApi;
 
-public class ResizeMgr extends DelayPriorityHandleMgrBase implements ITickedObject, IDelayHandleItem
+public class ResizeMgr extends DelayPriorityHandleMgrBase implements ITickedObject, IDelayHandleItem, INoOrPriorityObject
 {
     protected int mPreWidth;       // 之前宽度
     protected int mPreHeight;

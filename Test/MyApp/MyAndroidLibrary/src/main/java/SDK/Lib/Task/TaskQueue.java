@@ -11,6 +11,11 @@ public class TaskQueue extends LockQueue<ITask>
         super(name);
     }
 
+    public void setTaskThreadPool(TaskThreadPool taskThreadPool)
+    {
+        this.mTaskThreadPool = taskThreadPool;
+    }
+
     @Override
     public void push(ITask item)
     {

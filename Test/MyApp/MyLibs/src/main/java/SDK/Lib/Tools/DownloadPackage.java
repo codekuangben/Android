@@ -1,6 +1,10 @@
 package SDK.Lib.NetWork;
 
+import android.content.Intent;
+import android.net.Uri;
+
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 

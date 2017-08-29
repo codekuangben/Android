@@ -47,21 +47,23 @@ public class EventDispatchGroup
         }
         else
         {
-
+            // 输出日志
         }
     }
 
     public void dispatchEvent(int groupID, IDispatchObject dispatchObject)
     {
         this.mIsInLoop = true;
+
         if (this.mGroupID2DispatchDic.ContainsKey(groupID))
         {
             this.mGroupID2DispatchDic.get(groupID).dispatchEvent(dispatchObject);
         }
         else
         {
-
+            // 输出日志
         }
+
         this.mIsInLoop = false;
     }
 
@@ -78,7 +80,7 @@ public class EventDispatchGroup
         }
         else
         {
-
+            // 输出日志
         }
     }
 
@@ -93,12 +95,12 @@ public class EventDispatchGroup
             }
             else
             {
-
+                // 输出日志
             }
         }
         else
         {
-
+            // 输出日志
         }
     }
 

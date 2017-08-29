@@ -9,19 +9,16 @@ import SDK.Lib.DelayHandle.*;
  */
 public class EventDispatch extends DelayPriorityHandleMgrBase
 {
-    protected int mEventId;
     protected MList<EventDispatchFunctionObject> mHandleList;
-    protected int mUniqueId;       // 唯一 Id ，调试使用
+    protected int mDebugUniqueId;       // 唯一 Id ，调试使用
 
     public EventDispatch()
     {
-        this.mEventId = 0;
         this.mHandleList = new MList<EventDispatchFunctionObject>();
     }
 
     public EventDispatch(int eventId_)
     {
-        this.mEventId = eventId_;
         this.mHandleList = new MList<EventDispatchFunctionObject>();
     }
 
@@ -32,13 +29,13 @@ public class EventDispatch extends DelayPriorityHandleMgrBase
 
     public int getUniqueId()
     {
-        return this.mUniqueId;
+        return this.mDebugUniqueId;
     }
 
     public void setUniqueId(int value)
     {
-        this.mUniqueId = value;
-        this.mHandleList.setUniqueId(this.mUniqueId);
+        this.mDebugUniqueId = value;
+        this.mHandleList.setUniqueId(this.mDebugUniqueId);
     }
 
     @Override
@@ -79,7 +76,7 @@ public class EventDispatch extends DelayPriorityHandleMgrBase
         }
         else
         {
-
+            // 输出日志
         }
     }
 

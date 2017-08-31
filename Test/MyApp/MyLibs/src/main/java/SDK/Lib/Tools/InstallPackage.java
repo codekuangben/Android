@@ -18,7 +18,7 @@ public class InstallPackage
 	/**
 	 * 安装包
 	 */
-    public static boolean installPackage(Activity active, String apkFilePath)
+    public static void installPackage(Activity active, String apkFilePath)
     {
 		//apk文件的本地路径
 		File apkfile = new File(apkFilePath);
@@ -32,6 +32,5 @@ public class InstallPackage
 		active.startActivity(intent);
 		//关闭旧版本的应用程序的进程
 		android.os.Process.killProcess(android.os.Process.myPid());
-		return true;
     }
 }

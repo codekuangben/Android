@@ -1,6 +1,11 @@
-package SDK.Lib.NetWork;
+package SDK.Lib.Tools;
+
+import android.app.Activity;
+import android.content.Intent;
+import android.net.Uri;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
@@ -13,7 +18,7 @@ public class InstallPackage
 	/**
 	 * 安装包
 	 */
-    public static boolean installPackage(String host, int pingCount, StringBuffer stringBuffer)
+    public static boolean installPackage(Activity active, String apkFilePath)
     {
 		//apk文件的本地路径
 		File apkfile = new File(apkFilePath);
@@ -24,8 +29,9 @@ public class InstallPackage
 		//为这个新apk开启一个新的activity栈
 		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		//开始安装
-		startActivity(intent);
+		active.startActivity(intent);
 		//关闭旧版本的应用程序的进程
 		android.os.Process.killProcess(android.os.Process.myPid());
+		return true;
     }
 }

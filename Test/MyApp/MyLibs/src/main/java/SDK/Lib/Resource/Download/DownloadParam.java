@@ -1,15 +1,21 @@
 ﻿package SDK.Lib.Resource.Download;
 
+import SDK.Lib.EventHandle.IDispatchObject;
+import SDK.Lib.Resource.ResLoadData.ResLoadType;
+import SDK.Lib.Resource.ResLoadData.ResPackType;
+import SDK.Lib.Tools.UtilApi;
+import SDK.Lib.Tools.Util;
+
 /**
  * @brief 下载参数
  */
 public class DownloadParam
 {
-    public string mLoadPath;
-    public string mOrigPath;
-    public string mResUniqueId;
-    public string mExtName;
-    public string mVersion;
+    public String mLoadPath;
+    public String mOrigPath;
+    public String mResUniqueId;
+    public String mExtName;
+    public String mVersion;
 
     public MEventDispatchAction<IDispatchObject> mLoadEventHandle;
     public MEventDispatchAction<IDispatchObject> mProgressEventHandle;
@@ -17,13 +23,11 @@ public class DownloadParam
     public ResLoadType mResLoadType;
     public ResPackType mResPackType;
 
-    public LuaInterface.LuaTable mLuaTable;
-    public LuaInterface.LuaFunction mLuaFunction;
-    public bool mIsWriteFile;       // 下载完成是否写入文件
+    public boolean mIsWriteFile;       // 下载完成是否写入文件
     public long mFileLen;           // 文件长度，如果使用 HttpWeb 下载，使用这个字段判断文件长度
-    protected bool mIsAddVerInLocalFileName;    // 本地文件名字是否添加版本号
-    protected bool mIsNeedUncompress;
-    protected string mDownloadURL;  // 下载地址
+    protected boolean mIsAddVerInLocalFileName;    // 本地文件名字是否添加版本号
+    protected boolean mIsNeedUncompress;
+    protected String mDownloadURL;  // 下载地址
 
     public DownloadParam()
     {
@@ -47,7 +51,7 @@ public class DownloadParam
         this.mDownloadURL = "";
     }
 
-    public void setPath(string origPath)
+    public void setPath(String origPath)
     {
         this.mOrigPath = origPath;
         this.mLoadPath = mOrigPath;
@@ -66,22 +70,22 @@ public class DownloadParam
         }
     }
 
-    public void setIsNeedUncompress(bool value)
+    public void setIsNeedUncompress(boolean value)
     {
         this.mIsNeedUncompress = value;
     }
 
-    public bool getIsNeedUncompress()
+    public boolean getIsNeedUncompress()
     {
         return this.mIsNeedUncompress;
     }
 
-    public string getDownloadURL()
+    public String getDownloadURL()
     {
         return this.mDownloadURL;
     }
 
-    public void setDownloadURL(string value)
+    public void setDownloadURL(String value)
     {
         this.mDownloadURL = value;
     }

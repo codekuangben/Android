@@ -1,20 +1,30 @@
 ﻿package SDK.Lib.Resource.Download;
 
+import SDK.Lib.EventHandle.IDispatchObject;
+import SDK.Lib.EventHandle.ResEventDispatch;
+import SDK.Lib.FrameWork.Ctx;
+import SDK.Lib.Log.LogTypeId;
+import SDK.Lib.Resource.Progress.ILoadProgress;
+import SDK.Lib.Resource.RefAsync.RefCountResLoadResultNotify;
+import SDK.Lib.Resource.ResLoadData.ResLoadType;
+import SDK.Lib.Resource.ResLoadData.ResPackType;
+import SDK.Lib.Task.ITask;
+
 /**
 * @brief 从网络下载数据
 */
-public class DownloadItem : ITask, IDispatchObject, ILoadProgress
+public class DownloadItem implements ITask, IDispatchObject, ILoadProgress
 {
     protected byte[] mBytes;
-    protected string mText;
-    protected string mVersion;
+    protected String mText;
+    protected String mVersion;
 
-    protected string mLocalPath;            // 本地文件系统目录
-    protected string mOrigPath;             // 原始的加载目录
-    protected string mLoadPath;             // 加载目录
-    protected string mResUniqueId;          // 资源 Unique Id
-    protected string mDownloadNoVerPath;    // 下载目录，没有版本号
-    protected string mDownloadVerPath;      // 下载目录，有版本号
+    protected String mLocalPath;            // 本地文件系统目录
+    protected String mOrigPath;             // 原始的加载目录
+    protected String mLoadPath;             // 加载目录
+    protected String mResUniqueId;          // 资源 Unique Id
+    protected String mDownloadNoVerPath;    // 下载目录，没有版本号
+    protected String mDownloadVerPath;      // 下载目录，有版本号
 
     protected DownloadType mDownloadType;   // 加载类型
     protected ResLoadType mResLoadType;
@@ -23,13 +33,13 @@ public class DownloadItem : ITask, IDispatchObject, ILoadProgress
     protected RefCountResLoadResultNotify mRefCountResLoadResultNotify;
     protected ResEventDispatch mAllLoadResEventDispatch;    // 事件分发器，这个是记录逻辑的事件分发器
 
-    protected bool mIsWriteFile;
+    protected Boolean mIsWriteFile;
     protected long mFileLen;
-    protected uint mUniqueId;
-    protected bool mIsAddVerInLocalFileName;    // 本地文件名字是否添加版本号
-    protected bool mIsNeedUncompress;
+    protected int mUniqueId;
+    protected Boolean mIsAddVerInLocalFileName;    // 本地文件名字是否添加版本号
+    protected Boolean mIsNeedUncompress;
 
-    protected string mDownloadURL;
+    protected String mDownloadURL;
 
     public DownloadItem()
     {
@@ -62,7 +72,7 @@ public class DownloadItem : ITask, IDispatchObject, ILoadProgress
         this.mAllLoadResEventDispatch = value;
     }
 
-    virtual public void reset()
+    public void reset()
     {
         this.mBytes = null;
         this.mText = "";
@@ -75,7 +85,7 @@ public class DownloadItem : ITask, IDispatchObject, ILoadProgress
         this.mDownloadNoVerPath = "";
         this.mDownloadVerPath = "";
 
-        this.mDownloadType = DownloadType.eHttpWeb;
+        this.mDownloadType = DownloadType.eWebRequest;
         this.mDownloadURL = "";
 
         this.mRefCountResLoadResultNotify.getResLoadState().reset();
@@ -83,29 +93,24 @@ public class DownloadItem : ITask, IDispatchObject, ILoadProgress
         this.mRefCountResLoadResultNotify.getLoadResEventDispatch().clearEventHandle();
     }
 
-    public string getLoadPath()
+    public String getLoadPath()
     {
         return this.mLoadPath;
     }
 
-    public void setLoadPath(string value)
+    public void setLoadPath(String value)
     {
         this.mLoadPath = value;
     }
 
-    public string getOrigPath()
+    public String getOrigPath()
     {
         return this.mOrigPath;
     }
 
-    public void setOrigPath(string value)
+    public void setOrigPath(String value)
     {
         this.mOrigPath = value;
-    }
-
-    virtual public WWW getW3File()
-    {
-        return null;
     }
 
     virtual public UnityWebRequest getUnityWebRequestFile()
@@ -123,32 +128,32 @@ public class DownloadItem : ITask, IDispatchObject, ILoadProgress
         this.mDownloadType = value;
     }
 
-    public bool hasSuccessLoaded()
+    public boolean hasSuccessLoaded()
     {
         return this.mRefCountResLoadResultNotify.getResLoadState().hasSuccessLoaded();
     }
 
-    public bool hasFailed()
+    public boolean hasFailed()
     {
         return this.mRefCountResLoadResultNotify.getResLoadState().hasFailed();
     }
 
-    public void setResUniqueId(string value)
+    public void setResUniqueId(String value)
     {
         this.mResUniqueId = value;
     }
 
-    public string getResUniqueId()
+    public String getResUniqueId()
     {
         return this.mResUniqueId;
     }
 
-    public string getDownloadURL()
+    public String getDownloadURL()
     {
         return this.mDownloadURL;
     }
 
-    public void setDownloadURL(string value)
+    public void setDownloadURL(String value)
     {
         this.mDownloadURL = value;
     }
@@ -158,49 +163,30 @@ public class DownloadItem : ITask, IDispatchObject, ILoadProgress
         return this.mBytes;
     }
 
-    public string getText()
+    public String getText()
     {
         return this.mText;
     }
 
-    virtual public void init()
+    public void init()
     {
 
     }
 
-    virtual public void failed()
+    public void failed()
     {
 
     }
 
     // 这个是卸载，因为有时候资源加载进来可能已经不用了，需要直接卸载掉
-    virtual public void unload()
+    public void unload()
     {
 
     }
 
-    virtual protected IEnumerator downloadAsset()
-    {
-        yield return null;
-    }
-
-    public void setIsNeedUncompress(bool value)
+    public void setIsNeedUncompress(boolean value)
     {
         this.mIsNeedUncompress = value;
-    }
-
-    // 加载完成回调处理
-    virtual protected void onWWWEnd()
-    {
-
-    }
-
-    protected void deleteFromCache(string path)
-    {
-        if (Caching.IsVersionCached(path, 1))
-        {
-            Caching.CleanCache();
-        }
     }
 
     public void setLoadParam(DownloadParam param)
@@ -218,7 +204,7 @@ public class DownloadItem : ITask, IDispatchObject, ILoadProgress
         this.setDownloadURL(param.getDownloadURL());
     }
 
-    virtual public void load()
+    public void load()
     {
         this.mRefCountResLoadResultNotify.getResLoadState().setLoading();
 
@@ -253,18 +239,18 @@ public class DownloadItem : ITask, IDispatchObject, ILoadProgress
         }
     }
 
-    public virtual void runTask()
+    public void runTask()
     {
 
     }
 
-    public virtual void handleResult()
+    public void handleResult()
     {
 
     }
 
     // 加载完成写入本地文件系统
-    public virtual void writeFile()
+    public void writeFile()
     {
         if (this.mBytes != null)
         {

@@ -15,6 +15,7 @@ public class MList<T>
 
     protected MDictionary<T, Integer> mDic;    // 为了加快查找速度，当前 Element 到索引映射
     protected boolean mIsSpeedUpFind;  // 是否加快查询
+    protected boolean mIsOpKeepSort;           // 操作的时候是否保持排序
 
     public MList()
     {
@@ -26,6 +27,21 @@ public class MList<T>
     public MList(int capacity)
     {
         this.mList = new ArrayList<T>(capacity);
+    }
+
+    public void setIsSpeedUpFind(boolean value)
+    {
+        this.mIsSpeedUpFind = value;
+
+        if(this.mIsSpeedUpFind)
+        {
+            this.mDic = new MDictionary<T, Integer>();
+        }
+    }
+
+    public void setIsOpKeepSort(boolean value)
+    {
+        this.mIsOpKeepSort = value;
     }
 
     public T[] ToArray()

@@ -1,94 +1,173 @@
 ﻿package SDK.Lib.Tools;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+
 public class UtilPath
 {
-    public const string DOT = ".";
-    public const string SLASH = "/";
+    public static String DOT = ".";
+    public static String SLASH = "/";
 
-    public static string normalPath(string path)
+    public static String SDCARD_ROOT_PATH = "/sdcard";      // sdcard 根目录
+
+    public static String normalPath(String path)
     {
-        return path.Replace('\\', '/');
+        return path.replace('\\', '/');
     }
 
     // 删除目录的时候，一定要关闭这个文件夹，否则删除文件夹可能出错, 删除出目录立刻判断目录，结果目录还是存在的
-    static public void deleteDirectory(string path, bool recursive = true)
+    static public boolean deleteDirectory(String path)
     {
-        if (Directory.Exists(path))
+        if (UtilPath.existDirectory(path))
         {
             try
             {
-                Directory.Delete(path, recursive);
+                boolean flag = false;
+                // 如果 path不以文件分隔符结尾，自动添加文件分隔符
+                if (!path.endsWith(File.separator))
+                {
+                    path = path + File.separator;
+                }
+
+                File dirFile = new File(path);
+
+                if (!dirFile.exists() || !dirFile.isDirectory())
+                {
+                    return false;
+                }
+
+                flag = true;
+                File[] files = dirFile.listFiles();
+
+                //遍历删除文件夹下的所有文件(包括子目录)
+                for (int i = 0; i < files.length; i++)
+                {
+                    if (files[i].isFile())
+                    {
+                        //删除子文件
+                        flag = deleteFile(files[i].getAbsolutePath());
+                        if (!flag) break;
+                    }
+                    else
+                    {
+                        //删除子目录
+                        flag = deleteDirectory(files[i].getAbsolutePath());
+                        if (!flag)
+                        {
+                            break;
+                        }
+                    }
+                }
+
+                if (!flag)
+                {
+                    return false;
+                }
+
+                //删除当前空目录
+                return dirFile.delete();
             }
             catch (Exception err)
             {
-                Debug.Log(string.Format("UtilPath::DeleteDirectory, error, Error = {0}, path = {1}", err.Message, path));
+                System.out.print(String.format("UtilPath::DeleteDirectory, error, Error = %s, path = %s", err.getMessage(), path));
             }
         }
     }
 
     // 目录是否存在, 删除出目录立刻判断目录，结果目录还是存在的
-    static public bool existDirectory(string path)
+    static public boolean existDirectory(String path)
     {
-        return Directory.Exists(path);
+        boolean isExist = false;
+
+        File file = new File(path);
+        isExist = file.exists();
+
+        return isExist;
     }
 
     // 文件是否存在
-    static public bool existFile(string path)
+    static public boolean existFile(String path)
     {
-        return File.Exists(path);
+        boolean isExist = false;
+
+        File fileHandle = new File(path);
+        isExist = fileHandle.exists() && fileHandle.isFile();
+
+        return isExist;
     }
 
     // 移动文件
-    static public void move(string srcPath, string destPath)
+    static public void move(String srcPath, String destPath)
     {
-        try
-        {
-            File.Move(srcPath, destPath);
-        }
-        catch (Exception err)
-        {
-            Debug.Log(string.Format("UtilPath::move error, ErrorMsg = {0}, srcPath = {1}, destPath = {2}", err.Message, srcPath, destPath));
-        }
+        UtilPath.copyFile(srcPath, destPath);
     }
 
-    public static bool deleteFile(string path)
+    public static boolean deleteFile(String path)
     {
-        if (UtilPath.existFile(path))
+        boolean isExist = false;
+
+        File fileHandle = new File(path);
+
+        if (fileHandle.isFile() && fileHandle.exists())
         {
+            isExist = true;
             try
             {
-                File.Delete(path);
+                fileHandle.delete();
             }
             catch (Exception err)
             {
-                Debug.Log(string.Format("UtilPath::deleteFile, error, Path = {0}, ErrorMessage = {1}", path, err.Message));
+                System.out.print(String.format("UtilPath::deleteFile, error, Path = $s, ErrorMessage = %s", path, err.getMessage()));
             }
         }
 
-        return true;
+        return isExist;
     }
 
     // destFileName 目标路径和文件名字
-    public static void copyFile(string sourceFileName, string destFileName, bool overwrite = false)
+    public static void copyFile(String sourceFileName, String destFileName, boolean overwrite)
     {
         try
         {
-            File.Copy(sourceFileName, destFileName, overwrite);
+            int bytesum = 0;
+            int byteread = 0;
+            File srcfile = new File(sourceFileName);
+
+            if (!srcfile.exists())
+            {
+                //文件不存在时
+                InputStream inStream = new FileInputStream(sourceFileName); //读入原文件
+                FileOutputStream fs = new FileOutputStream(destFileName);
+
+                byte[] buffer = new byte[1444];
+                int length = 0;
+
+                while((byteread = inStream.read(buffer)) != -1)
+                {
+                    bytesum += byteread; //字节数 文件大小
+                    fs.write(buffer, 0, byteread);
+                }
+
+                inStream.close();
+            }
         }
         catch (Exception err)
         {
-            Debug.Log(string.Format("UtilPath::copyFile, error, ErrorMsg = {0}, sourceFileName = {1}, destFileName = {2}", err.Message, sourceFileName, destFileName));
+            System.out.print(String.format("UtilPath::copyFile, error, ErrorMsg = %s, sourceFileName = %s, destFileName = %s", err.getMessage(), sourceFileName, destFileName));
+            err.printStackTrace();
         }
     }
 
-    static public void createDirectory(string pathAndName, bool isRecurse = false)
+    static public void createDirectory(String pathAndName, boolean isRecurse)
     {
         if (isRecurse)
         {
-            string normPath = normalPath(pathAndName);
-            string[] pathArr = normPath.Split(new[] { '/' });
+            String normPath = normalPath(pathAndName);
+            String[] pathArr = normPath.Split(new[] { '/' });
 
-            string curCreatePath = "";
+            String curCreatePath = "";
             int idx = 0;
 
             for (; idx < pathArr.Length; ++idx)

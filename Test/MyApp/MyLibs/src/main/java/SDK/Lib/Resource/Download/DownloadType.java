@@ -1,10 +1,9 @@
-﻿namespace SDK.Lib
+﻿package SDK.Lib.Resource.Download;
+
+public enum DownloadType
 {
-    public enum DownloadType
-    {
-        eWWW,
-        eHttpWeb,
-        eWebRequest,
-        eTotal
-    }
+    eWWW,
+    eHttpWeb,
+    eWebRequest,
+    eTotal
 }

@@ -15,6 +15,7 @@ import SDK.Lib.MsgRoute.MsgRouteNotify;
 import SDK.Lib.MsgRoute.SysMsgRoute;
 import SDK.Lib.ObjectPool.IdPoolSys;
 import SDK.Lib.ObjectPool.PoolSys;
+import SDK.Lib.Resource.Download.DownloadMgr;
 import SDK.Lib.Task.TaskQueue;
 import SDK.Lib.Task.TaskThreadPool;
 
@@ -53,6 +54,7 @@ public class Ctx
     public SysMsgRoute mSysMsgRoute;
     public SystemTimeData mSystemTimeData;
     public SystemFrameData mSystemFrameData;
+    public DownloadMgr mDownloadMgr;
 
     public Ctx()
     {
@@ -98,6 +100,7 @@ public class Ctx
         this.mSysMsgRoute = new SysMsgRoute("");
         this.mSystemTimeData = new SystemTimeData();
         this.mSystemFrameData = new SystemFrameData();
+        this.mDownloadMgr = new DownloadMgr();
     }
 
     public void logicInit()
@@ -118,6 +121,7 @@ public class Ctx
         this.mSystemTimeData.init();
 
         this.mSystemFrameData.init();
+        this.mDownloadMgr.init();
 
         this.addEventHandle();
     }
@@ -178,6 +182,11 @@ public class Ctx
         {
             this.mSystemFrameData.dispose();
             this.mSystemFrameData = null;
+        }
+        if(null != this.mDownloadMgr)
+        {
+            this.mDownloadMgr.dispose();
+            this.mDownloadMgr = null;
         }
     }
 

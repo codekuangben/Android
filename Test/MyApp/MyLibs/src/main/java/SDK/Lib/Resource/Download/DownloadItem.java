@@ -9,6 +9,8 @@ import SDK.Lib.Resource.RefAsync.RefCountResLoadResultNotify;
 import SDK.Lib.Resource.ResLoadData.ResLoadType;
 import SDK.Lib.Resource.ResLoadData.ResPackType;
 import SDK.Lib.Task.ITask;
+import SDK.Lib.Tools.UtilPath;
+import SDK.Lib.Tools.UtilStr;
 
 /**
 * @brief 从网络下载数据
@@ -212,7 +214,7 @@ public class DownloadItem implements ITask, IDispatchObject, ILoadProgress
 
         if (this.mIsAddVerInLocalFileName)
         {
-            if (!string.IsNullOrEmpty(this.mVersion))
+            if (!UtilStr.isNullOrEmpty(this.mVersion))
             {
                 this.mLocalPath = UtilLogic.combineVerPath(this.mLocalPath, this.mVersion);
             }

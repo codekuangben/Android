@@ -110,7 +110,7 @@ public class UtilPath
     // 移动文件
     static public void move(String srcPath, String destPath)
     {
-        UtilPath.copyFile(srcPath, destPath);
+        UtilPath.copyFile(srcPath, destPath, true);
     }
 
     public static boolean deleteFile(String path)
@@ -647,7 +647,7 @@ public class UtilPath
 
         if (targetDirInfo.getAbsolutePath().startsWith(sourceDirInfo.getAbsolutePath()))
         {
-            System.out.print(String.format(("UtilPath::copyDirectory, error, destPath is srcPath subDir, can not copy");
+            System.out.print("UtilPath::copyDirectory, error, destPath is srcPath subDir, can not copy");
             return;
         }
 
@@ -702,7 +702,7 @@ public class UtilPath
 
             if (targetDirInfo.getAbsolutePath().startsWith(sourceDirInfo.getAbsolutePath()))
             {
-                System.out.print(String.format("UtilPath::traverseDirectory, error, destPath is srcPath subDir, can not copy");
+                System.out.print(String.format("UtilPath::traverseDirectory, error, destPath is srcPath subDir, can not copy"));
                 return;
             }
         }

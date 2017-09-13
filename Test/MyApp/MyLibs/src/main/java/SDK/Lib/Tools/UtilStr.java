@@ -5,5 +5,12 @@ package SDK.Lib.Tools;
  */
 public class UtilStr
 {
+    public static boolean isNullOrEmpty(String srcStr)
+    {
+        boolean ret = false;
 
+        ret = (srcStr == null || srcStr.length() == 0);
+
+        return ret;
+    }
 }

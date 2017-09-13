@@ -74,6 +74,11 @@ public class MList<T>
         return this.mList.size();
     }
 
+    public void add(T item)
+    {
+        this.Add(item);
+    }
+
     public void Add(T item)
     {
         this.mList.add(item);
@@ -189,6 +194,11 @@ public class MList<T>
     public void setLength(int value)
     {
         this.mList.ensureCapacity(value);
+    }
+
+    public void removeAt(int index)
+    {
+        this.RemoveAt(index);
     }
 
     public void RemoveAt(int index)

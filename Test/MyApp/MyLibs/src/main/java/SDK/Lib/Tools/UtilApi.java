@@ -17,6 +17,7 @@ import android.support.v7.app.AppCompatActivity;
 public class UtilApi
 {
     public static final String CR_LF = "\\r\\n";
+    public static final String UNITY3D = "unity3d";
 
     static public MEncoding convGkEncode2EncodingEncoding(GkEncode gkEncode)
     {

@@ -1,4 +1,4 @@
-﻿package SDK.Lib.Resource.ResLoadData;
+package SDK.Lib.Resource.ResLoadData;
 
 import SDK.Lib.FileSystem.MFileSys;
 

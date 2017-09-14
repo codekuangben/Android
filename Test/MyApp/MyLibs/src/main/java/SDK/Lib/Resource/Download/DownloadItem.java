@@ -1,4 +1,4 @@
-﻿package SDK.Lib.Resource.Download;
+package SDK.Lib.Resource.Download;
 
 import java.net.HttpURLConnection;
 

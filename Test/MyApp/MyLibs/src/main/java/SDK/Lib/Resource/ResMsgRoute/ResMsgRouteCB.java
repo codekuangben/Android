@@ -1,4 +1,4 @@
-﻿package SDK.Lib.Resource.ResMsgRoute;
+package SDK.Lib.Resource.ResMsgRoute;
 
 import SDK.Lib.FrameWork.Ctx;
 import SDK.Lib.MsgRoute.MsgRouteDispHandle;

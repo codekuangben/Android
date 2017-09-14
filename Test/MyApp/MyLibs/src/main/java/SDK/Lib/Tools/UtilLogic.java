@@ -1,4 +1,4 @@
-﻿package SDK.Lib.Tools;
+package SDK.Lib.Tools;
 
 import SDK.Lib.Resource.ResLoadData.ResLoadType;
 import SDK.Lib.Resource.ResLoadData.ResPathResolve;

@@ -1,4 +1,4 @@
-﻿package SDK.Lib.FileSystem;
+package SDK.Lib.FileSystem;
 
 public enum MFileMode
 {

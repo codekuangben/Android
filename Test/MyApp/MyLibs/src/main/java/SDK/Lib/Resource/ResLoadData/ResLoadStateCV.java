@@ -1,4 +1,4 @@
-﻿package SDK.Lib.Resource.ResLoadData;
+package SDK.Lib.Resource.ResLoadData;
 
 public enum ResLoadStateCV
 {

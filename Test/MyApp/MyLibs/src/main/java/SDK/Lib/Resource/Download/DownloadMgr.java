@@ -1,4 +1,4 @@
-﻿package SDK.Lib.Resource.Download;
+package SDK.Lib.Resource.Download;
 
 import SDK.Lib.Core.UniqueNumIdGen;
 import SDK.Lib.DataStruct.MList;

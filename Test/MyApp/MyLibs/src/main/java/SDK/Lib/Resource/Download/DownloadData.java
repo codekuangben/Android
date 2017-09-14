@@ -1,4 +1,4 @@
-﻿package SDK.Lib.Resource.Download;
+package SDK.Lib.Resource.Download;
 
 import SDK.Lib.DataStruct.MDictionary;
 import SDK.Lib.DataStruct.MList;

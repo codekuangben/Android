@@ -1,4 +1,4 @@
-﻿package SDK.Lib.FileSystem;
+package SDK.Lib.FileSystem;
 
 import SDK.Lib.FrameWork.MacroDef;
 import SDK.Lib.Resource.ResLoadData.ResLoadType;

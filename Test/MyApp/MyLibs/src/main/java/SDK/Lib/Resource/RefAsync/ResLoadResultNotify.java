@@ -1,4 +1,4 @@
-﻿package SDK.Lib.Resource.RefAsync;
+package SDK.Lib.Resource.RefAsync;
 
 import SDK.Lib.EventHandle.IDispatchObject;
 import SDK.Lib.EventHandle.ResEventDispatch;

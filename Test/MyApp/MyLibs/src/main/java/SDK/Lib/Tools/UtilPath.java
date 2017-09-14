@@ -1,4 +1,4 @@
-﻿package SDK.Lib.Tools;
+package SDK.Lib.Tools;
 
 import android.os.Debug;
 import android.os.Environment;

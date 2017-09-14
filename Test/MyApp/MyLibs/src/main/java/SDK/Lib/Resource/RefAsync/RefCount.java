@@ -1,4 +1,4 @@
-﻿package SDK.Lib.Resource.RefAsync;
+package SDK.Lib.Resource.RefAsync;
 
 /**
  * @brief 脚本引用计数

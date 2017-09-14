@@ -19,24 +19,24 @@ public class LoopDepth
         this.mZeroHandle = null;
     }
 
-    public void setIncHandle(ICalleeObject pThis, IDispatchObject value)
+    public void setIncHandle(ICalleeObject pThis, IDispatchObject value, int eventId)
     {
         if(null == this.mIncHandle)
         {
             this.mIncHandle = new CallFuncObjectNoParam();
         }
 
-        this.mIncHandle.setThisAndHandleNoParam(pThis, value);
+        this.mIncHandle.setThisAndHandleNoParam(pThis, value, eventId);
     }
 
-    public void setDecHandle(ICalleeObject pThis, IDispatchObject value)
+    public void setDecHandle(ICalleeObject pThis, IDispatchObject value, int eventId)
     {
         if (null == this.mDecHandle)
         {
             this.mDecHandle = new CallFuncObjectNoParam();
         }
 
-        this.mDecHandle.setThisAndHandleNoParam(pThis, value);
+        this.mDecHandle.setThisAndHandleNoParam(pThis, value, eventId);
     }
 
     public void setZeroHandle(ICalleeObject pThis, IDispatchObject value, int eventId)

@@ -2,6 +2,7 @@
 
 import SDK.Lib.Core.UniqueNumIdGen;
 import SDK.Lib.DataStruct.MList;
+import SDK.Lib.EventHandle.ICalleeObject;
 import SDK.Lib.EventHandle.IDispatchObject;
 import SDK.Lib.FrameHandle.LoopDepth;
 import SDK.Lib.FrameWork.Ctx;
@@ -36,10 +37,10 @@ public class DownloadMgr extends MsgRouteHandleBase
         this.mZeroRefResIDList = new MList<String>();
 
         this.mLoopDepth = new LoopDepth();
-        this.mLoopDepth.setZeroHandle(null, this.unloadNoRefResFromList);
+        this.mLoopDepth.setZeroHandle(this, null, 0);
 
         this.mUniqueNumIdGen = new UniqueNumIdGen(0);
-        this.addMsgRouteHandle(MsgRouteID.eMRIDLoadedWebRes, this.onMsgRouteResLoad);
+        this.addMsgRouteHandle(MsgRouteID.eMRIDLoadedWebRes, this, null, 1);
     }
 
     @Override
@@ -47,7 +48,7 @@ public class DownloadMgr extends MsgRouteHandleBase
     {
         // 游戏逻辑处理
         this.mResMsgRouteCB = new ResMsgRouteCB();
-        Ctx.mInstance.mMsgRouteNotify.addOneNofity(this.mResMsgRouteCB);
+        Ctx.mInstance.mMsgRouteNotify.addOneDisp(this.mResMsgRouteCB);
     }
 
     @Override
@@ -67,7 +68,7 @@ public class DownloadMgr extends MsgRouteHandleBase
         boolean ret = false;
         boolean isFind = false;
 
-        for(DownloadItem loadItem : this.mLoadData.mPath2LoadItem.Values)
+        for(DownloadItem loadItem : this.mLoadData.mPath2LoadItem.getValues())
         {
             if (loadItem.getResUniqueId() == resUniqueId)
             {
@@ -142,7 +143,7 @@ public class DownloadMgr extends MsgRouteHandleBase
         DownloadItem downloadItem = null;
         boolean isFind = false;
 
-        for(DownloadItem loadItem : this.mLoadData.mPath2LoadItem.Values)
+        for(DownloadItem loadItem : this.mLoadData.mPath2LoadItem.getValues())
         {
             if (loadItem.getResUniqueId() == resUniqueId)
             {
@@ -174,15 +175,7 @@ public class DownloadMgr extends MsgRouteHandleBase
 
         if (loadItem == null)
         {
-            if (param.mDownloadType == DownloadType.eWWW)
-            {
-                loadItem = new WWWDownloadItem();
-            }
-            else if (param.mDownloadType == DownloadType.eHttpWeb)
-            {
-                loadItem = new HttpWebDownloadItem();
-            }
-            else if (param.mDownloadType == DownloadType.eWebRequest)
+            if (param.mDownloadType == DownloadType.eWebRequest)
             {
                 loadItem = new WebRequestDownloadItem();
             }
@@ -190,8 +183,8 @@ public class DownloadMgr extends MsgRouteHandleBase
 
         loadItem.getRefCountResLoadResultNotify().getRefCount().incRef();
         loadItem.setLoadParam(param);
-        loadItem.getRefCountResLoadResultNotify().getLoadResEventDispatch().addEventHandle(null, this.onLoadEventHandle);
-        loadItem.getAllLoadResEventDispatch().addEventHandle(null, param.mLoadEventHandle);
+        loadItem.getRefCountResLoadResultNotify().getLoadResEventDispatch().addEventHandle(this, null, 0);    // onLoadEventHandle
+        loadItem.getAllLoadResEventDispatch().addEventHandle(param.mLoadEventHandle, null, 0);
 
         return loadItem;
     }
@@ -205,14 +198,14 @@ public class DownloadMgr extends MsgRouteHandleBase
             if (param.mLoadEventHandle != null)
             {
                 // 这个回调函数可能会调用 unload 卸载资源
-                param.mLoadEventHandle(this.mLoadData.mPath2LoadItem.get(param.mResUniqueId), 0);
+                param.mLoadEventHandle.call(this.mLoadData.mPath2LoadItem.get(param.mResUniqueId), 0);
             }
         }
         else
         {
             if (param.mLoadEventHandle != null)
             {
-                this.mLoadData.mPath2LoadItem.get(param.mResUniqueId).getAllLoadResEventDispatch().addEventHandle(null, param.mLoadEventHandle);
+                this.mLoadData.mPath2LoadItem.get(param.mResUniqueId).getAllLoadResEventDispatch().addEventHandle(param.mLoadEventHandle, null, 0);
 
                 if(MacroDef.ENABLE_LOG)
                 {
@@ -283,12 +276,12 @@ public class DownloadMgr extends MsgRouteHandleBase
     }
 
     // 这个卸载有引用计数，如果有引用计数就卸载不了
-    public void unload(String resUniqueId, MEventDispatchAction<IDispatchObject> loadEventHandle)
+    public void unload(String resUniqueId, ICalleeObject loadEventHandle)
     {
         if (this.mLoadData.mPath2LoadItem.ContainsKey(resUniqueId))
         {
             // 移除事件监听器，因为很有可能移除的时候，资源还没加载完成，这个时候事件监听器中的处理函数列表还没有清理
-            this.mLoadData.mPath2LoadItem.get(resUniqueId).getRefCountResLoadResultNotify().getLoadResEventDispatch().removeEventHandle(null, loadEventHandle);
+            this.mLoadData.mPath2LoadItem.get(resUniqueId).getRefCountResLoadResultNotify().getLoadResEventDispatch().removeEventHandle(loadEventHandle, null, 0);
             this.mLoadData.mPath2LoadItem.get(resUniqueId).getRefCountResLoadResultNotify().getRefCount().decRef();
 
             if (this.mLoadData.mPath2LoadItem.get(resUniqueId).getRefCountResLoadResultNotify().getRefCount().isNoRef())
@@ -310,7 +303,7 @@ public class DownloadMgr extends MsgRouteHandleBase
     {
         MList<String> resUniqueIdList = new MList<String>();
 
-        for(String resUniqueId : this.mLoadData.mPath2LoadItem.Keys)
+        for(String resUniqueId : this.mLoadData.mPath2LoadItem.getKeys())
         {
             resUniqueIdList.Add(resUniqueId);
         }
@@ -333,6 +326,23 @@ public class DownloadMgr extends MsgRouteHandleBase
     protected void addNoRefResID2List(String resUniqueId)
     {
         this.mZeroRefResIDList.Add(resUniqueId);
+    }
+
+    // 回调
+    public void call(IDispatchObject dispObj, int eventId)
+    {
+        if(0 == eventId)
+        {
+            this.unloadNoRefResFromList();
+        }
+        else if(1 == eventId)
+        {
+            this.onMsgRouteResLoad(dispObj, eventId);
+        }
+        else if(2 == eventId)
+        {
+            this.onLoadEventHandle(dispObj, eventId);
+        }
     }
 
     // 卸载没有引用的资源列表中的资源
@@ -399,7 +409,7 @@ public class DownloadMgr extends MsgRouteHandleBase
         this.mLoopDepth.incDepth();
 
         DownloadItem item = (DownloadItem)dispObj;
-        item.getRefCountResLoadResultNotify().getLoadResEventDispatch().removeEventHandle(null, this.onLoadEventHandle);
+        item.getRefCountResLoadResultNotify().getLoadResEventDispatch().removeEventHandle(this, null, 2);
 
         if (item.getRefCountResLoadResultNotify().getResLoadState().hasSuccessLoaded())
         {

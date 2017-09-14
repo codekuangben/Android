@@ -27,14 +27,14 @@ public class MsgRouteHandleBase extends GObject implements ICalleeObject
 
     }
 
-    public void addMsgRouteHandle(MsgRouteID msgRouteID, IDispatchObject handle, int eventId)
+    public void addMsgRouteHandle(MsgRouteID msgRouteID, ICalleeObject pThis, IDispatchObject handle, int eventId)
     {
         if(!this.mId2HandleDic.ContainsKey(msgRouteID.ordinal()))
         {
             this.mId2HandleDic.set(msgRouteID.ordinal(), new AddOnceEventDispatch());
         }
 
-        this.mId2HandleDic.get(msgRouteID.ordinal()).addEventHandle(null, handle, eventId);
+        this.mId2HandleDic.get(msgRouteID.ordinal()).addEventHandle(pThis, handle, eventId);
     }
 
     public void removeMsgRouteHandle(MsgRouteID msgRouteID, IDispatchObject handle, int eventId)

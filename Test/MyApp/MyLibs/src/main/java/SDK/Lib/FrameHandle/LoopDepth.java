@@ -39,14 +39,14 @@ public class LoopDepth
         this.mDecHandle.setThisAndHandleNoParam(pThis, value);
     }
 
-    public void setZeroHandle(ICalleeObject pThis, IDispatchObject value)
+    public void setZeroHandle(ICalleeObject pThis, IDispatchObject value, int eventId)
     {
         if (null == this.mZeroHandle)
         {
             this.mZeroHandle = new CallFuncObjectNoParam();
         }
 
-        this.mZeroHandle.setThisAndHandleNoParam(pThis, value);
+        this.mZeroHandle.setThisAndHandleNoParam(pThis, value, eventId);
     }
 
     public void incDepth()

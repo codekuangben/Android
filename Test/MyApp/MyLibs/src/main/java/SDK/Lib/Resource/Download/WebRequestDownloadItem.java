@@ -1,9 +1,14 @@
 ﻿package SDK.Lib.Resource.Download;
 
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLConnection;
 
 import SDK.Lib.FrameWork.Ctx;
 import SDK.Lib.FrameWork.MacroDef;
@@ -14,9 +19,8 @@ import SDK.Lib.Tools.UtilStr;
 import SDK.Lib.Resource.Download.DownloadItem;
 
 /**
-* @brief 使用 Unity 的 UnityWebRequest 从网络下载数据
-* @ref http://blog.csdn.net/u010019717/article/details/52753738
-* @brief 这个加载如果目录中有空格，会导致加载失败的，例如 assets/resources/flares/art assets/digicam.unity3d 会加载失败
+* @brief Java 中使用HttpURLConnection发起POST 请求
+* @ref http://blog.csdn.net/miemie1320/article/details/23029439
 */
 public class WebRequestDownloadItem extends DownloadItem
 {
@@ -75,85 +79,62 @@ public class WebRequestDownloadItem extends DownloadItem
             this.mUnityWebRequestFile.setRequestProperty("Charset", "UTF-8");
             // 打开到此 URL 引用的资源的通信链接（如果尚未建立这样的连接）。
             this.mUnityWebRequestFile.connect();
-
-            // 文件大小
-            int fileLength = httpURLConnection.getContentLength();
-
-            // 文件名
-            String filePathUrl = httpURLConnection.getURL().getFile();
-            String fileFullName = filePathUrl.substring(filePathUrl.lastIndexOf(File.separatorChar) + 1);
-
-            System.out.println("file length---->" + fileLength);
-
-            URLConnection con = url.openConnection();
-
-            BufferedInputStream bin = new BufferedInputStream(httpURLConnection.getInputStream());
-
-            String path = downloadDir + File.separatorChar + fileFullName;
-            file = new File(path);
-            if (!file.getParentFile().exists()) {
-                file.getParentFile().mkdirs();
-            }
-            OutputStream out = new FileOutputStream(file);
-            int size = 0;
-            int len = 0;
-            byte[] buf = new byte[1024];
-            while ((size = bin.read(buf)) != -1) {
-                len += size;
-                out.write(buf, 0, size);
-                // 打印下载百分比
-                // System.out.println("下载了-------> " + len * 100 / fileLength +
-                // "%\n");
-            }
-            bin.close();
-            out.close();
         }
-    }
-    catch (MalformedURLException e)
-    {
-        // TODO Auto-generated catch block
-        e.printStackTrace();
-    }
-    catch(IOException e)
-    {
-        // TODO Auto-generated catch block
-        e.printStackTrace();
-    }
-    finally
-    {
-        return file;
-    }
+        catch (MalformedURLException e)
+        {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
 
-        // https://docs.unity3d.com/ScriptReference/Networking.UnityWebRequest.html
-        // https://docs.unity3d.com/ScriptReference/Networking.UnityWebRequest-timeout.html
-        //this.mUnityWebRequestFile.timeout = 5;  // 尝试 5 秒后丢弃，但是这个如果在移动平台如果超时会抛出一个异常
+            if (null != this.mUnityWebRequestFile)
+            {
+                this.mUnityWebRequestFile.disconnect();
+                this.mUnityWebRequestFile = null;
+            }
+        }
+        catch(IOException e)
+        {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+
+            if (null != this.mUnityWebRequestFile)
+            {
+                this.mUnityWebRequestFile.disconnect();
+                this.mUnityWebRequestFile = null;
+            }
+        }
+        finally
+        {
+            if (null != this.mUnityWebRequestFile)
+            {
+                this.mUnityWebRequestFile.disconnect();
+                this.mUnityWebRequestFile = null;
+            }
+        }
 
         if (MacroDef.ENABLE_LOG)
         {
             if (null != this.mUnityWebRequestFile)
             {
-                Ctx.mInstance.mLogSys.log(string.Format("WebRequestDownloadItem::downloadAsset, front, www not null, path = {0}", this.mLoadPath), LogTypeId.eLogDownload);
+                Ctx.mInstance.mLogSys.log(String.format("WebRequestDownloadItem::downloadAsset, front, www not null, path = %s", this.mLoadPath), LogTypeId.eLogDownload);
                 this.logInfo();
             }
             else
             {
-                Ctx.mInstance.mLogSys.log(string.Format("WebRequestDownloadItem::downloadAsset, front, www is null, path = {0}", this.mLoadPath), LogTypeId.eLogDownload);
+                Ctx.mInstance.mLogSys.log(String.format("WebRequestDownloadItem::downloadAsset, front, www is null, path = %s", this.mLoadPath), LogTypeId.eLogDownload);
                 this.logInfo();
             }
         }
-
-        yield return this.mUnityWebRequestFile.Send();
 
         if (MacroDef.ENABLE_LOG)
         {
             if (null != this.mUnityWebRequestFile)
             {
-                Ctx.mInstance.mLogSys.log(string.Format("WebRequestDownloadItem::downloadAsset, back, www not null, path = {0}", this.mLoadPath), LogTypeId.eLogDownload);
+                Ctx.mInstance.mLogSys.log(String.format("WebRequestDownloadItem::downloadAsset, back, www not null, path = %s", this.mLoadPath), LogTypeId.eLogDownload);
                 this.logInfo();
             }
             else
             {
-                Ctx.mInstance.mLogSys.log(string.Format("WebRequestDownloadItem::downloadAsset, back, www is null, path = {0}", this.mLoadPath), LogTypeId.eLogDownload);
+                Ctx.mInstance.mLogSys.log(String.format("WebRequestDownloadItem::downloadAsset, back, www is null, path = %s", this.mLoadPath), LogTypeId.eLogDownload);
                 this.logInfo();
             }
         }
@@ -165,70 +146,41 @@ public class WebRequestDownloadItem extends DownloadItem
     @Override
     protected void onWWWEnd()
     {
-        // 只有 UnityWebRequest::responseCode 是 200 的时候，才显示加载成功，UnityWebRequest::error == null 并且 UnityWebRequest::isDone == true ，并不能说明加载成功
-        if (null != this.mUnityWebRequestFile && UtilApi.isUnityWebRequestLoadedSuccess(this.mUnityWebRequestFile))
+        if (null != this.mUnityWebRequestFile)
         {
             if (MacroDef.ENABLE_LOG)
             {
                 Ctx.mInstance.mLogSys.log(String.format("DownloadItem::onWWWEnd, success, path = %s", this.mLoadPath), LogTypeId.eLogDownload);
             }
 
-            // 如果是 AssetBudnles 资源，并且使用 WWW.LoadFromCacheOrDownload， WWW.size 和 WWW.bytes 这些属性是不能访问的，只能访问 WWW.assetBundle 这个属性
-            if (this.mResPackType == ResPackType.eBundleType)
+            try
             {
-                // this.mW3File.assetBundle
-                if (this.mUnityWebRequestFile.downloadHandler.isDone &&
-                    (this.mUnityWebRequestFile.downloadHandler.data.Length > 0 ||
-                    this.mUnityWebRequestFile.downloadHandler.text.Length > 0))
-                {
-                    if (this.mUnityWebRequestFile.downloadHandler.data != null)
-                    {
-                        this.mBytes = this.mUnityWebRequestFile.downloadHandler.data;
-                    }
-                    else if (this.mUnityWebRequestFile.downloadHandler.text != null)
-                    {
-                        this.mText = this.mUnityWebRequestFile.downloadHandler.text;
-                    }
-                }
+                // 文件大小
+                int fileLength = this.mUnityWebRequestFile.getContentLength();
 
-                if (this.mIsWriteFile)
-                {
-                    this.writeFile();
-                }
+                // 文件名
+                String filePathUrl = this.mUnityWebRequestFile.getURL().getFile();
+                String fileFullName = filePathUrl.substring(filePathUrl.lastIndexOf(File.separatorChar) + 1);
+
+                BufferedInputStream bin = new BufferedInputStream(this.mUnityWebRequestFile.getInputStream());
+
+                this.mBytes = new byte[fileLength];
+                bin.read(this.mBytes);
             }
-            else
+            catch (IOException err)
             {
-                if (this.mUnityWebRequestFile.downloadHandler.isDone &&
-                    (this.mUnityWebRequestFile.downloadHandler.data.Length > 0 ||
-                    this.mUnityWebRequestFile.downloadHandler.text.Length > 0))
-                {
-                    if (this.mUnityWebRequestFile.downloadHandler.data != null)
-                    {
-                        this.mBytes = this.mUnityWebRequestFile.downloadHandler.data;
-                    }
-                    else if (this.mUnityWebRequestFile.downloadHandler.text != null)
-                    {
-                        this.mText = this.mUnityWebRequestFile.downloadHandler.text;
-                    }
-                }
+                err.printStackTrace();
+            }
 
-                if (this.mIsWriteFile)
-                {
-                    this.writeFile();
-                }
+            if (this.mIsWriteFile)
+            {
+                this.writeFile();
             }
 
             this.mRefCountResLoadResultNotify.getResLoadState().setSuccessLoaded();
         }
         else
         {
-            // UnityWebRequest::responseCode 如果不是 200 ，this.mUnityWebRequestFile.downloadHandler.text 中内容是错误描述
-            if (null != this.mUnityWebRequestFile.downloadHandler &&
-               !UtilStr.isNullOrEmpty(this.mUnityWebRequestFile.downloadHandler.text))
-            {
-                this.mErrorStr = this.mUnityWebRequestFile.downloadHandler.text;
-            }
-
             this.mRefCountResLoadResultNotify.getResLoadState().setFailed();
 
             if (MacroDef.ENABLE_LOG)

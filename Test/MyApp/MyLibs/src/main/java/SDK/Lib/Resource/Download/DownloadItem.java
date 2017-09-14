@@ -320,7 +320,12 @@ public class DownloadItem implements ITask, IDispatchObject, ILoadProgress
 
     protected void downloadAsset()
     {
-        return null;
+
+    }
+
+    protected void onWWWEnd()
+    {
+
     }
 
     public void logInfo()

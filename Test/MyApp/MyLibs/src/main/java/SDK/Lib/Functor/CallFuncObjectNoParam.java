@@ -13,7 +13,7 @@ public class CallFuncObjectNoParam extends CallFuncObjectBase
     }
 
     @Override
-    public void setThisAndHandleNoParam(ICalleeObject pThis, IDispatchObject handle)
+    public void setThisAndHandleNoParam(ICalleeObject pThis, IDispatchObject handle, int eventId)
     {
         this.mThis = pThis;
         this.mHandleNoParam = handle;

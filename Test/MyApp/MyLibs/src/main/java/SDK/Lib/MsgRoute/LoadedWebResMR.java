@@ -4,7 +4,7 @@ import SDK.Lib.Task.ITask;
 
 public class LoadedWebResMR extends MsgRouteBase
 {
-    public ITask m_task;
+    public ITask mTask;
 
     public LoadedWebResMR()
     {
@@ -14,6 +14,6 @@ public class LoadedWebResMR extends MsgRouteBase
     @Override
     public void resetDefault()
     {
-        m_task = null;
+        mTask = null;
     }
 }

@@ -14,12 +14,13 @@ public class CallFuncObjectBase
         this.mEventId = 0;
     }
 
-    public void setPThisAndHandle(ICalleeObject pThis, IDispatchObject handle, IDispatchObject param)
+    public void setPThisAndHandle(ICalleeObject pThis, IDispatchObject handle, IDispatchObject param, int eventId)
     {
         this.mThis = pThis;
+        this.mEventId = eventId;
     }
 
-    public void setThisAndHandleNoParam(ICalleeObject pThis, IDispatchObject handle)
+    public void setThisAndHandleNoParam(ICalleeObject pThis, IDispatchObject handle, int eventId)
     {
 
     }

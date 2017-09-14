@@ -20,7 +20,7 @@ public class DelayNoOrPriorityHandleMgrBase extends GObject implements ICalleeOb
     public DelayNoOrPriorityHandleMgrBase()
     {
         this.mLoopDepth = new LoopDepth();
-        this.mLoopDepth.setZeroHandle(this, null);
+        this.mLoopDepth.setZeroHandle(this, null, 0);
     }
 
     public void init()

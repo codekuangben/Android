@@ -34,12 +34,13 @@ public class CallFuncObjectFixParam extends CallFuncObjectBase
     }
 
     @Override
-    public void setPThisAndHandle(ICalleeObject pThis, IDispatchObject handle, IDispatchObject param)
+    public void setPThisAndHandle(ICalleeObject pThis, IDispatchObject handle, IDispatchObject param, int eventId)
     {
-        super.setPThisAndHandle(pThis, handle, param);
+        super.setPThisAndHandle(pThis, handle, param, eventId);
 
         this.mHandle = handle;
         this.mParam = param;
+        this.mEventId = eventId;
     }
 
     @Override

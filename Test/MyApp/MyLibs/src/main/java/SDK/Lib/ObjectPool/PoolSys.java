@@ -49,7 +49,23 @@ public class PoolSys
                 {
                     try
                     {
-                        myMethodInfo.invoke(retObj, null);
+                        /**
+                         * @brief 警告: 最后一个参数使用了不准确的变量类型的 varargs 方法的非 varargs 调用;
+                         * @url http://blog.csdn.net/devilnov/article/details/50963927
+                         错误信息：
+                         警告： 最后一个参数使用了不准确的变量类型的 varargs 方法的非 varargs 调用；
+                         [javac] 对于 varargs 调用，应使用 java.lang.Object
+                         [javac] 对于非 varargs 调用，应使用 java.lang.Object[]，这样也可以抑制此警告
+
+                         程序是一样的，在jdk1.4下可以编译通过，但在1.5就不行。上网查了一下，解决办法：
+                         Method method  =  cls.getMethod( " hashCode " ,  new  Class[ 0 ]);  //  编译通过
+                         Method method  =  cls.getMethod( " hashCode " ,  null );  //  编译失败
+
+                         allMethod[i].invoke(dbInstance,  new  Object[]{});  //  编译通过
+                         allMethod[i].invoke(dbInstance,  null );  //  编译失败
+                         */
+                        //myMethodInfo.invoke(retObj, null);
+                        myMethodInfo.invoke(retObj, new  Object[]{});
                         //myMethodInfo.invoke(retObj);
                     }
                     catch(Exception e)

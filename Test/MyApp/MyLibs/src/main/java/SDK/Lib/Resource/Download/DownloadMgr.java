@@ -17,7 +17,7 @@ import SDK.Lib.Resource.ResMsgRoute.ResMsgRouteCB;
 /**
  * @brief 数据下载管理器
  */
-public class DownloadMgr extends MsgRouteHandleBase
+public class DownloadMgr extends MsgRouteHandleBase implements ICalleeObject
 {
     protected int mMaxParral;              // 最多同时加载的内容
     protected int mCurNum;                 // 当前加载的数量
@@ -343,6 +343,10 @@ public class DownloadMgr extends MsgRouteHandleBase
         {
             this.onLoadEventHandle(dispObj, eventId);
         }
+        else if(DownloadEventId.eEventId_HandleMsg == eventId)
+        {
+            this.handleMsg(dispObj, eventId);
+        }
     }
 
     // 卸载没有引用的资源列表中的资源
@@ -512,5 +516,10 @@ public class DownloadMgr extends MsgRouteHandleBase
         MsgRouteBase msg = (MsgRouteBase)dispObj;
         DownloadItem loadItem = (DownloadItem)(((LoadedWebResMR)msg).mTask);
         loadItem.handleResult();
+    }
+
+    public void handleMsg(IDispatchObject dispObj, int eventId)
+    {
+
     }
 }

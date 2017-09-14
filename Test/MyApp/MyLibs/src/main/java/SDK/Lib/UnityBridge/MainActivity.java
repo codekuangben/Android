@@ -3,6 +3,7 @@ package SDK.Lib.UnityBridge;
 import android.os.Bundle;
 import android.widget.Toast;
 
+/**
 import com.unity3d.player.UnityPlayer;
 import com.unity3d.player.UnityPlayerActivity;
 
@@ -29,3 +30,5 @@ public class MainActivity extends UnityPlayerActivity {
         return "This is a Plugin's content!";
     }
 }
+
+ */

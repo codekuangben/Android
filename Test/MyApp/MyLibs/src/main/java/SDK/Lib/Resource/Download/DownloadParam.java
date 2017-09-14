@@ -1,10 +1,10 @@
 ﻿package SDK.Lib.Resource.Download;
 
+import SDK.Lib.EventHandle.ICalleeObject;
 import SDK.Lib.EventHandle.IDispatchObject;
 import SDK.Lib.Resource.ResLoadData.ResLoadType;
 import SDK.Lib.Resource.ResLoadData.ResPackType;
 import SDK.Lib.Tools.UtilApi;
-import SDK.Lib.Tools.Util;
 import SDK.Lib.Tools.UtilPath;
 
 /**
@@ -18,8 +18,8 @@ public class DownloadParam
     public String mExtName;
     public String mVersion;
 
-    public MEventDispatchAction<IDispatchObject> mLoadEventHandle;
-    public MEventDispatchAction<IDispatchObject> mProgressEventHandle;
+    public ICalleeObject mLoadEventHandle;
+    public ICalleeObject mProgressEventHandle;
     public DownloadType mDownloadType;
     public ResLoadType mResLoadType;
     public ResPackType mResPackType;

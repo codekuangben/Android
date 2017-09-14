@@ -2,7 +2,11 @@
 
 import SDK.Lib.EventHandle.IDispatchObject;
 import SDK.Lib.EventHandle.ResEventDispatch;
+import SDK.Lib.FileSystem.MDataStream;
+
+import SDK.Lib.FileSystem.MFileSys;
 import SDK.Lib.FrameWork.Ctx;
+import SDK.Lib.FrameWork.MacroDef;
 import SDK.Lib.Log.LogTypeId;
 import SDK.Lib.Resource.Progress.ILoadProgress;
 import SDK.Lib.Resource.RefAsync.RefCountResLoadResultNotify;
@@ -221,23 +225,23 @@ public class DownloadItem implements ITask, IDispatchObject, ILoadProgress
         }
 
         // 这个有 https:// ，因此不能使用 UtilPath.combine，如果使用，会将 // 改成 /
-        string url = "";
+        String url = "";
 
-        if(string.IsNullOrEmpty(this.mDownloadURL))
+        if(UtilStr.isNullOrEmpty(this.mDownloadURL))
         {
-            url = ResPathResolve.msDataStreamLoadRootPathList[(int)this.mResLoadType];
+            url = ResPathResolve.msDataStreamLoadRootPathList[this.mResLoadType];
         }
         else
         {
             url = this.mDownloadURL;
         }
 
-        this.mDownloadNoVerPath = string.Format("{0}/{1}", url, this.mLoadPath);
-        this.mDownloadVerPath = string.Format("{0}?ver={1}", this.mDownloadNoVerPath, this.mVersion);
+        this.mDownloadNoVerPath = String.format("%s/%s", url, this.mLoadPath);
+        this.mDownloadVerPath = String.format("%s?ver=%s", this.mDownloadNoVerPath, this.mVersion);
 
         if(MacroDef.ENABLE_LOG)
         {
-            Ctx.mInstance.mLogSys.log(string.Format("DownloadItem::load, LocalPath = {0}, DownloadNoVerPath = {1}, DownloadNoVerPath = {2}", this.mLocalPath, this.mDownloadNoVerPath, this.mDownloadVerPath), LogTypeId.eLogDownload);
+            Ctx.mInstance.mLogSys.log(String.format("DownloadItem::load, LocalPath = %s, DownloadNoVerPath = %s, DownloadNoVerPath = %s", this.mLocalPath, this.mDownloadNoVerPath, this.mDownloadVerPath), LogTypeId.eLogDownload);
         }
     }
 
@@ -260,40 +264,40 @@ public class DownloadItem implements ITask, IDispatchObject, ILoadProgress
             {
                 if (MacroDef.ENABLE_LOG)
                 {
-                    Ctx.mInstance.mLogSys.log(string.Format("DownloadItem::writeFile, existFile, LocalPath = {0}", this.mLocalPath), LogTypeId.eLogDownload);
+                    Ctx.mInstance.mLogSys.log(String.format("DownloadItem::writeFile, existFile, LocalPath = %s", this.mLocalPath), LogTypeId.eLogDownload);
                 }
 
                 UtilPath.deleteFile(this.mLocalPath);
             }
             else
             {
-                string path = UtilPath.getFilePathNoName(this.mLocalPath);
+                String path = UtilPath.getFilePathNoName(this.mLocalPath);
 
                 if (!UtilPath.existDirectory(path))
                 {
                     if (MacroDef.ENABLE_LOG)
                     {
-                        Ctx.mInstance.mLogSys.log(string.Format("DownloadItem::writeFile, NotExistDirectory, Path = {0}", path), LogTypeId.eLogDownload);
+                        Ctx.mInstance.mLogSys.log(String.format("DownloadItem::writeFile, NotExistDirectory, Path = %s", path), LogTypeId.eLogDownload);
                     }
 
-                    UtilPath.createDirectory(path);
+                    UtilPath.createDirectory(path, true);
                 }
             }
 
             if (MacroDef.ENABLE_LOG)
             {
-                Ctx.mInstance.mLogSys.log(string.Format("DownloadItem::writeFile, writeFile, LocalPath = {0}", this.mLocalPath), LogTypeId.eLogDownload);
+                Ctx.mInstance.mLogSys.log(String.format("DownloadItem::writeFile, writeFile, LocalPath = %s", this.mLocalPath), LogTypeId.eLogDownload);
             }
 
-            MDataStream dataStream = new MDataStream(this.mLocalPath, null, MFileMode.eCreateNew, MFileAccess.eWrite);
+            MDataStream dataStream = new MDataStream(this.mLocalPath);
             dataStream.open();
 
             byte[] outBytes = this.mBytes;
-            uint outLen = 0;
+            int outLen = 0;
 
             if (this.mIsNeedUncompress)
             {
-                Compress.DecompressStrLZMA(this.mBytes, 0, (uint)this.mBytes.Length, ref outBytes, ref outLen);
+                //Compress.DecompressStrLZMA(this.mBytes, 0, (uint)this.mBytes.Length, ref outBytes, ref outLen);
             }
 
             dataStream.writeByte(outBytes);
@@ -312,7 +316,7 @@ public class DownloadItem implements ITask, IDispatchObject, ILoadProgress
     {
         if (MacroDef.ENABLE_LOG)
         {
-            Ctx.mInstance.mLogSys.log(string.Format("DownloadItem::logInfo, mLocalPath = {0}, mLoadPath = {1}, mOrigPath = {2}, mResUniqueId = {3}, mDownloadNoVerPath = {4}, mDownloadVerPath = {5}, mResPackType = {6}", this.mLocalPath, this.mLoadPath, this.mOrigPath, this.mResUniqueId, this.mDownloadNoVerPath, this.mDownloadVerPath, this.mResPackType), LogTypeId.eLogDownload);
+            Ctx.mInstance.mLogSys.log(String.format("DownloadItem::logInfo, mLocalPath = %s, mLoadPath = %s, mOrigPath = %s, mResUniqueId = {3}, mDownloadNoVerPath = {4}, mDownloadVerPath = {5}, mResPackType = {6}", this.mLocalPath, this.mLoadPath, this.mOrigPath, this.mResUniqueId, this.mDownloadNoVerPath, this.mDownloadVerPath, this.mResPackType), LogTypeId.eLogDownload);
         }
     }
 }

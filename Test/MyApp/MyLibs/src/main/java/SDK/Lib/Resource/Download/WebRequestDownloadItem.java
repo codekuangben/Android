@@ -5,10 +5,10 @@
 * @ref http://blog.csdn.net/u010019717/article/details/52753738
 * @brief 这个加载如果目录中有空格，会导致加载失败的，例如 assets/resources/flares/art assets/digicam.unity3d 会加载失败
 */
-public class WebRequestDownloadItem : DownloadItem
+public class WebRequestDownloadItem extends DownloadItem
 {
     protected UnityWebRequest mUnityWebRequestFile;
-    protected string mErrorStr; // 如果加载失败，显示错误字符串
+    protected String mErrorStr; // 如果加载失败，显示错误字符串
 
     public WebRequestDownloadItem()
     {

@@ -1,16 +1,21 @@
 ﻿package SDK.Lib.Resource.Download;
 
+import SDK.Lib.Core.UniqueNumIdGen;
+import SDK.Lib.DataStruct.MList;
+import SDK.Lib.FrameHandle.LoopDepth;
+import SDK.Lib.MsgRoute.MsgRouteHandleBase;
+
 /**
  * @brief 数据下载管理器
  */
-public class DownloadMgr : MsgRouteHandleBase
+public class DownloadMgr extends MsgRouteHandleBase
 {
-    protected uint mMaxParral;              // 最多同时加载的内容
-    protected uint mCurNum;                 // 当前加载的数量
+    protected int mMaxParral;              // 最多同时加载的内容
+    protected int mCurNum;                 // 当前加载的数量
     protected DownloadData mLoadData;
     protected DownloadItem mRetLoadItem;
     protected ResMsgRouteCB mResMsgRouteCB;
-    protected List<string> mZeroRefResIDList;   // 没有引用的资源 ID 列表
+    protected MList<String> mZeroRefResIDList;   // 没有引用的资源 ID 列表
     protected LoopDepth mLoopDepth;                // 加载深度
 
     public UniqueNumIdGen mUniqueNumIdGen;

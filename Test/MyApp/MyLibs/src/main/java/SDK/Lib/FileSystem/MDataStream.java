@@ -14,7 +14,7 @@ import SDK.Lib.Tools.UtilApi;
 /**
  * @brief 仅支持本地文件操作，仅支持同步操作
  */
-public class MFileStream extends GObject implements IDispatchObject
+public class MDataStream extends GObject implements IDispatchObject
 {
     public File mFile;
     public FileInputStream mFileInputStream;
@@ -29,7 +29,7 @@ public class MFileStream extends GObject implements IDispatchObject
     /**
      * @brief 仅支持同步操作，目前无视参数 isSyncMode 和 evtDisp。FileMode.CreateNew 如果文件已经存在就抛出异常，FileMode.Append 和 FileAccess.Write 要同时使用
      */
-    public MFileStream(String filePath)
+    public MDataStream(String filePath)
     {
         this.mTypeId = "MFileStream";
 
@@ -37,6 +37,11 @@ public class MFileStream extends GObject implements IDispatchObject
         this.mFileOpState = FileOpState.eNoOp;
 
         this.checkAndOpen();
+    }
+
+    public void open()
+    {
+
     }
 
     public void seek(long offset, MSeekOrigin origin)

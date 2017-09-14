@@ -1,5 +1,7 @@
 ﻿package SDK.Lib.Resource.Download;
 
+import java.net.HttpURLConnection;
+
 import SDK.Lib.EventHandle.IDispatchObject;
 import SDK.Lib.EventHandle.ResEventDispatch;
 import SDK.Lib.FileSystem.MDataStream;
@@ -8,6 +10,8 @@ import SDK.Lib.FileSystem.MFileSys;
 import SDK.Lib.FrameWork.Ctx;
 import SDK.Lib.FrameWork.MacroDef;
 import SDK.Lib.Log.LogTypeId;
+import SDK.Lib.Resource.Download.DownloadParam;
+import SDK.Lib.Resource.Download.DownloadType;
 import SDK.Lib.Resource.Progress.ILoadProgress;
 import SDK.Lib.Resource.RefAsync.RefCountResLoadResultNotify;
 import SDK.Lib.Resource.ResLoadData.ResLoadType;
@@ -121,7 +125,7 @@ public class DownloadItem implements ITask, IDispatchObject, ILoadProgress
         this.mOrigPath = value;
     }
 
-    virtual public UnityWebRequest getUnityWebRequestFile()
+    public HttpURLConnection getUnityWebRequestFile()
     {
         return null;
     }
@@ -312,6 +316,11 @@ public class DownloadItem implements ITask, IDispatchObject, ILoadProgress
     public float getProgress()
     {
         return 0;
+    }
+
+    protected void downloadAsset()
+    {
+        return null;
     }
 
     public void logInfo()

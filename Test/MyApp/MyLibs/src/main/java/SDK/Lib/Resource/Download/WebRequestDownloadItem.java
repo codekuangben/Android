@@ -1,11 +1,17 @@
 ﻿package SDK.Lib.Resource.Download;
 
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+
 import SDK.Lib.FrameWork.Ctx;
 import SDK.Lib.FrameWork.MacroDef;
 import SDK.Lib.Log.LogTypeId;
 import SDK.Lib.Resource.ResLoadData.ResPackType;
 import SDK.Lib.Tools.UtilApi;
 import SDK.Lib.Tools.UtilStr;
+import SDK.Lib.Resource.Download.DownloadItem;
 
 /**
 * @brief 使用 Unity 的 UnityWebRequest 从网络下载数据
@@ -14,7 +20,7 @@ import SDK.Lib.Tools.UtilStr;
 */
 public class WebRequestDownloadItem extends DownloadItem
 {
-    protected UnityWebRequest mUnityWebRequestFile;
+    protected HttpURLConnection mUnityWebRequestFile;
     protected String mErrorStr; // 如果加载失败，显示错误字符串
 
     public WebRequestDownloadItem()
@@ -30,15 +36,15 @@ public class WebRequestDownloadItem extends DownloadItem
 
         if (null != this.mUnityWebRequestFile)
         {
-            this.mUnityWebRequestFile.Dispose();
+            this.mUnityWebRequestFile.disconnect();
             this.mUnityWebRequestFile = null;
         }
     }
 
     @Override
-    public UnityWebRequest getUnityWebRequestFile()
+    public HttpURLConnection getUnityWebRequestFile()
     {
-        return null;
+        return this.mUnityWebRequestFile;
     }
 
     @Override
@@ -46,33 +52,77 @@ public class WebRequestDownloadItem extends DownloadItem
     {
         super.load();
 
-        Ctx.mInstance.mCoroutineMgr.StartCoroutine(this.downloadAsset());
+        // 通过线程任务队列下载
+        //Ctx.mInstance.mCoroutineMgr.StartCoroutine(this.downloadAsset());
     }
 
     // mPath 是这个格式 http://127.0.0.1/UnityServer/Version.txt?ver=100
     @Override
-    protected IEnumerator downloadAsset()
+    protected void downloadAsset()
     {
-        //this.deleteFromCache(this.mDownloadVerPath);
-
-        if (this.mResPackType == ResPackType.eBundleType)
+        try
         {
             if (MacroDef.ENABLE_LOG)
             {
-                Ctx.mInstance.mLogSys.log(string.Format("WebRequestDownloadItem::downloadAsset, download AssetBundles, DownloadNoVerPath = {0}", this.mDownloadNoVerPath), LogTypeId.eLogDownload);
+                Ctx.mInstance.mLogSys.log(String.format("WebRequestDownloadItem::downloadAsset, download AssetBundles, DownloadNoVerPath = %s", this.mDownloadNoVerPath), LogTypeId.eLogDownload);
             }
 
-            this.mUnityWebRequestFile = UnityWebRequest.Get(this.mDownloadVerPath);
-        }
-        else
-        {
-            if (MacroDef.ENABLE_LOG)
-            {
-                Ctx.mInstance.mLogSys.log(string.Format("WebRequestDownloadItem::downloadAsset, download CommonFile, DownloadVerPath = {0}", this.mDownloadVerPath), LogTypeId.eLogDownload);
-            }
+            URL url = new URL(this.mDownloadVerPath);
+            this.mUnityWebRequestFile = (HttpURLConnection)url.openConnection();
+            // 设定请求的方法，默认是GET
+            this.mUnityWebRequestFile.setRequestMethod("POST");
+            // 设置字符编码
+            this.mUnityWebRequestFile.setRequestProperty("Charset", "UTF-8");
+            // 打开到此 URL 引用的资源的通信链接（如果尚未建立这样的连接）。
+            this.mUnityWebRequestFile.connect();
 
-            this.mUnityWebRequestFile = UnityWebRequest.Get(this.mDownloadVerPath);
+            // 文件大小
+            int fileLength = httpURLConnection.getContentLength();
+
+            // 文件名
+            String filePathUrl = httpURLConnection.getURL().getFile();
+            String fileFullName = filePathUrl.substring(filePathUrl.lastIndexOf(File.separatorChar) + 1);
+
+            System.out.println("file length---->" + fileLength);
+
+            URLConnection con = url.openConnection();
+
+            BufferedInputStream bin = new BufferedInputStream(httpURLConnection.getInputStream());
+
+            String path = downloadDir + File.separatorChar + fileFullName;
+            file = new File(path);
+            if (!file.getParentFile().exists()) {
+                file.getParentFile().mkdirs();
+            }
+            OutputStream out = new FileOutputStream(file);
+            int size = 0;
+            int len = 0;
+            byte[] buf = new byte[1024];
+            while ((size = bin.read(buf)) != -1) {
+                len += size;
+                out.write(buf, 0, size);
+                // 打印下载百分比
+                // System.out.println("下载了-------> " + len * 100 / fileLength +
+                // "%\n");
+            }
+            bin.close();
+            out.close();
         }
+    }
+    catch (MalformedURLException e)
+    {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+    }
+    catch(IOException e)
+    {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+    }
+    finally
+    {
+        return file;
+    }
 
         // https://docs.unity3d.com/ScriptReference/Networking.UnityWebRequest.html
         // https://docs.unity3d.com/ScriptReference/Networking.UnityWebRequest-timeout.html

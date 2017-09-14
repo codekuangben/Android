@@ -12,7 +12,9 @@ import SDK.Lib.Resource.Progress.ILoadProgress;
 import SDK.Lib.Resource.RefAsync.RefCountResLoadResultNotify;
 import SDK.Lib.Resource.ResLoadData.ResLoadType;
 import SDK.Lib.Resource.ResLoadData.ResPackType;
+import SDK.Lib.Resource.ResLoadData.ResPathResolve;
 import SDK.Lib.Task.ITask;
+import SDK.Lib.Tools.UtilLogic;
 import SDK.Lib.Tools.UtilPath;
 import SDK.Lib.Tools.UtilStr;
 
@@ -229,7 +231,7 @@ public class DownloadItem implements ITask, IDispatchObject, ILoadProgress
 
         if(UtilStr.isNullOrEmpty(this.mDownloadURL))
         {
-            url = ResPathResolve.msDataStreamLoadRootPathList[this.mResLoadType];
+            url = ResPathResolve.msDataStreamLoadRootPathList[this.mResLoadType.ordinal()];
         }
         else
         {

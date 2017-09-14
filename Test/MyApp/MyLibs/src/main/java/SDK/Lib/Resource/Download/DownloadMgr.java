@@ -2,8 +2,16 @@
 
 import SDK.Lib.Core.UniqueNumIdGen;
 import SDK.Lib.DataStruct.MList;
+import SDK.Lib.EventHandle.IDispatchObject;
 import SDK.Lib.FrameHandle.LoopDepth;
+import SDK.Lib.FrameWork.Ctx;
+import SDK.Lib.FrameWork.MacroDef;
+import SDK.Lib.Log.LogTypeId;
+import SDK.Lib.MsgRoute.LoadedWebResMR;
+import SDK.Lib.MsgRoute.MsgRouteBase;
 import SDK.Lib.MsgRoute.MsgRouteHandleBase;
+import SDK.Lib.MsgRoute.MsgRouteID;
+import SDK.Lib.Resource.ResMsgRoute.ResMsgRouteCB;
 
 /**
  * @brief 数据下载管理器
@@ -25,7 +33,7 @@ public class DownloadMgr extends MsgRouteHandleBase
         this.mMaxParral = 8;
         this.mCurNum = 0;
         this.mLoadData = new DownloadData();
-        this.mZeroRefResIDList = new List<string>();
+        this.mZeroRefResIDList = new MList<String>();
 
         this.mLoopDepth = new LoopDepth();
         this.mLoopDepth.setZeroHandle(null, this.unloadNoRefResFromList);
@@ -34,14 +42,16 @@ public class DownloadMgr extends MsgRouteHandleBase
         this.addMsgRouteHandle(MsgRouteID.eMRIDLoadedWebRes, this.onMsgRouteResLoad);
     }
 
-    override public void init()
+    @Override
+    public void init()
     {
         // 游戏逻辑处理
         this.mResMsgRouteCB = new ResMsgRouteCB();
         Ctx.mInstance.mMsgRouteNotify.addOneNofity(this.mResMsgRouteCB);
     }
 
-    override public void dispose()
+    @Override
+    public void dispose()
     {
 
     }
@@ -52,12 +62,12 @@ public class DownloadMgr extends MsgRouteHandleBase
     }
 
     // 是否有正在加载的 DownloadItem
-    public bool hasDownloadItem(string resUniqueId)
+    public boolean hasDownloadItem(String resUniqueId)
     {
-        bool ret = false;
-        bool isFind = false;
+        boolean ret = false;
+        boolean isFind = false;
 
-        foreach (DownloadItem loadItem in this.mLoadData.mPath2LoadItem.Values)
+        for(DownloadItem loadItem : this.mLoadData.mPath2LoadItem.Values)
         {
             if (loadItem.getResUniqueId() == resUniqueId)
             {
@@ -69,7 +79,7 @@ public class DownloadMgr extends MsgRouteHandleBase
 
         if (!isFind)
         {
-            foreach (DownloadItem loadItem in this.mLoadData.mWillLoadItem.list())
+            for(DownloadItem loadItem : this.mLoadData.mWillLoadItem.list())
             {
                 if (loadItem.getResUniqueId() == resUniqueId)
                 {
@@ -90,9 +100,9 @@ public class DownloadMgr extends MsgRouteHandleBase
     }
 
     // 资源是否已经加载，包括成功和失败
-    public bool isDownloaded(string path)
+    public boolean isDownloaded(String path)
     {
-        bool ret = false;
+        boolean ret = false;
 
         DownloadItem downloadItem = this.getDownloadItem(path);
 
@@ -109,9 +119,9 @@ public class DownloadMgr extends MsgRouteHandleBase
         return ret;
     }
 
-    public bool isSuccessDownLoaded(string resUniqueId)
+    public boolean isSuccessDownLoaded(String resUniqueId)
     {
-        bool ret = false;
+        boolean ret = false;
 
         DownloadItem downloadItem = this.getDownloadItem(resUniqueId);
 
@@ -127,12 +137,12 @@ public class DownloadMgr extends MsgRouteHandleBase
         return ret;
     }
 
-    public DownloadItem getDownloadItem(string resUniqueId)
+    public DownloadItem getDownloadItem(String resUniqueId)
     {
         DownloadItem downloadItem = null;
-        bool isFind = false;
+        boolean isFind = false;
 
-        foreach (DownloadItem loadItem in this.mLoadData.mPath2LoadItem.Values)
+        for(DownloadItem loadItem : this.mLoadData.mPath2LoadItem.Values)
         {
             if (loadItem.getResUniqueId() == resUniqueId)
             {
@@ -144,7 +154,7 @@ public class DownloadMgr extends MsgRouteHandleBase
 
         if (!isFind)
         {
-            foreach (DownloadItem loadItem in this.mLoadData.mWillLoadItem.list())
+            for(DownloadItem loadItem : this.mLoadData.mWillLoadItem.list())
             {
                 if (loadItem.getResUniqueId() == resUniqueId)
                 {
@@ -188,27 +198,27 @@ public class DownloadMgr extends MsgRouteHandleBase
 
     protected void downloadWithDownloading(DownloadParam param)
     {
-        this.mLoadData.mPath2LoadItem[param.mResUniqueId].getRefCountResLoadResultNotify().getRefCount().incRef();
+        this.mLoadData.mPath2LoadItem.get(param.mResUniqueId).getRefCountResLoadResultNotify().getRefCount().incRef();
 
-        if (this.mLoadData.mPath2LoadItem[param.mResUniqueId].getRefCountResLoadResultNotify().getResLoadState().hasLoaded())
+        if (this.mLoadData.mPath2LoadItem.get(param.mResUniqueId).getRefCountResLoadResultNotify().getResLoadState().hasLoaded())
         {
             if (param.mLoadEventHandle != null)
             {
                 // 这个回调函数可能会调用 unload 卸载资源
-                param.mLoadEventHandle(this.mLoadData.mPath2LoadItem[param.mResUniqueId], 0);
+                param.mLoadEventHandle(this.mLoadData.mPath2LoadItem.get(param.mResUniqueId), 0);
             }
         }
         else
         {
             if (param.mLoadEventHandle != null)
             {
-                this.mLoadData.mPath2LoadItem[param.mResUniqueId].getAllLoadResEventDispatch().addEventHandle(null, param.mLoadEventHandle);
+                this.mLoadData.mPath2LoadItem.get(param.mResUniqueId).getAllLoadResEventDispatch().addEventHandle(null, param.mLoadEventHandle);
 
                 if(MacroDef.ENABLE_LOG)
                 {
-                    if(this.mLoadData.mPath2LoadItem[param.mResUniqueId].getAllLoadResEventDispatch().getEventHandleCount() > 1)
+                    if(this.mLoadData.mPath2LoadItem.get(param.mResUniqueId).getAllLoadResEventDispatch().getEventHandleCount() > 1)
                     {
-                        Ctx.mInstance.mLogSys.log(string.Format("DownloadMgr::downloadWithDownloading, has multiple event handle, ResUniqueId = {0}", param.mResUniqueId), LogTypeId.eLogResLoader);
+                        Ctx.mInstance.mLogSys.log(String.format("DownloadMgr::downloadWithDownloading, has multiple event handle, ResUniqueId = %s", param.mResUniqueId), LogTypeId.eLogResLoader);
                     }
                 }
             }
@@ -227,19 +237,19 @@ public class DownloadMgr extends MsgRouteHandleBase
             {
                 if (MacroDef.ENABLE_LOG)
                 {
-                    Ctx.mInstance.mLogSys.log(string.Format("DownloadMgr::downloadWithNotDownload, start, path = {0}", param.mLoadPath), LogTypeId.eLogDownload);
+                    Ctx.mInstance.mLogSys.log(String.format("DownloadMgr::downloadWithNotDownload, start, path = %s", param.mLoadPath), LogTypeId.eLogDownload);
                 }
 
                 // 先增加，否则退出的时候可能是先减 1 ，导致越界出现很大的值
                 ++this.mCurNum;
-                this.mLoadData.mPath2LoadItem[param.mResUniqueId] = loadItem;
-                this.mLoadData.mPath2LoadItem[param.mResUniqueId].load();
+                this.mLoadData.mPath2LoadItem.set(param.mResUniqueId, loadItem);
+                this.mLoadData.mPath2LoadItem.get(param.mResUniqueId).load();
             }
             else
             {
                 if (MacroDef.ENABLE_LOG)
                 {
-                    Ctx.mInstance.mLogSys.log(string.Format("DownloadMgr::downloadWithNotDownload, queue, path = {0}, CurNum = {1}, MaxParral = {2}", param.mLoadPath, this.mCurNum, this.mMaxParral), LogTypeId.eLogDownload);
+                    Ctx.mInstance.mLogSys.log(String.format("DownloadMgr::downloadWithNotDownload, queue, path = %s, CurNum = %s, MaxParral = {2}", param.mLoadPath, this.mCurNum, this.mMaxParral), LogTypeId.eLogDownload);
                 }
 
                 this.mLoadData.mWillLoadItem.Add(loadItem);
@@ -273,15 +283,15 @@ public class DownloadMgr extends MsgRouteHandleBase
     }
 
     // 这个卸载有引用计数，如果有引用计数就卸载不了
-    public void unload(string resUniqueId, MEventDispatchAction<IDispatchObject> loadEventHandle)
+    public void unload(String resUniqueId, MEventDispatchAction<IDispatchObject> loadEventHandle)
     {
         if (this.mLoadData.mPath2LoadItem.ContainsKey(resUniqueId))
         {
             // 移除事件监听器，因为很有可能移除的时候，资源还没加载完成，这个时候事件监听器中的处理函数列表还没有清理
-            this.mLoadData.mPath2LoadItem[resUniqueId].getRefCountResLoadResultNotify().getLoadResEventDispatch().removeEventHandle(null, loadEventHandle);
-            this.mLoadData.mPath2LoadItem[resUniqueId].getRefCountResLoadResultNotify().getRefCount().decRef();
+            this.mLoadData.mPath2LoadItem.get(resUniqueId).getRefCountResLoadResultNotify().getLoadResEventDispatch().removeEventHandle(null, loadEventHandle);
+            this.mLoadData.mPath2LoadItem.get(resUniqueId).getRefCountResLoadResultNotify().getRefCount().decRef();
 
-            if (this.mLoadData.mPath2LoadItem[resUniqueId].getRefCountResLoadResultNotify().getRefCount().isNoRef())
+            if (this.mLoadData.mPath2LoadItem.get(resUniqueId).getRefCountResLoadResultNotify().getRefCount().isNoRef())
             {
                 if (this.mLoopDepth.isInDepth())
                 {
@@ -298,9 +308,9 @@ public class DownloadMgr extends MsgRouteHandleBase
     // 卸载所有的资源
     public void unloadAll()
     {
-        MList<string> resUniqueIdList = new MList<string>();
+        MList<String> resUniqueIdList = new MList<String>();
 
-        foreach (string resUniqueId in this.mLoadData.mPath2LoadItem.Keys)
+        for(String resUniqueId : this.mLoadData.mPath2LoadItem.Keys)
         {
             resUniqueIdList.Add(resUniqueId);
         }
@@ -309,7 +319,7 @@ public class DownloadMgr extends MsgRouteHandleBase
         int len = resUniqueIdList.length();
         while (idx < len)
         {
-            this.unloadNoRefRes(resUniqueIdList[idx]);
+            this.unloadNoRefRes(resUniqueIdList.get(idx));
             ++idx;
         }
 
@@ -320,7 +330,7 @@ public class DownloadMgr extends MsgRouteHandleBase
     }
 
     // 添加无引用资源到 List
-    protected void addNoRefResID2List(string resUniqueId)
+    protected void addNoRefResID2List(String resUniqueId)
     {
         this.mZeroRefResIDList.Add(resUniqueId);
     }
@@ -328,11 +338,11 @@ public class DownloadMgr extends MsgRouteHandleBase
     // 卸载没有引用的资源列表中的资源
     protected void unloadNoRefResFromList()
     {
-        foreach (string path in this.mZeroRefResIDList)
+        for(String path : this.mZeroRefResIDList.list())
         {
             if (this.mLoadData.mPath2LoadItem.ContainsKey(path))
             {
-                if (this.mLoadData.mPath2LoadItem[path].getRefCountResLoadResultNotify().getRefCount().isNoRef())
+                if (this.mLoadData.mPath2LoadItem.get(path).getRefCountResLoadResultNotify().getRefCount().isNoRef())
                 {
                     this.unloadNoRefRes(path);
                 }
@@ -341,7 +351,7 @@ public class DownloadMgr extends MsgRouteHandleBase
             {
                 if (MacroDef.ENABLE_LOG)
                 {
-                    Ctx.mInstance.mLogSys.log(string.Format("DownloadMgr::unloadNoRefResFromList, fail, path = {0}", path), LogTypeId.eLogDownload);
+                    Ctx.mInstance.mLogSys.log(String.format("DownloadMgr::unloadNoRefResFromList, fail, path = %s", path), LogTypeId.eLogDownload);
                 }
             }
         }
@@ -350,14 +360,14 @@ public class DownloadMgr extends MsgRouteHandleBase
     }
 
     // 不考虑引用计数，直接卸载
-    protected void unloadNoRefRes(string resUniqueId)
+    protected void unloadNoRefRes(String resUniqueId)
     {
         // 如果在加载队列中
         if (this.mLoadData.mPath2LoadItem.ContainsKey(resUniqueId))
         {
-            this.mLoadData.mPath2LoadItem[resUniqueId].unload();
-            this.mLoadData.mPath2LoadItem[resUniqueId].reset();
-            this.mLoadData.mNoUsedLoadItem.Add(mLoadData.mPath2LoadItem[resUniqueId]);
+            this.mLoadData.mPath2LoadItem.get(resUniqueId).unload();
+            this.mLoadData.mPath2LoadItem.get(resUniqueId).reset();
+            this.mLoadData.mNoUsedLoadItem.Add(this.mLoadData.mPath2LoadItem.get(resUniqueId));
             this.mLoadData.mPath2LoadItem.Remove(resUniqueId);
         }
         else
@@ -367,14 +377,14 @@ public class DownloadMgr extends MsgRouteHandleBase
 
             if (MacroDef.ENABLE_LOG)
             {
-                Ctx.mInstance.mLogSys.log(string.Format("DownloadMgr::unloadNoRefRes, cannot find, resUniqueId = {0}", resUniqueId), LogTypeId.eLogDownload);
+                Ctx.mInstance.mLogSys.log(String.format("DownloadMgr::unloadNoRefRes, cannot find, resUniqueId = %s", resUniqueId), LogTypeId.eLogDownload);
             }
         }
     }
 
-    public void removeWillLoadItem(string resUniqueId)
+    public void removeWillLoadItem(String resUniqueId)
     {
-        foreach (DownloadItem loadItem in this.mLoadData.mWillLoadItem.list())
+        for(DownloadItem loadItem : this.mLoadData.mWillLoadItem.list())
         {
             if (loadItem.getResUniqueId() == resUniqueId)
             {
@@ -384,11 +394,11 @@ public class DownloadMgr extends MsgRouteHandleBase
         }
     }
 
-    public void onLoadEventHandle(IDispatchObject dispObj, uint uniqueId)
+    public void onLoadEventHandle(IDispatchObject dispObj, int uniqueId)
     {
         this.mLoopDepth.incDepth();
 
-        DownloadItem item = dispObj as DownloadItem;
+        DownloadItem item = (DownloadItem)dispObj;
         item.getRefCountResLoadResultNotify().getLoadResEventDispatch().removeEventHandle(null, this.onLoadEventHandle);
 
         if (item.getRefCountResLoadResultNotify().getResLoadState().hasSuccessLoaded())
@@ -413,7 +423,7 @@ public class DownloadMgr extends MsgRouteHandleBase
     {
         if (this.mLoadData.mPath2LoadItem.ContainsKey(item.getResUniqueId()))
         {
-            this.mLoadData.mPath2LoadItem[item.getResUniqueId()].init();
+            this.mLoadData.mPath2LoadItem.get(item.getResUniqueId()).init();
         }
         else        // 如果资源已经没有使用的地方了
         {
@@ -423,11 +433,11 @@ public class DownloadMgr extends MsgRouteHandleBase
 
     public void onFailed(DownloadItem item)
     {
-        string resUniqueId = item.getResUniqueId();
+        String resUniqueId = item.getResUniqueId();
 
         if (this.mLoadData.mPath2LoadItem.ContainsKey(resUniqueId))
         {
-            this.mLoadData.mPath2LoadItem[resUniqueId].failed();
+            this.mLoadData.mPath2LoadItem.get(resUniqueId).failed();
         }
     }
 
@@ -443,7 +453,7 @@ public class DownloadMgr extends MsgRouteHandleBase
         {
             if (MacroDef.ENABLE_LOG)
             {
-                Ctx.mInstance.mLogSys.log(string.Format("DownloadMgr::releaseLoadItem, add NoUsedLDItem multiple, resUniqueId = {0}", item.getResUniqueId()), LogTypeId.eLogDownload);
+                Ctx.mInstance.mLogSys.log(String.format("DownloadMgr::releaseLoadItem, add NoUsedLDItem multiple, resUniqueId = %s", item.getResUniqueId()), LogTypeId.eLogDownload);
             }
         }
 
@@ -457,16 +467,16 @@ public class DownloadMgr extends MsgRouteHandleBase
         {
             if (this.mLoadData.mWillLoadItem.Count() > 0)
             {
-                string resUniqueId = (this.mLoadData.mWillLoadItem[0] as DownloadItem).getResUniqueId();
-                this.mLoadData.mPath2LoadItem[resUniqueId] = this.mLoadData.mWillLoadItem[0] as DownloadItem;
+                String resUniqueId = ((DownloadItem)this.mLoadData.mWillLoadItem.get(0)).getResUniqueId();
+                this.mLoadData.mPath2LoadItem.set(resUniqueId, (DownloadItem)this.mLoadData.mWillLoadItem.get(0));
                 this.mLoadData.mWillLoadItem.RemoveAt(0);
-                this.mLoadData.mPath2LoadItem[resUniqueId].load();
+                this.mLoadData.mPath2LoadItem.get(resUniqueId).load();
 
                 ++this.mCurNum;
 
                 if (MacroDef.ENABLE_LOG)
                 {
-                    Ctx.mInstance.mLogSys.log(string.Format("DownloadMgr::loadNextItem, load, path = {0}, CurNum = {1}, MaxParral = {2}", this.mLoadData.mPath2LoadItem[resUniqueId].getLoadPath(), this.mCurNum, this.mMaxParral), LogTypeId.eLogDownload);
+                    Ctx.mInstance.mLogSys.log(String.format("DownloadMgr::loadNextItem, load, path = %s, CurNum = %s, MaxParral = %s", this.mLoadData.mPath2LoadItem.get(resUniqueId).getLoadPath(), this.mCurNum, this.mMaxParral), LogTypeId.eLogDownload);
                 }
             }
         }
@@ -476,7 +486,7 @@ public class DownloadMgr extends MsgRouteHandleBase
     {
         this.mRetLoadItem = null;
 
-        foreach (DownloadItem item in this.mLoadData.mNoUsedLoadItem.list())
+        for(DownloadItem item : this.mLoadData.mNoUsedLoadItem.list())
         {
             this.mRetLoadItem = item;
             this.mLoadData.mNoUsedLoadItem.Remove(this.mRetLoadItem);
@@ -487,10 +497,10 @@ public class DownloadMgr extends MsgRouteHandleBase
     }
 
     // 资源加载完成，触发下一次加载
-    protected void onMsgRouteResLoad(IDispatchObject dispObj, uint uniqueId)
+    protected void onMsgRouteResLoad(IDispatchObject dispObj, int uniqueId)
     {
-        MsgRouteBase msg = dispObj as MsgRouteBase;
-        DownloadItem loadItem = (msg as LoadedWebResMR).mTask as DownloadItem;
+        MsgRouteBase msg = (MsgRouteBase)dispObj;
+        DownloadItem loadItem = (DownloadItem)(((LoadedWebResMR)msg).mTask);
         loadItem.handleResult();
     }
 }

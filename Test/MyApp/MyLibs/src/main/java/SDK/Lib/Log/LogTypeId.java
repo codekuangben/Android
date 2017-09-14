@@ -6,4 +6,5 @@ public enum LogTypeId
     eLogNoPriorityListCheck,
     eLogPriorityListCheck,
     eLogDownload,
+    eLogResLoader,
 }

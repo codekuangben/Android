@@ -17,6 +17,16 @@ public class MsgRouteHandleBase extends GObject implements ICalleeObject
         this.mId2HandleDic = new MDictionary<Integer, AddOnceEventDispatch>();
     }
 
+    public void init()
+    {
+
+    }
+
+    public void dispose()
+    {
+
+    }
+
     public void addMsgRouteHandle(MsgRouteID msgRouteID, IDispatchObject handle, int eventId)
     {
         if(!this.mId2HandleDic.ContainsKey(msgRouteID.ordinal()))

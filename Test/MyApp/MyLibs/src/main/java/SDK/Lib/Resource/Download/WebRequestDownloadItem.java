@@ -1,5 +1,12 @@
 ﻿package SDK.Lib.Resource.Download;
 
+import SDK.Lib.FrameWork.Ctx;
+import SDK.Lib.FrameWork.MacroDef;
+import SDK.Lib.Log.LogTypeId;
+import SDK.Lib.Resource.ResLoadData.ResPackType;
+import SDK.Lib.Tools.UtilApi;
+import SDK.Lib.Tools.UtilStr;
+
 /**
 * @brief 使用 Unity 的 UnityWebRequest 从网络下载数据
 * @ref http://blog.csdn.net/u010019717/article/details/52753738
@@ -16,9 +23,10 @@ public class WebRequestDownloadItem extends DownloadItem
         this.mErrorStr = "";
     }
 
-    override public void reset()
+    @Override
+    public void reset()
     {
-        base.reset();
+        super.reset();
 
         if (null != this.mUnityWebRequestFile)
         {
@@ -27,20 +35,23 @@ public class WebRequestDownloadItem extends DownloadItem
         }
     }
 
-    override public UnityWebRequest getUnityWebRequestFile()
+    @Override
+    public UnityWebRequest getUnityWebRequestFile()
     {
         return null;
     }
 
-    override public void load()
+    @Override
+    public void load()
     {
-        base.load();
+        super.load();
 
         Ctx.mInstance.mCoroutineMgr.StartCoroutine(this.downloadAsset());
     }
 
     // mPath 是这个格式 http://127.0.0.1/UnityServer/Version.txt?ver=100
-    override protected IEnumerator downloadAsset()
+    @Override
+    protected IEnumerator downloadAsset()
     {
         //this.deleteFromCache(this.mDownloadVerPath);
 
@@ -101,14 +112,15 @@ public class WebRequestDownloadItem extends DownloadItem
     }
 
     // 加载完成回调处理
-    override protected void onWWWEnd()
+    @Override
+    protected void onWWWEnd()
     {
         // 只有 UnityWebRequest::responseCode 是 200 的时候，才显示加载成功，UnityWebRequest::error == null 并且 UnityWebRequest::isDone == true ，并不能说明加载成功
         if (null != this.mUnityWebRequestFile && UtilApi.isUnityWebRequestLoadedSuccess(this.mUnityWebRequestFile))
         {
             if (MacroDef.ENABLE_LOG)
             {
-                Ctx.mInstance.mLogSys.log(string.Format("DownloadItem::onWWWEnd, success, path = {0}", this.mLoadPath), LogTypeId.eLogDownload);
+                Ctx.mInstance.mLogSys.log(String.format("DownloadItem::onWWWEnd, success, path = %s", this.mLoadPath), LogTypeId.eLogDownload);
             }
 
             // 如果是 AssetBudnles 资源，并且使用 WWW.LoadFromCacheOrDownload， WWW.size 和 WWW.bytes 这些属性是不能访问的，只能访问 WWW.assetBundle 这个属性
@@ -162,7 +174,7 @@ public class WebRequestDownloadItem extends DownloadItem
         {
             // UnityWebRequest::responseCode 如果不是 200 ，this.mUnityWebRequestFile.downloadHandler.text 中内容是错误描述
             if (null != this.mUnityWebRequestFile.downloadHandler &&
-               !string.IsNullOrEmpty(this.mUnityWebRequestFile.downloadHandler.text))
+               !UtilStr.isNullOrEmpty(this.mUnityWebRequestFile.downloadHandler.text))
             {
                 this.mErrorStr = this.mUnityWebRequestFile.downloadHandler.text;
             }
@@ -173,11 +185,11 @@ public class WebRequestDownloadItem extends DownloadItem
             {
                 if (null != this.mUnityWebRequestFile)
                 {
-                    Ctx.mInstance.mLogSys.log(string.Format("WebRequestDownloadItem::onWWWEnd, fail, www not null, path = {0} errorstr = {1}", this.mLoadPath, this.mErrorStr), LogTypeId.eLogDownload);
+                    Ctx.mInstance.mLogSys.log(String.format("WebRequestDownloadItem::onWWWEnd, fail, www not null, path = %s errorstr = %s", this.mLoadPath, this.mErrorStr), LogTypeId.eLogDownload);
                 }
                 else
                 {
-                    Ctx.mInstance.mLogSys.log(string.Format("WebRequestDownloadItem::onWWWEnd, fail, www is null, path = {0} errorstr = {1}", this.mLoadPath, this.mErrorStr), LogTypeId.eLogDownload);
+                    Ctx.mInstance.mLogSys.log(String.format("WebRequestDownloadItem::onWWWEnd, fail, www is null, path = %s errorstr = %s", this.mLoadPath, this.mErrorStr), LogTypeId.eLogDownload);
                 }
             }
         }

@@ -11,7 +11,7 @@ public class MsgRouteNotify
         this.mDispList = new MList<MsgRouteDispHandle>();
     }
 
-    public void addOneDisp(MsgRouteDispHandle disp)
+    public void addOneNotify(MsgRouteDispHandle disp)
     {
         if(!this.mDispList.Contains(disp))
         {
@@ -19,7 +19,7 @@ public class MsgRouteNotify
         }
     }
 
-    public void removeOneDisp(MsgRouteDispHandle disp)
+    public void removeOneNotify(MsgRouteDispHandle disp)
     {
         if(this.mDispList.Contains(disp))
         {

@@ -48,7 +48,7 @@ public class DownloadMgr extends MsgRouteHandleBase implements ICalleeObject
     {
         // 游戏逻辑处理
         this.mResMsgRouteCB = new ResMsgRouteCB();
-        Ctx.mInstance.mMsgRouteNotify.addOneDisp(this.mResMsgRouteCB);
+        Ctx.mInstance.mMsgRouteNotify.addOneNotify(this.mResMsgRouteCB);
     }
 
     @Override

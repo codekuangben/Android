@@ -1,4 +1,4 @@
-﻿package SDK.Lib.Resource.ResLoadData;
+package SDK.Lib.Resource.ResLoadData;
 
 /**
  * @brief 资源加载类型，主要是从哪里加载

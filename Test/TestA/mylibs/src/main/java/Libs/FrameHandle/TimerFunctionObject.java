@@ -1,7 +1,7 @@
 package Libs.FrameHandle;
 
 import Libs.EventHandle.ICalleeObject;
-import Libs.Tools.UtilApi;
+import Libs.Tools.UtilAndroidWrap;
 
 public class TimerFunctionObject
 {
@@ -28,7 +28,7 @@ public class TimerFunctionObject
 
         if(handle != null)
         {
-            ret = UtilApi.isAddressEqual(this.mHandle, handle);
+            ret = UtilAndroidWrap.isAddressEqual(this.mHandle, handle);
             if(!ret)
             {
                 return ret;

@@ -6,7 +6,7 @@ package Libs.FrameHandle;
 import Libs.DataStruct.MList;
 import Libs.DelayHandle.DelayPriorityHandleMgrBase;
 import Libs.DelayHandle.IDelayHandleItem;
-import Libs.Tools.UtilApi;
+import Libs.Tools.UtilAndroidWrap;
 
 public class TimerMgr extends DelayPriorityHandleMgrBase
 {
@@ -62,7 +62,7 @@ public class TimerMgr extends DelayPriorityHandleMgrBase
             {
                 for(TimerItemBase item : this.mTimerList.list())
                 {
-                    if (UtilApi.isAddressEqual(item, delayObject))
+                    if (UtilAndroidWrap.isAddressEqual(item, delayObject))
                     {
                         this.mTimerList.Remove(item);
                         break;

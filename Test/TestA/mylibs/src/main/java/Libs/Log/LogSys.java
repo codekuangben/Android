@@ -5,7 +5,7 @@ import Libs.DataStruct.MList;
 import Libs.FrameWork.MacroDef;
 import Libs.Thread.MThread;
 import Libs.Tools.TClassOp;
-import Libs.Tools.UtilApi;
+import Libs.Tools.UtilAndroidWrap;
 
 public class LogSys
 {
@@ -157,7 +157,7 @@ public class LogSys
         {
             if(this.mIsOutTimeStamp[(int)LogColor.eLC_LOG.ordinal()])
             {
-                message = String.format("{0}: {1}", UtilApi.getFormatTime(), message);
+                message = String.format("{0}: {1}", UtilAndroidWrap.getFormatTime(), message);
             }
 
             if (this.mIsOutStack[(int)LogColor.eLC_LOG.ordinal()])
@@ -189,7 +189,7 @@ public class LogSys
         {
             if (this.mIsOutTimeStamp[(int)LogColor.eLC_WARN.ordinal()])
             {
-                message = String.format("{0}: {1}", UtilApi.getFormatTime(), message);
+                message = String.format("{0}: {1}", UtilAndroidWrap.getFormatTime(), message);
             }
 
             if (this.mIsOutStack[(int)LogColor.eLC_WARN.ordinal()])
@@ -221,7 +221,7 @@ public class LogSys
         {
             if (this.mIsOutTimeStamp[(int)LogColor.eLC_ERROR.ordinal()])
             {
-                message = String.format("{0}: {1}", UtilApi.getFormatTime(), message);
+                message = String.format("{0}: {1}", UtilAndroidWrap.getFormatTime(), message);
             }
 
             if (this.mIsOutStack[(int)LogColor.eLC_ERROR.ordinal()])

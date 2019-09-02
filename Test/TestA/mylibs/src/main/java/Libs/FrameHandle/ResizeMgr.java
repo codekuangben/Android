@@ -4,7 +4,7 @@ import Libs.DataStruct.MList;
 import Libs.DataStruct.NoOrPriorityList.INoOrPriorityObject;
 import Libs.DelayHandle.DelayPriorityHandleMgrBase;
 import Libs.DelayHandle.IDelayHandleItem;
-import Libs.Tools.UtilApi;
+import Libs.Tools.UtilAndroidWrap;
 
 public class ResizeMgr extends DelayPriorityHandleMgrBase implements ITickedObject, IDelayHandleItem, INoOrPriorityObject
 {
@@ -105,11 +105,11 @@ public class ResizeMgr extends DelayPriorityHandleMgrBase implements ITickedObje
     public void onTick(float delta, TickMode tickMode)
     {
         this.mPreWidth = this.mCurWidth;
-        this.mCurWidth = UtilApi.getScreenWidth();
+        this.mCurWidth = UtilAndroidWrap.getScreenWidth();
         this.mCurHalfWidth = this.mCurWidth / 2;
 
         this.mPreHeight = this.mCurHeight;
-        this.mCurHeight = UtilApi.getScreenHeight();
+        this.mCurHeight = UtilAndroidWrap.getScreenHeight();
         this.mCurHalfHeight = this.mCurHeight / 2;
 
         if (this.mPreWidth != this.mCurWidth || this.mPreHeight != this.mCurHeight)

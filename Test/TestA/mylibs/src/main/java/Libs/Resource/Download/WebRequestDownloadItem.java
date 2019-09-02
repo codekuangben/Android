@@ -14,7 +14,7 @@ import Libs.FrameWork.Ctx;
 import Libs.FrameWork.MacroDef;
 import Libs.Log.LogTypeId;
 import Libs.Resource.ResLoadData.ResPackType;
-import Libs.Tools.UtilApi;
+import Libs.Tools.UtilAndroidWrap;
 import Libs.Tools.UtilStr;
 import Libs.Resource.Download.DownloadItem;
 

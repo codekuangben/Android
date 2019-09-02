@@ -4,7 +4,7 @@ import Libs.EventHandle.ICalleeObject;
 import Libs.EventHandle.IDispatchObject;
 import Libs.Resource.ResLoadData.ResLoadType;
 import Libs.Resource.ResLoadData.ResPackType;
-import Libs.Tools.UtilApi;
+import Libs.Tools.UtilAndroidWrap;
 import Libs.Tools.UtilPath;
 
 /**
@@ -61,7 +61,7 @@ public class DownloadParam
 
         this.mExtName = UtilPath.getFileExt(this.mOrigPath);
 
-        if(this.mExtName == UtilApi.UNITY3D)
+        if(this.mExtName == UtilAndroidWrap.UNITY3D)
         {
             this.mResPackType = ResPackType.eBundleType;
         }

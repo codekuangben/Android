@@ -917,12 +917,12 @@ public class UtilPath
     // 打包成 unity3d 后文件名字会变成小写，这里修改一下
     static public void modifyFileNameToCapital(String path, String fileNameNoExt)
     {
-        String srcFullPath = String.format("{0}/{1}.{2}", path, fileNameNoExt.toLowerCase(), UtilApi.UNITY3D);
-        String destFullPath = String.format("{0}/{1}.{2}", path, fileNameNoExt, UtilApi.UNITY3D);
+        String srcFullPath = String.format("{0}/{1}.{2}", path, fileNameNoExt.toLowerCase(), UtilAndroidWrap.UNITY3D);
+        String destFullPath = String.format("{0}/{1}.{2}", path, fileNameNoExt, UtilAndroidWrap.UNITY3D);
         UtilPath.move(srcFullPath, destFullPath);
 
-        srcFullPath = String.format("{0}/{1}.{2}.manifest", path, fileNameNoExt.toLowerCase(), UtilApi.UNITY3D);
-        destFullPath = String.format("{0}/{1}.{2}.manifest", path, fileNameNoExt, UtilApi.UNITY3D);
+        srcFullPath = String.format("{0}/{1}.{2}.manifest", path, fileNameNoExt.toLowerCase(), UtilAndroidWrap.UNITY3D);
+        destFullPath = String.format("{0}/{1}.{2}.manifest", path, fileNameNoExt, UtilAndroidWrap.UNITY3D);
         UtilPath.move(srcFullPath, destFullPath);
     }
 

@@ -1,7 +1,7 @@
 package Libs.EventHandle;
 
 import Libs.DelayHandle.IDelayHandleItem;
-import Libs.Tools.UtilApi;
+import Libs.Tools.UtilAndroidWrap;
 
 public class EventDispatchFunctionObject implements IDelayHandleItem
 {
@@ -38,7 +38,7 @@ public class EventDispatchFunctionObject implements IDelayHandleItem
 
         if(pThis != null)
         {
-            ret = UtilApi.isAddressEqual(this.mThis, pThis);
+            ret = UtilAndroidWrap.isAddressEqual(this.mThis, pThis);
             if (!ret)
             {
                 return ret;
@@ -46,8 +46,8 @@ public class EventDispatchFunctionObject implements IDelayHandleItem
         }
         if (handle != null)
         {
-            //ret = UtilApi.isAddressEqual(this.mHandle, handle);
-            ret = UtilApi.isDelegateEqual(this.mHandle, handle);
+            //ret = UtilAndroidWrap.isAddressEqual(this.mHandle, handle);
+            ret = UtilAndroidWrap.isDelegateEqual(this.mHandle, handle);
             if (!ret)
             {
                 return ret;

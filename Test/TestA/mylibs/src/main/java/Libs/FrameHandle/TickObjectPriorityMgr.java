@@ -1,0 +1,94 @@
+package Libs.FrameHandle;
+
+import Libs.DataStruct.NoOrPriorityList.INoOrPriorityObject;
+import Libs.DelayHandle.DelayPriorityHandleMgr;
+import Libs.DelayHandle.IDelayHandleItem;
+import Libs.FrameWork.Ctx;
+import Libs.FrameWork.MacroDef;
+import Libs.Log.LogTypeId;
+
+// 每一帧执行的对象管理器
+public class TickObjectPriorityMgr extends DelayPriorityHandleMgr implements ITickedObject, IDelayHandleItem, INoOrPriorityObject
+{
+    public TickObjectPriorityMgr()
+    {
+
+    }
+
+    @Override
+    public void init()
+    {
+        super.init();
+    }
+
+    @Override
+    public void dispose()
+    {
+        super.dispose();
+    }
+
+    public void setClientDispose(boolean isDispose)
+    {
+
+    }
+
+    public boolean isClientDispose()
+    {
+        return false;
+    }
+
+    public void onTick(float delta, TickMode tickMode)
+    {
+        this.Advance(delta, tickMode);
+    }
+
+    public void Advance(float delta, TickMode tickMode)
+    {
+        this.incDepth();
+
+        this.onPreAdvance(delta, tickMode);
+        this.onExecAdvance(delta, tickMode);
+        this.onPostAdvance(delta, tickMode);
+
+        this.decDepth();
+    }
+
+    protected void onPreAdvance(float delta, TickMode tickMode)
+    {
+
+    }
+
+    protected void onExecAdvance(float delta, TickMode tickMode)
+    {
+        int idx = 0;
+        int count = this.mNoOrPriorityList.Count();
+        ITickedObject tickObject = null;
+
+        while (idx < count)
+        {
+            tickObject = (ITickedObject)this.mNoOrPriorityList.get(idx);
+
+            if (null != (IDelayHandleItem)tickObject)
+            {
+                if (!((IDelayHandleItem)tickObject).isClientDispose())
+                {
+                    tickObject.onTick(delta, tickMode);
+                }
+            }
+            else
+            {
+                if (MacroDef.ENABLE_LOG)
+                {
+                    Ctx.mInstance.mLogSys.log("TickObjectPriorityMgr::onExecAdvance, failed", LogTypeId.eLogCommon);
+                }
+            }
+
+            ++idx;
+        }
+    }
+
+    protected void onPostAdvance(float delta, TickMode tickMode)
+    {
+
+    }
+}

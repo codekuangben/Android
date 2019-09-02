@@ -1,9 +1,0 @@
-apply plugin: 'java-library'
-
-dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation files('C:\\Users\\Administrator\\.gradle\\caches\\modules-2\\files-2.1\\androidx.appcompat\\appcompat\\1.0.2\\e38e7c85994112b70d4548176128c72b8477c110\\appcompat-1.0.2-sources.jar')
-}
-
-sourceCompatibility = "7"
-targetCompatibility = "7"

@@ -1,15 +1,15 @@
-﻿package SDK.Lib.FileSystem;
+﻿package Libs.FileSystem;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 
-import SDK.Lib.Core.GObject;
-import SDK.Lib.EventHandle.AddOnceAndCallOnceEventDispatch;
-import SDK.Lib.EventHandle.IDispatchObject;
-import SDK.Lib.Tools.GkEncode;
-import SDK.Lib.Tools.MEncoding;
-import SDK.Lib.Tools.UtilApi;
+import Libs.Core.GObject;
+import Libs.EventHandle.AddOnceAndCallOnceEventDispatch;
+import Libs.EventHandle.IDispatchObject;
+import Libs.Tools.GkEncode;
+import Libs.Tools.MEncoding;
+import Libs.Tools.UtilApi;
 
 /**
  * @brief 仅支持本地文件操作，仅支持同步操作

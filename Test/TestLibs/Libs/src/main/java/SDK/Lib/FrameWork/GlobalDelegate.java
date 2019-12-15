@@ -1,8 +1,8 @@
-﻿package SDK.Lib.FrameWork;
+﻿package Libs.FrameWork;
 
-import SDK.Lib.EventHandle.AddOnceEventDispatch;
-import SDK.Lib.EventHandle.ICalleeObject;
-import SDK.Lib.EventHandle.IDispatchObject;
+import Libs.EventHandle.AddOnceEventDispatch;
+import Libs.EventHandle.ICalleeObject;
+import Libs.EventHandle.IDispatchObject;
 
 /**
  * @brief 全局委托，只要初始化后，就可以注册和使用这些委托，不用等到哪一个资源创建完成

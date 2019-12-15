@@ -1,6 +1,6 @@
-﻿package SDK.Lib.Task;
+﻿package Libs.Task;
 
-import SDK.Lib.DataStruct.MList;
+import Libs.DataStruct.MList;
 
 public class TaskThreadPool
 {

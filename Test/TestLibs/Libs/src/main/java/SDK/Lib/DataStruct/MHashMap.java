@@ -1,4 +1,4 @@
-﻿package SDK.Lib.DataStruct;
+﻿package Libs.DataStruct;
 
 /**
  * @brief MHashMap

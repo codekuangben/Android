@@ -1,13 +1,13 @@
 ﻿/**
 * @brief 心跳管理器
 */
-package SDK.Lib.FrameHandle;
+package Libs.FrameHandle;
 
-import SDK.Lib.DataStruct.MList;
-import SDK.Lib.DelayHandle.DelayHandleMgrBase;
-import SDK.Lib.DelayHandle.IDelayHandleItem;
-import SDK.Lib.EventHandle.ICalleeObjectNoRetNoParam;
-import SDK.Lib.Tools.UtilApi;
+import Libs.DataStruct.MList;
+import Libs.DelayHandle.DelayHandleMgrBase;
+import Libs.DelayHandle.IDelayHandleItem;
+import Libs.EventHandle.ICalleeObjectNoRetNoParam;
+import Libs.Tools.UtilApi;
 
 public class TickMgr extends DelayHandleMgrBase
 {

@@ -1,12 +1,12 @@
 ﻿/**
 * @brief 定时器管理器
 */
-package SDK.Lib.FrameHandle;
+package Libs.FrameHandle;
 
-import SDK.Lib.DataStruct.MList;
-import SDK.Lib.DelayHandle.DelayHandleMgrBase;
-import SDK.Lib.DelayHandle.IDelayHandleItem;
-import SDK.Lib.Tools.UtilApi;
+import Libs.DataStruct.MList;
+import Libs.DelayHandle.DelayHandleMgrBase;
+import Libs.DelayHandle.IDelayHandleItem;
+import Libs.Tools.UtilApi;
 
 public class FrameTimerMgr extends DelayHandleMgrBase
 {

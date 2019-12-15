@@ -1,4 +1,4 @@
-﻿package SDK.Lib.EventHandle;
+﻿package Libs.EventHandle;
 
 public class AddOnceAndCallOnceEventDispatch extends EventDispatch
 {

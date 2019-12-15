@@ -1,7 +1,7 @@
-package SDK.Lib.FrameHandle;
+package Libs.FrameHandle;
 
-import SDK.Lib.EventHandle.ICalleeObject;
-import SDK.Lib.Tools.UtilApi;
+import Libs.EventHandle.ICalleeObject;
+import Libs.Tools.UtilApi;
 
 public class TimerFunctionObject
 {

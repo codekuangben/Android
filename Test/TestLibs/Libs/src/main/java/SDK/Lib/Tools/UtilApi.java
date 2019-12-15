@@ -1,9 +1,9 @@
-﻿package SDK.Lib.Tools;
+﻿package Libs.Tools;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import SDK.Lib.EventHandle.IDispatchObject;
+import Libs.EventHandle.IDispatchObject;
 
 /**
  * @brief 对 api 的进一步 wrap

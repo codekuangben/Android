@@ -1,6 +1,6 @@
-﻿package SDK.Lib.FrameWork;
+﻿package Libs.FrameWork;
 
-import SDK.Lib.MsgRoute.MsgRouteBase;
+import Libs.MsgRoute.MsgRouteBase;
 
 /**
  * @brief 主循环

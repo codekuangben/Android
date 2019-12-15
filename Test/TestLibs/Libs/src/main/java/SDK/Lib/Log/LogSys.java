@@ -1,11 +1,11 @@
-﻿package SDK.Lib.Log;
+﻿package Libs.Log;
 
-import SDK.Lib.DataStruct.LockList;
-import SDK.Lib.DataStruct.MList;
-import SDK.Lib.FrameWork.MacroDef;
-import SDK.Lib.Thread.MThread;
-import SDK.Lib.Tools.TClassOp;
-import SDK.Lib.Tools.UtilApi;
+import Libs.DataStruct.LockList;
+import Libs.DataStruct.MList;
+import Libs.FrameWork.MacroDef;
+import Libs.Thread.MThread;
+import Libs.Tools.TClassOp;
+import Libs.Tools.UtilApi;
 
 public class LogSys
 {

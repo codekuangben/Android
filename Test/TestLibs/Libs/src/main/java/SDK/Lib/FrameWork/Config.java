@@ -1,10 +1,10 @@
-﻿package SDK.Lib.FrameWork;
+﻿package Libs.FrameWork;
 
 /**
  * @brief 宏定义说明区域
  */
 
-import SDK.Lib.DataStruct.MList;
+import Libs.DataStruct.MList;
 
 /**
  * @brief 基本的配置

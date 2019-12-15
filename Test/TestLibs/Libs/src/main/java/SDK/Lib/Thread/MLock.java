@@ -1,9 +1,9 @@
-﻿package SDK.Lib.Thread;
+﻿package Libs.Thread;
 
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-import SDK.Lib.FrameWork.*;
+import Libs.FrameWork.*;
 
 /**
  * @brief 锁操作

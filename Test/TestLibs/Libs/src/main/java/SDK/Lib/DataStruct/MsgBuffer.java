@@ -1,7 +1,7 @@
-﻿package SDK.Lib.DataStruct;
+﻿package Libs.DataStruct;
 
-import SDK.Lib.FrameWork.MacroDef;
-import SDK.Lib.Tools.EEndian;
+import Libs.FrameWork.MacroDef;
+import Libs.Tools.EEndian;
 
 public class MsgBuffer
 {

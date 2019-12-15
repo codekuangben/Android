@@ -1,22 +1,22 @@
-﻿package SDK.Lib.FrameWork;
+﻿package Libs.FrameWork;
 
-import SDK.Lib.FrameHandle.FixedTickMgr;
-import SDK.Lib.FrameHandle.FrameTimerMgr;
-import SDK.Lib.FrameHandle.ITickedObject;
-import SDK.Lib.FrameHandle.LogicTickMgr;
-import SDK.Lib.FrameHandle.ResizeMgr;
-import SDK.Lib.FrameHandle.SystemFrameData;
-import SDK.Lib.FrameHandle.SystemTimeData;
-import SDK.Lib.FrameHandle.TickMgr;
-import SDK.Lib.FrameHandle.TickPriority;
-import SDK.Lib.FrameHandle.TimerMgr;
-import SDK.Lib.Log.LogSys;
-import SDK.Lib.MsgRoute.MsgRouteNotify;
-import SDK.Lib.MsgRoute.SysMsgRoute;
-import SDK.Lib.ObjectPool.IdPoolSys;
-import SDK.Lib.ObjectPool.PoolSys;
-import SDK.Lib.Task.TaskQueue;
-import SDK.Lib.Task.TaskThreadPool;
+import Libs.FrameHandle.FixedTickMgr;
+import Libs.FrameHandle.FrameTimerMgr;
+import Libs.FrameHandle.ITickedObject;
+import Libs.FrameHandle.LogicTickMgr;
+import Libs.FrameHandle.ResizeMgr;
+import Libs.FrameHandle.SystemFrameData;
+import Libs.FrameHandle.SystemTimeData;
+import Libs.FrameHandle.TickMgr;
+import Libs.FrameHandle.TickPriority;
+import Libs.FrameHandle.TimerMgr;
+import Libs.Log.LogSys;
+import Libs.MsgRoute.MsgRouteNotify;
+import Libs.MsgRoute.SysMsgRoute;
+import Libs.ObjectPool.IdPoolSys;
+import Libs.ObjectPool.PoolSys;
+import Libs.Task.TaskQueue;
+import Libs.Task.TaskThreadPool;
 
 /**
  * @brief 全局数据区

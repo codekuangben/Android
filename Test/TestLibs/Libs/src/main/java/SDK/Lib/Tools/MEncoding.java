@@ -1,8 +1,8 @@
-package SDK.Lib.Tools;
+package Libs.Tools;
 
 import java.io.UnsupportedEncodingException;
 
-import SDK.Lib.DataStruct.MArray;
+import Libs.DataStruct.MArray;
 
 public class MEncoding
 {

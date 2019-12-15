@@ -1,4 +1,4 @@
-﻿package SDK.Lib.EventHandle;
+﻿package Libs.EventHandle;
 
 /**
  * @brief 可分发的对象

@@ -1,6 +1,6 @@
-﻿package SDK.Lib.MsgRoute;
+﻿package Libs.MsgRoute;
 
-import SDK.Lib.DataStruct.LockQueue;
+import Libs.DataStruct.LockQueue;
 
 /**
  * @brief 系统消息流程，整个系统的消息分发都走这里，仅限单线程

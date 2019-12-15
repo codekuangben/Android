@@ -1,6 +1,6 @@
-﻿package SDK.Lib.MsgRoute;
+﻿package Libs.MsgRoute;
 
-import SDK.Lib.Task.ITask;
+import Libs.Task.ITask;
 
 public class LoadedWebResMR extends MsgRouteBase
 {

@@ -1,4 +1,4 @@
-﻿package SDK.Lib.FrameHandle;
+﻿package Libs.FrameHandle;
 
 /**
  * @brief 事件间隔

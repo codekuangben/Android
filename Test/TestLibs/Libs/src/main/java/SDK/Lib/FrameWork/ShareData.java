@@ -1,6 +1,6 @@
-﻿package SDK.Lib.FrameWork;
+﻿package Libs.FrameWork;
 
-import SDK.Lib.DataStruct.ByteBuffer;
+import Libs.DataStruct.ByteBuffer;
 
 /**
  * @brief 共享内容，主要是数据

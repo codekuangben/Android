@@ -1,6 +1,6 @@
-﻿package SDK.Lib.FrameWork;
+﻿package Libs.FrameWork;
 
-import SDK.Lib.Tools.TClassOp;
+import Libs.Tools.TClassOp;
 
 public class Singleton<T>
 {

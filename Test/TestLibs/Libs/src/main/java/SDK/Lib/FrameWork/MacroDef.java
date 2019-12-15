@@ -1,4 +1,4 @@
-﻿package SDK.Lib.FrameWork;
+﻿package Libs.FrameWork;
 
 public class MacroDef
 {

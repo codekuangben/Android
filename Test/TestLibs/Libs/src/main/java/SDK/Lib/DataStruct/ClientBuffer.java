@@ -1,4 +1,4 @@
-﻿package SDK.Lib.DataStruct;
+﻿package Libs.DataStruct;
 
 /**
  *@brief 网络数据缓冲区

@@ -1,4 +1,4 @@
-﻿package SDK.Lib.Thread;
+﻿package Libs.Thread;
 
 //import java.util.concurrent.CyclicBarrier;
 

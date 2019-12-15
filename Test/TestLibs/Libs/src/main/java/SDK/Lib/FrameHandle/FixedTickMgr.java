@@ -1,4 +1,4 @@
-﻿package SDK.Lib.FrameHandle;
+﻿package Libs.FrameHandle;
 
 public class FixedTickMgr extends TickMgr
 {

@@ -1,6 +1,6 @@
-﻿package SDK.Lib.FrameHandle;
+﻿package Libs.FrameHandle;
 
-import SDK.Lib.EventHandle.ICalleeObjectNoRetNoParam;
+import Libs.EventHandle.ICalleeObjectNoRetNoParam;
 
 public class LoopDepth
 {

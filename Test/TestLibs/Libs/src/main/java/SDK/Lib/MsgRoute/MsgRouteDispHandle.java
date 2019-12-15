@@ -1,8 +1,8 @@
-﻿package SDK.Lib.MsgRoute;
+﻿package Libs.MsgRoute;
 
-import SDK.Lib.EventHandle.EventDispatchGroup;
-import SDK.Lib.EventHandle.IDispatchObject;
-import SDK.Lib.FrameWork.Ctx;
+import Libs.EventHandle.EventDispatchGroup;
+import Libs.EventHandle.IDispatchObject;
+import Libs.FrameWork.Ctx;
 
 public class MsgRouteDispHandle
 {

@@ -1,4 +1,4 @@
-﻿package SDK.Lib.EventHandle;
+﻿package Libs.EventHandle;
 
 /**
  * @brief 资源实例化事件分发器

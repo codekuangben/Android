@@ -1,10 +1,10 @@
-﻿package SDK.Lib.DelayHandle;
+﻿package Libs.DelayHandle;
 
-import SDK.Lib.Core.GObject;
-import SDK.Lib.DataStruct.MList;
-import SDK.Lib.EventHandle.ICalleeObjectNoRetNoParam;
-import SDK.Lib.FrameHandle.LoopDepth;
-import SDK.Lib.Tools.UtilApi;
+import Libs.Core.GObject;
+import Libs.DataStruct.MList;
+import Libs.EventHandle.ICalleeObjectNoRetNoParam;
+import Libs.FrameHandle.LoopDepth;
+import Libs.Tools.UtilApi;
 
 /**
  * @brief 当需要管理的对象可能在遍历中间添加的时候，需要这个管理器

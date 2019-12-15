@@ -1,9 +1,9 @@
-﻿package SDK.Lib.ObjectPool;
+﻿package Libs.ObjectPool;
 
 import java.lang.reflect.Method;
 
-import SDK.Lib.DataStruct.LockList;
-import SDK.Lib.Tools.TClassOp;
+import Libs.DataStruct.LockList;
+import Libs.Tools.TClassOp;
 
 /**
  * @brief 对象池

@@ -1,15 +1,15 @@
-﻿package SDK.Lib.ObjectPool;
+﻿package Libs.ObjectPool;
 
-import SDK.Lib.DataStruct.MDictionary;
-import SDK.Lib.DataStruct.MList;
-import SDK.Lib.MsgRoute.IRecycle;
+import Libs.DataStruct.MDictionary;
+import Libs.DataStruct.MList;
+import Libs.MsgRoute.IRecycle;
 
 /**
  * @brief 有 Id 的缓存池
  */
 public class IdPoolSys
 {
-    protected MDictionary<String, MList<SDK.Lib.MsgRoute.IRecycle>> mId2PoolDic;
+    protected MDictionary<String, MList<Libs.MsgRoute.IRecycle>> mId2PoolDic;
 
     public IdPoolSys()
     {

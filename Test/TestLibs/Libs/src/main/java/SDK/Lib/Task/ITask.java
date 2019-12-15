@@ -1,4 +1,4 @@
-﻿package SDK.Lib.Task;
+﻿package Libs.Task;
 
 public interface ITask
 {

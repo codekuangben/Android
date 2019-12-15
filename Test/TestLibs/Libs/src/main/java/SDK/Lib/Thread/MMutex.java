@@ -1,8 +1,8 @@
-﻿package SDK.Lib.Thread;
+﻿package Libs.Thread;
 
 import java.util.concurrent.Semaphore;
 
-import SDK.Lib.FrameWork.*;
+import Libs.FrameWork.*;
 
 /**
  * @brief 互斥

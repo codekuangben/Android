@@ -1,7 +1,7 @@
-﻿package SDK.Lib.DataStruct;
+﻿package Libs.DataStruct;
 
-import SDK.Lib.EventHandle.*;
-import SDK.Lib.Tools.*;
+import Libs.EventHandle.*;
+import Libs.Tools.*;
 
 /**
  *@brief ByteBuffer 功能

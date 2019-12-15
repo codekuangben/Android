@@ -1,6 +1,6 @@
-﻿package SDK.Lib.FrameHandle;
+﻿package Libs.FrameHandle;
 
-import SDK.Lib.DelayHandle.IDelayHandleItem;
+import Libs.DelayHandle.IDelayHandleItem;
 
 /**
  * @brief 定时器，这个是不断增长的

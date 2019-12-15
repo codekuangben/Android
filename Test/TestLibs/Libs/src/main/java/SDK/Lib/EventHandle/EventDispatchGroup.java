@@ -1,6 +1,6 @@
-﻿package SDK.Lib.EventHandle;
+﻿package Libs.EventHandle;
 
-import SDK.Lib.DataStruct.MDictionary;
+import Libs.DataStruct.MDictionary;
 
 public class EventDispatchGroup
 {

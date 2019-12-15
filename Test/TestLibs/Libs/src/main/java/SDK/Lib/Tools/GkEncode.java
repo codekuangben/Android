@@ -1,4 +1,4 @@
-﻿package SDK.Lib.Tools;
+﻿package Libs.Tools;
 
 public enum GkEncode
 {

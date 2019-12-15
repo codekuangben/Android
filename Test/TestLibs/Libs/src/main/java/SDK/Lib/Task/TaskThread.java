@@ -1,7 +1,7 @@
-﻿package SDK.Lib.Task;
+﻿package Libs.Task;
 
-import SDK.Lib.Thread.MCondition;
-import SDK.Lib.Thread.MThread;
+import Libs.Thread.MCondition;
+import Libs.Thread.MThread;
 
 /**
  * @brief 任务线程

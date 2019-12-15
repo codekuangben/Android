@@ -1,7 +1,7 @@
-﻿package SDK.Lib.MsgRoute;
+﻿package Libs.MsgRoute;
 
-import SDK.Lib.EventHandle.IDispatchObject;
-import SDK.Lib.ObjectPool.IRecycle;
+import Libs.EventHandle.IDispatchObject;
+import Libs.ObjectPool.IRecycle;
 
 public class MsgRouteBase implements IRecycle, IDispatchObject
 {

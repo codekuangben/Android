@@ -1,6 +1,6 @@
-﻿package SDK.Lib.FrameWork;
+﻿package Libs.FrameWork;
 
-import SDK.Lib.DataStruct.ByteBuffer;
+import Libs.DataStruct.ByteBuffer;
 
 /**
  * @brief 生成一些需要的数据结构

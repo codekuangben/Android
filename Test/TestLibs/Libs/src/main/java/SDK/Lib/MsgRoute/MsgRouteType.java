@@ -1,4 +1,4 @@
-﻿package SDK.Lib.MsgRoute;
+﻿package Libs.MsgRoute;
 
 public enum MsgRouteType
 {

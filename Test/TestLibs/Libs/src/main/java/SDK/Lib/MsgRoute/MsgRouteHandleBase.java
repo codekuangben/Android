@@ -1,10 +1,10 @@
-﻿package SDK.Lib.MsgRoute;
+﻿package Libs.MsgRoute;
 
-import SDK.Lib.Core.GObject;
-import SDK.Lib.DataStruct.MDictionary;
-import SDK.Lib.EventHandle.AddOnceEventDispatch;
-import SDK.Lib.EventHandle.ICalleeObject;
-import SDK.Lib.EventHandle.IDispatchObject;
+import Libs.Core.GObject;
+import Libs.DataStruct.MDictionary;
+import Libs.EventHandle.AddOnceEventDispatch;
+import Libs.EventHandle.ICalleeObject;
+import Libs.EventHandle.IDispatchObject;
 
 public class MsgRouteHandleBase extends GObject implements ICalleeObject
 {

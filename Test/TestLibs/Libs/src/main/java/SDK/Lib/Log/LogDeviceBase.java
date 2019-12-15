@@ -1,4 +1,4 @@
-﻿package SDK.Lib.Log;
+﻿package Libs.Log;
 
 /**
  * @brief 日志设备

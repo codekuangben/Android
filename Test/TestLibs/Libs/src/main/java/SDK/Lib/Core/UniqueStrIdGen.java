@@ -1,4 +1,4 @@
-﻿package SDK.Lib.Core;
+﻿package Libs.Core;
 
 /**
  * @brief 唯一字符串生成器

@@ -1,6 +1,6 @@
-﻿package SDK.Lib.FrameHandle;
+﻿package Libs.FrameHandle;
 
-import SDK.Lib.FrameWork.Ctx;
+import Libs.FrameWork.Ctx;
 
 public class SystemTimeData
 {

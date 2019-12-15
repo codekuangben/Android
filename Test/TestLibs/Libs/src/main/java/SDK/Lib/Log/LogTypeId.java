@@ -1,4 +1,4 @@
-﻿package SDK.Lib.Log;
+﻿package Libs.Log;
 
 public enum LogTypeId
 {

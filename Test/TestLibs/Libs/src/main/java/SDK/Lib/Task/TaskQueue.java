@@ -1,6 +1,6 @@
-﻿package SDK.Lib.Task;
+﻿package Libs.Task;
 
-import SDK.Lib.DataStruct.LockQueue;
+import Libs.DataStruct.LockQueue;
 
 public class TaskQueue extends LockQueue<ITask>
 {

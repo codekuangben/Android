@@ -1,4 +1,4 @@
-﻿package SDK.Lib.Core;
+﻿package Libs.Core;
 
 public class UniqueNumIdGen
 {

@@ -1,6 +1,6 @@
-﻿package SDK.Lib.MsgRoute;
+﻿package Libs.MsgRoute;
 
-import SDK.Lib.DataStruct.MList;
+import Libs.DataStruct.MList;
 
 public class MsgRouteNotify
 {

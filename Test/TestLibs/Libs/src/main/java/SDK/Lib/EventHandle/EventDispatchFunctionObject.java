@@ -1,7 +1,7 @@
-﻿package SDK.Lib.EventHandle;
+﻿package Libs.EventHandle;
 
-import SDK.Lib.DelayHandle.IDelayHandleItem;
-import SDK.Lib.Tools.UtilApi;
+import Libs.DelayHandle.IDelayHandleItem;
+import Libs.Tools.UtilApi;
 
 public class EventDispatchFunctionObject implements IDelayHandleItem
 {

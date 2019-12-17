@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import android.content.res.AssetManager;
+import android.app.Activity;
 
 public class MyAssetManager
 {
@@ -14,11 +15,25 @@ public class MyAssetManager
 
     }
 
+    public void setActivity(Activity activity)
+    {
+        if (null != activity)
+        {
+            this.mAssetManager = activity.getAssets();
+        }
+        else
+        {
+            System.out.print("activity is none");
+        }
+    }
+
     public void setNativeAssetManager(AssetManager assetManager)
     {
-        this.mAssetManager = assetManager;
-
-        if(null == this.mAssetManager)
+        if (null != assetManager)
+        {
+            this.mAssetManager = assetManager;
+        }
+        else
         {
             System.out.print("assetManager is none");
         }

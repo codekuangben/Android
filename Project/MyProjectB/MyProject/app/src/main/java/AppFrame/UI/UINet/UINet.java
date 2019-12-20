@@ -3,7 +3,6 @@ package AppFrame.UI.UINet;
 import android.view.View;
 import android.widget.TextView;
 
-import com.bbb.aaa.myapp.NetActivity;
 import com.bbb.aaa.myapp.R;
 
 import SDK.Lib.NetWork.NetPing;

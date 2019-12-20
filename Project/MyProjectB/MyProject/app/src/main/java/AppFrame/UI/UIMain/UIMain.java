@@ -2,7 +2,6 @@ package AppFrame.UI.UIMain;
 
 import android.view.View;
 
-import com.bbb.aaa.myapp.MainActivity;
 import com.bbb.aaa.myapp.R;
 
 import SDK.Lib.Tools.UtilApi;

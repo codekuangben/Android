@@ -1,8 +1,8 @@
-package SDK.Lib.UI.UICore;
+package Libs.Ui.Base;
 
 import android.app.Activity;
 
-import SDK.Lib.Core.GObject;
+import Libs.Core.GObject;
 
 public class Form extends GObject
 {

@@ -6,8 +6,8 @@ import android.widget.TextView;
 import com.bbb.aaa.myapp.R;
 
 import Libs.NetWork.NetPing;
-import Libs.Tools.UtilApi;
-import Libs.UI.UICore.Form;
+import Libs.Tools.UtilAndroidLibsWrap;
+import Libs.Ui.Base.Form;
 
 public class UiNet extends Form
 {
@@ -16,8 +16,8 @@ public class UiNet extends Form
     @Override
     public void onInit()
     {
-        UtilApi.findViewById(this.mActivity, UiNetCV.BtnId_TestPing).setOnClickListener((NetActivity)this.mActivity);
-        this.mTextView = (TextView)UtilApi.findViewById(this.mActivity, R.id.NetTextView_Log);
+        UtilAndroidLibsWrap.findViewById(this.mActivity, UiNetCV.BtnId_TestPing).setOnClickListener((NetActivity)this.mActivity);
+        this.mTextView = (TextView)UtilAndroidLibsWrap.findViewById(this.mActivity, R.id.NetTextView_Log);
     }
 
     public void onClick(View view)

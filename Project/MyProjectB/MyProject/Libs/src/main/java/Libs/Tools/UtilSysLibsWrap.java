@@ -6,11 +6,12 @@ import java.util.Date;
 import Libs.EventHandle.IDispatchObject;
 
 /**
- * @brief 对 api 的进一步 wrap
+ * @brief 对 SysLibs 的进一步 wrap
  */
-public class UtilApi
+public class UtilSysLibsWrap
 {
     public static final String CR_LF = "\\r\\n";
+    public static final String UNITY3D = "unity3d";
 
     static public MEncoding convGkEncode2EncodingEncoding(GkEncode gkEncode)
     {

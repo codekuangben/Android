@@ -1,4 +1,4 @@
-package SDK.Lib.NetWork;
+package Libs.NetWork;
 
 import java.io.BufferedReader;
 import java.io.IOException;

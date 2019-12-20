@@ -1,8 +1,8 @@
-package AppFrame.Test.TestByteBuffer;
+package App.Test.TestByteBuffer;
 
 
-import AppFrame.Test.TestBasic.TestBase;
-import SDK.Lib.DataStruct.MByteBuffer;
+import App.Test.TestBasic.TestBase;
+import Libs.DataStruct.MByteBuffer;
 
 
 /**

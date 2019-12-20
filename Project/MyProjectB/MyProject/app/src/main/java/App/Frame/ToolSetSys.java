@@ -1,6 +1,6 @@
-package AppFrame.App;
+package App.Frame;
 
-import SDK.Lib.Core.GObject;
+import Libs.Core.GObject;
 
 public class ToolSetSys extends GObject
 {

@@ -1,6 +1,6 @@
-package AppFrame.Test.TestBasic;
+package App.Test.TestBasic;
 
-import AppFrame.Test.TestByteBuffer.TestByteBuffer;
+import App.Test.TestByteBuffer.TestByteBuffer;
 
 /**
  * @brief TestMain

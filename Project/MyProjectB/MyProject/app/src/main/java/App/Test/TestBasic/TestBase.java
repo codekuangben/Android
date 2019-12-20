@@ -1,4 +1,4 @@
-package AppFrame.Test.TestBasic;
+package App.Test.TestBasic;
 
 /**
  * @brief TestBase

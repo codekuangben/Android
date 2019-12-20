@@ -1,22 +1,22 @@
-package AppFrame.UI.UINet;
+package App.Ui.UiNet;
 
 import android.view.View;
 import android.widget.TextView;
 
 import com.bbb.aaa.myapp.R;
 
-import SDK.Lib.NetWork.NetPing;
-import SDK.Lib.Tools.UtilApi;
-import SDK.Lib.UI.UICore.Form;
+import Libs.NetWork.NetPing;
+import Libs.Tools.UtilApi;
+import Libs.UI.UICore.Form;
 
-public class UINet extends Form
+public class UiNet extends Form
 {
     protected TextView mTextView;
 
     @Override
     public void onInit()
     {
-        UtilApi.findViewById(this.mActivity, UINetCV.BtnId_TestPing).setOnClickListener((NetActivity)this.mActivity);
+        UtilApi.findViewById(this.mActivity, UiNetCV.BtnId_TestPing).setOnClickListener((NetActivity)this.mActivity);
         this.mTextView = (TextView)UtilApi.findViewById(this.mActivity, R.id.NetTextView_Log);
     }
 

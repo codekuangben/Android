@@ -1,15 +1,15 @@
-package AppFrame.App;
+package App.Frame;
 
-import AppFrame.Test.TestBasic.TestMain;
-import SDK.Lib.Core.GObject;
-import SDK.Lib.FrameWork.Ctx;
+import App.Test.TestBasic.TestMain;
+import Libs.Core.GObject;
+import Libs.FrameWork.Ctx;
 
 /**
  *
  */
-public class MyApp extends GObject
+public class AppFrame extends GObject
 {
-    public MyApp()
+    public AppFrame()
     {
 
     }

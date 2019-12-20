@@ -1,18 +1,18 @@
-package AppFrame.UI.UIMain;
+package App.Ui.UiMain;
 
 import android.view.View;
 
 import com.bbb.aaa.myapp.R;
 
-import SDK.Lib.Tools.UtilApi;
-import SDK.Lib.UI.UICore.Form;
+import Libs.Tools.UtilApi;
+import Libs.Ui.UiCore.Form;
 
-public class UIMain extends Form
+public class UiMain extends Form
 {
     @Override
     public void onInit()
     {
-        UtilApi.findViewById(this.mActivity, UIMainCV.BtnId_TestPing).setOnClickListener((MainActivity)this.mActivity);
+        UtilApi.findViewById(this.mActivity, UiMainCV.BtnId_TestPing).setOnClickListener((MainActivity)this.mActivity);
     }
 
     public void onClick(View view)

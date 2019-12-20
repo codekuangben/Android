@@ -1,4 +1,4 @@
-﻿package Libs.Log;
+package Libs.Log;
 
 /**
  * @brief 日志系统，只有工具在使用

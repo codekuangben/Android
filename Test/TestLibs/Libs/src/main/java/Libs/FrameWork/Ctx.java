@@ -1,4 +1,4 @@
-﻿package Libs.FrameWork;
+package Libs.FrameWork;
 
 import Libs.FrameHandle.FixedTickMgr;
 import Libs.FrameHandle.FrameTimerMgr;

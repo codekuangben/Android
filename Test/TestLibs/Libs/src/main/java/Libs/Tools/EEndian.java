@@ -1,4 +1,4 @@
-﻿package Libs.Tools;
+package Libs.Tools;
 
 public enum EEndian
 {

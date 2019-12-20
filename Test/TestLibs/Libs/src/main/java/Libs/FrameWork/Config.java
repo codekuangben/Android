@@ -1,4 +1,4 @@
-﻿package Libs.FrameWork;
+package Libs.FrameWork;
 
 /**
  * @brief 宏定义说明区域

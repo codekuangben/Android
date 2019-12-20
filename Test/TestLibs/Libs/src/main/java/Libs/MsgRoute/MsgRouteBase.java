@@ -1,4 +1,4 @@
-﻿package Libs.MsgRoute;
+package Libs.MsgRoute;
 
 import Libs.EventHandle.IDispatchObject;
 import Libs.ObjectPool.IRecycle;

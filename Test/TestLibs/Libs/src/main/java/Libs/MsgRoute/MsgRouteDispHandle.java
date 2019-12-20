@@ -1,4 +1,4 @@
-﻿package Libs.MsgRoute;
+package Libs.MsgRoute;
 
 import Libs.EventHandle.EventDispatchGroup;
 import Libs.EventHandle.IDispatchObject;

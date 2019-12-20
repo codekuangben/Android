@@ -1,4 +1,4 @@
-﻿package Libs.MsgRoute;
+package Libs.MsgRoute;
 
 import Libs.Core.GObject;
 import Libs.DataStruct.MDictionary;

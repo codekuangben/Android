@@ -1,4 +1,4 @@
-﻿package Libs.EventHandle;
+package Libs.EventHandle;
 
 import Libs.DataStruct.MDictionary;
 

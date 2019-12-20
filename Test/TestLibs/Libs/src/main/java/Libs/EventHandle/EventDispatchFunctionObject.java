@@ -1,4 +1,4 @@
-﻿package Libs.EventHandle;
+package Libs.EventHandle;
 
 import Libs.DelayHandle.IDelayHandleItem;
 import Libs.Tools.UtilApi;

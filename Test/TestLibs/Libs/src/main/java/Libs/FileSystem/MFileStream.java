@@ -1,4 +1,4 @@
-﻿package Libs.FileSystem;
+package Libs.FileSystem;
 
 import java.io.File;
 import java.io.FileInputStream;

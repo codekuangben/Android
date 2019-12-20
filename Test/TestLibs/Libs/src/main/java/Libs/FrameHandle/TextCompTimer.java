@@ -1,4 +1,4 @@
-﻿package Libs.FrameHandle;
+package Libs.FrameHandle;
 
 public class TextCompTimer extends DaoJiShiTimer
 {

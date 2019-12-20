@@ -1,4 +1,4 @@
-﻿package Libs.MsgRoute;
+package Libs.MsgRoute;
 
 public class SocketCloseedMR extends MsgRouteBase
 {

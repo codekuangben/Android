@@ -1,4 +1,4 @@
-﻿package Libs.ObjectPool;
+package Libs.ObjectPool;
 
 import Libs.DataStruct.MDictionary;
 import Libs.DataStruct.MList;

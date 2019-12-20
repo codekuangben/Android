@@ -1,4 +1,4 @@
-﻿package Libs.FrameWork;
+package Libs.FrameWork;
 
 /**
  * @brief 全局性的事件

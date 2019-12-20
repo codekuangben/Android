@@ -1,4 +1,4 @@
-﻿package Libs.FrameHandle;
+package Libs.FrameHandle;
 
 /**
  * @brief 逻辑心跳管理器

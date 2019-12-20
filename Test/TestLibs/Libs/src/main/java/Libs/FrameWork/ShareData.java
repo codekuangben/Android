@@ -1,4 +1,4 @@
-﻿package Libs.FrameWork;
+package Libs.FrameWork;
 
 import Libs.DataStruct.ByteBuffer;
 

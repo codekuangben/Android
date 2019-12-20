@@ -1,4 +1,4 @@
-﻿package Libs.EventHandle;
+package Libs.EventHandle;
 
 /**
  * @brief 一次事件分发，分发一次就清理

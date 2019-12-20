@@ -1,4 +1,4 @@
-﻿package Libs.FrameHandle;
+package Libs.FrameHandle;
 
 /**
  * @brief Tick 的优先级

@@ -1,4 +1,4 @@
-﻿package Libs.Task;
+package Libs.Task;
 
 public interface ITask
 {

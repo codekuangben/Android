@@ -1,4 +1,4 @@
-﻿package Libs.FrameHandle;
+package Libs.FrameHandle;
 
 import Libs.DelayHandle.IDelayHandleItem;
 import Libs.EventHandle.IDispatchObject;

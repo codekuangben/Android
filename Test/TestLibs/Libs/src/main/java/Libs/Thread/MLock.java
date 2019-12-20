@@ -1,4 +1,4 @@
-﻿package Libs.Thread;
+package Libs.Thread;
 
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;

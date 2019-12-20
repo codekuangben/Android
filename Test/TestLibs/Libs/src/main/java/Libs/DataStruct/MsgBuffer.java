@@ -1,4 +1,4 @@
-﻿package Libs.DataStruct;
+package Libs.DataStruct;
 
 import Libs.FrameWork.MacroDef;
 import Libs.Tools.EEndian;

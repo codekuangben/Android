@@ -1,4 +1,4 @@
-﻿package Libs.EventHandle;
+package Libs.EventHandle;
 
 public class ResEventDispatch extends EventDispatch
 {

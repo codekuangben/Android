@@ -1,4 +1,4 @@
-﻿package Libs.DelayHandle;
+package Libs.DelayHandle;
 
 import Libs.Core.GObject;
 import Libs.DataStruct.MList;

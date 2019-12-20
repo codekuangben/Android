@@ -1,4 +1,4 @@
-﻿/**
+/**
 * @brief 定时器管理器
 */
 package Libs.FrameHandle;

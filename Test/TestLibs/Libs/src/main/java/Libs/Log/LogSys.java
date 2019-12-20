@@ -1,4 +1,4 @@
-﻿package Libs.Log;
+package Libs.Log;
 
 import Libs.DataStruct.LockList;
 import Libs.DataStruct.MList;

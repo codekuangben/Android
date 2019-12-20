@@ -1,4 +1,4 @@
-﻿package Libs.Thread;
+package Libs.Thread;
 
 /**
  *@brief 基本的线程

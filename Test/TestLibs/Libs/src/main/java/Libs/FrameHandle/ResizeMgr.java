@@ -1,4 +1,4 @@
-﻿package Libs.FrameHandle;
+package Libs.FrameHandle;
 
 import Libs.DataStruct.MList;
 import Libs.DelayHandle.DelayHandleMgrBase;

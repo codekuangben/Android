@@ -1,4 +1,4 @@
-﻿package Libs.Task;
+package Libs.Task;
 
 import Libs.DataStruct.LockQueue;
 

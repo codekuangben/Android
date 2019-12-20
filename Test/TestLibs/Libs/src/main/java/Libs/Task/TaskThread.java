@@ -1,4 +1,4 @@
-﻿package Libs.Task;
+package Libs.Task;
 
 import Libs.Thread.MCondition;
 import Libs.Thread.MThread;

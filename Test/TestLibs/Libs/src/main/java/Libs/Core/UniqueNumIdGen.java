@@ -1,4 +1,4 @@
-﻿package Libs.Core;
+package Libs.Core;
 
 public class UniqueNumIdGen
 {

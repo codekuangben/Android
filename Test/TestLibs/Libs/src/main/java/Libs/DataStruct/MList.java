@@ -1,4 +1,4 @@
-﻿package Libs.DataStruct;
+package Libs.DataStruct;
 
 import java.util.ArrayList;
 import java.util.List;

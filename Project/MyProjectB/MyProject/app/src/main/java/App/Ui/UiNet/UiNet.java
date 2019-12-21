@@ -10,15 +10,17 @@ import Libs.NetWork.NetPing;
 import Libs.Tools.UtilAndroidLibsWrap;
 import Libs.Ui.Base.Form;
 
-public class UiNet extends Form
+public class UiNet extends Form implements View.OnClickListener
 {
     protected TextView mTextView;
 
     @Override
     public void onInit()
     {
+        // 新版本 sdk 修改，这个会编译报错
         //UtilAndroidLibsWrap.findViewById(this.mActivity, UiNetCV.BtnId_TestPing).setOnClickListener((NetActivity)this.mActivity);
-        //this.mTextView = (TextView)UtilAndroidLibsWrap.findViewById(this.mActivity, R.id.NetTextView_Log);
+        UtilAndroidLibsWrap.findViewById(this.mActivity, UiNetCV.BtnId_TestPing).setOnClickListener(this);
+        this.mTextView = (TextView)UtilAndroidLibsWrap.findViewById(this.mActivity, R.id.NetTextView_Log);
     }
 
     public void onClick(View view)
@@ -28,7 +30,7 @@ public class UiNet extends Form
             case R.id.NetBtnId_TestPing:
                 UtilAndroidLibsWrap.startActivity(this.mActivity, "com.bbb.aaa.myapp.MainActivity");
                 //UtilAndroidLibsWrap.finishActivity(this.mActivity);
-            //    this.testPing();
+                this.testPing();
                 break;
         }
     }

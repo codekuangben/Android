@@ -30,4 +30,10 @@
         android:layout_margin="@dimen/fab_margin"
         app:srcCompat="@android:drawable/ic_dialog_email" />
 
+    <TextView
+        android:id="@+id/NetTextView_Log"
+        android:layout_width="260dp"
+        android:layout_height="295dp"
+        android:text="TextView" />
+
 </android.support.design.widget.CoordinatorLayout>

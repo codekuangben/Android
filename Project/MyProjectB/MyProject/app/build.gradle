@@ -1,6 +1,20 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        Key0 {
+            storeFile file('G:\\File\\opensource\\unity-game-git\\Android\\Project\\MyProjectB\\MyProject\\Key\\Test.jks')
+            storePassword '111111'
+            keyAlias = 'Key0'
+            keyPassword '111111'
+        }
+        debug {
+            storeFile file('G:\\File\\opensource\\unity-game-git\\Android\\Project\\MyProjectB\\MyProject\\Key\\Test.jks')
+            storePassword '111111'
+            keyAlias = 'Key0'
+            keyPassword '111111'
+        }
+    }
     compileSdkVersion 28
     buildToolsVersion '28.0.3'
     defaultConfig {

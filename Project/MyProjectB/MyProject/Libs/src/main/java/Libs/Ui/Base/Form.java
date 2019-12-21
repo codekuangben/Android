@@ -3,8 +3,10 @@ package Libs.Ui.Base;
 import android.app.Activity;
 
 import Libs.Core.GObject;
+import Libs.EventHandle.ICalleeObject;
+import Libs.EventHandle.IDispatchObject;
 
-public class Form extends GObject
+public class Form extends GObject implements ICalleeObject
 {
     protected Activity mActivity;
 
@@ -51,5 +53,10 @@ public class Form extends GObject
     public void setActivity(Activity value)
     {
         this.mActivity = value;
+    }
+
+    public void call(IDispatchObject dispObj)
+    {
+
     }
 }

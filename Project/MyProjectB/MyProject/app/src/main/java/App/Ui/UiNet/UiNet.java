@@ -17,19 +17,19 @@ public class UiNet extends Form
     @Override
     public void onInit()
     {
-        UtilAndroidLibsWrap.findViewById(this.mActivity, UiNetCV.BtnId_TestPing).setOnClickListener((NetActivity)this.mActivity);
-        this.mTextView = (TextView)UtilAndroidLibsWrap.findViewById(this.mActivity, R.id.NetTextView_Log);
+        //UtilAndroidLibsWrap.findViewById(this.mActivity, UiNetCV.BtnId_TestPing).setOnClickListener((NetActivity)this.mActivity);
+        //this.mTextView = (TextView)UtilAndroidLibsWrap.findViewById(this.mActivity, R.id.NetTextView_Log);
     }
 
     public void onClick(View view)
     {
         switch(view.getId())
         {
-            case R.id.NetBtnId_TestPing:
+            //case R.id.NetBtnId_TestPing:
                 //UtilSysLibsWrap.startActivity(this.mActivity, "com.bbb.aaa.myapp.MainActivity");
                 //UtilSysLibsWrap.finishActivity(this.mActivity);
-                this.testPing();
-                break;
+            //    this.testPing();
+            //    break;
         }
     }
 

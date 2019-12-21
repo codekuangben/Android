@@ -8,31 +8,31 @@ package Libs.DataStruct;
  * @brief 判空: mFirst == mLast
  * @brief 判满: mFirst == (mLast + 1) % len
  */
-public class CircularBuffer
+public class MCircularBuffer
 {
     protected DynByteBuffer mDynBuffer;
     protected int mFirst;             // 当前缓冲区数据的第一个索引
     protected int mLast;              // 当前缓冲区数据的最后一个索引的后面一个索引，浪费一个字节
-    protected ByteBuffer mTmpBA;        // 临时数据
+    protected MByteBuffer mTmpBA;        // 临时数据
 
-    public CircularBuffer()
+    public MCircularBuffer()
     {
         this(BufferCV.INIT_CAPACITY, BufferCV.MAX_CAPACITY);
     }
 
-    public CircularBuffer(int initCapacity)
+    public MCircularBuffer(int initCapacity)
     {
         this(initCapacity, BufferCV.MAX_CAPACITY);
     }
 
-    public CircularBuffer(int initCapacity, int maxCapacity)
+    public MCircularBuffer(int initCapacity, int maxCapacity)
     {
         mDynBuffer = new DynByteBuffer(initCapacity, maxCapacity);
 
         mFirst = 0;
         mLast = 0;
 
-        mTmpBA = new ByteBuffer();
+        mTmpBA = new MByteBuffer();
     }
 
     public int getFirst()
@@ -197,7 +197,7 @@ public class CircularBuffer
         mDynBuffer.mSize += len;
     }
 
-    public void pushBackBA(ByteBuffer bu)
+    public void pushBackBA(MByteBuffer bu)
     {
         //pushBack(bu.dynBuff.buffer, bu.position, bu.bytesAvailable);
         pushBackArr(bu.getDynBuffer().getBuffer(), 0, bu.getLength());
@@ -245,14 +245,14 @@ public class CircularBuffer
     /**
      * @brief 从 CB 中读取内容，并且将数据删除
      */
-    public void popFrontBA(ByteBuffer bytearray, int len)
+    public void popFrontBA(MByteBuffer bytearray, int len)
     {
         frontBA(bytearray, len);
         popFrontLen(len);
     }
 
     // 仅仅是获取数据，并不删除
-    public void frontBA(ByteBuffer bytearray, int len)
+    public void frontBA(MByteBuffer bytearray, int len)
     {
         bytearray.clear();          // 设置数据为初始值
         if (mDynBuffer.mSize >= len)          // 头部占据 4 个字节
@@ -296,8 +296,8 @@ public class CircularBuffer
         mDynBuffer.mSize -= len;
     }
 
-    // 向自己尾部添加一个 CircularBuffer
-    public void pushBackCB(CircularBuffer rhv)
+    // 向自己尾部添加一个 MCircularBuffer
+    public void pushBackCB(MCircularBuffer rhv)
     {
         if(mDynBuffer.mCapacity - mDynBuffer.mSize < rhv.getSize())
         {

@@ -136,7 +136,7 @@ public class DynBuffer<T>
         //T[] tmpbuff = new T[value];   // 分配新的空间
         //T[] tmpbuff = (T[]) new Object[value];
         T[] tmpbuff = this.createArray(mClassT, this.mCapacity);
-        MArray.Copy(this.mBuffer, 0, tmpbuff, 0, this.mSize);  // 这个地方是 mSize 还是应该是 mCapacity，如果是 CircleBuffer 好像应该是 mCapacity，如果是 ByteBuffer ，好像应该是 mCapacity。但是 DynBuffer 只有 ByteBuffer 才会使用这个函数，因此使用 mSize 就行了，但是如果使用 mCapacity 也没有问题
+        MArray.Copy(this.mBuffer, 0, tmpbuff, 0, this.mSize);  // 这个地方是 mSize 还是应该是 mCapacity，如果是 CircleBuffer 好像应该是 mCapacity，如果是 MByteBuffer ，好像应该是 mCapacity。但是 DynBuffer 只有 MByteBuffer 才会使用这个函数，因此使用 mSize 就行了，但是如果使用 mCapacity 也没有问题
 
         this.mBuffer = tmpbuff;
         this.mCapacity = value;

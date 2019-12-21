@@ -31,6 +31,14 @@ public class UtilAndroidLibsWrap
         return ret;
     }
 
+    public static void addEventHandle(View view, View.OnClickListener clickHandle)
+    {
+        if (null != view && null != clickHandle)
+        {
+            view.setOnClickListener(clickHandle);
+        }
+    }
+
     /**
      * @param packageAndClassPath = com.bbb.aaa.myapp.NetActivity
      * @brief 需要在 AndroidManifest.xml 添加

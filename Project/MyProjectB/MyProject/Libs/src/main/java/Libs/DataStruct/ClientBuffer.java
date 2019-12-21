@@ -1,6 +1,5 @@
 package Libs.DataStruct;
 
-import Libs.FrameWork.Ctx;
 import Libs.FrameWork.MacroDef;
 import Libs.Thread.MLock;
 import Libs.Thread.MMutex;
@@ -13,15 +12,15 @@ public class ClientBuffer
 {
     protected MsgBuffer mRawBuffer;      // 直接从服务器接收到的原始的数据，可能压缩和加密过
     protected MsgBuffer mMsgBuffer;      // 可以使用的缓冲区
-    //protected ByteBuffer mSendTmpBA;   // 发送临时缓冲区，发送的数据都暂时放在这里
+    //protected MByteBuffer mSendTmpBA;   // 发送临时缓冲区，发送的数据都暂时放在这里
     protected MsgBuffer mSendTmpBuffer;  // 发送临时缓冲区，发送的数据都暂时放在这里
-    protected ByteBuffer mSocketSendBA;       // 真正发送缓冲区
+    protected MByteBuffer mSocketSendBA;       // 真正发送缓冲区
 
     protected DynByteBuffer mDynBuffer;        // 接收到的临时数据，将要放到 mRawBuffer 中去
-    protected ByteBuffer mUnCompressHeaderBA;  // 存放解压后的头的长度
-    protected ByteBuffer mSendData;            // 存放将要发送的数据，将要放到 m_sendBuffer 中去
-    protected ByteBuffer mTmpData;             // 临时需要转换的数据放在这里
-    protected ByteBuffer mTmp1fData;           // 临时需要转换的数据放在这里
+    protected MByteBuffer mUnCompressHeaderBA;  // 存放解压后的头的长度
+    protected MByteBuffer mSendData;            // 存放将要发送的数据，将要放到 m_sendBuffer 中去
+    protected MByteBuffer mTmpData;             // 临时需要转换的数据放在这里
+    protected MByteBuffer mTmp1fData;           // 临时需要转换的数据放在这里
 
     private MMutex mReadMutex;   // 读互斥
     private MMutex mWriteMutex;  // 写互斥
@@ -30,16 +29,16 @@ public class ClientBuffer
     {
         mRawBuffer = new MsgBuffer();
         mMsgBuffer = new MsgBuffer();
-        //mSendTmpBA = new ByteBuffer();
+        //mSendTmpBA = new MByteBuffer();
         mSendTmpBuffer = new MsgBuffer();
-        mSocketSendBA = new ByteBuffer();
+        mSocketSendBA = new MByteBuffer();
         //mSocketSendBA.mId = 1000;
 
         //mDynBuffer = new DynamicBuffer<byte>(8096);
-        mUnCompressHeaderBA = new ByteBuffer();
-        mSendData = new ByteBuffer();
-        mTmpData = new ByteBuffer(4);
-        mTmp1fData = new ByteBuffer(4);
+        mUnCompressHeaderBA = new MByteBuffer();
+        mSendData = new MByteBuffer();
+        mTmpData = new MByteBuffer(4);
+        mTmp1fData = new MByteBuffer(4);
 
         mReadMutex = new MMutex(false, "ReadMutex");
         mWriteMutex = new MMutex(false, "WriteMutex");
@@ -50,7 +49,7 @@ public class ClientBuffer
         return this.mDynBuffer;
     }
 
-    //public ByteBuffer sendTmpBA
+    //public MByteBuffer sendTmpBA
     //{
     //    get
     //    {
@@ -63,12 +62,12 @@ public class ClientBuffer
         return mSendTmpBuffer;
     }
 
-    public ByteBuffer getSendBuffer()
+    public MByteBuffer getSendBuffer()
     {
         return mSocketSendBA;
     }
 
-    public ByteBuffer getSendData()
+    public MByteBuffer getSendData()
     {
         return mSendData;
     }
@@ -178,7 +177,7 @@ public class ClientBuffer
         }
     }
 
-    public ByteBuffer getMsg()
+    public MByteBuffer getMsg()
     {
         MLock mlock = new MLock(mReadMutex);
         {
@@ -193,7 +192,7 @@ public class ClientBuffer
     }
 
     // 弹出 KBEngine 消息
-    public ByteBuffer getMsg_KBE()
+    public MByteBuffer getMsg_KBE()
     {
         MLock mlock = new MLock(mReadMutex);
         {
@@ -433,7 +432,7 @@ public class ClientBuffer
             //Ctx.mInstance.mNetCmdNotify.addOneRevMsg();
 
             // Test 读取消息头
-            // ByteBuffer buff = getMsg();
+            // MByteBuffer buff = getMsg();
             // stNullUserCmd cmd = new stNullUserCmd();
             // cmd.derialize(buff);
         }

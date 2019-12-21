@@ -24,7 +24,7 @@ public class EngineLoop
         // 处理网络
         //if (!Ctx.mInstance.mNetCmdNotify.isStopNetHandle)
         //{
-        //    ByteBuffer ret = null;
+        //    MByteBuffer ret = null;
         //    while ((ret = Ctx.mInstance.mNetMgr.getMsg()) != null)
         //    {
         //        if (null != Ctx.mInstance.mNetCmdNotify)
@@ -39,7 +39,7 @@ public class EngineLoop
         // 填充数据到 KBEngine ，使用 KBEngine 引擎的逻辑解析
         //if (!Ctx.mInstance.mNetCmdNotify.isStopNetHandle)
         //{
-        //    ByteBuffer ret = null;
+        //    MByteBuffer ret = null;
         //    while ((ret = Ctx.mInstance.mNetMgr.getMsg_KBE()) != null)
         //    {
         //        Ctx.mInstance.mMKBEMainEntry.gameapp.pushBuffer(ret.dynBuffer.buffer, ret.dynBuffer.size);

@@ -8,4 +8,12 @@
     tools:context=".NetActivity"
     tools:showIn="@layout/activity_net">
 
+    <Button
+        android:id="@+id/NetBtnId_TestPing"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Button"
+        tools:layout_editor_absoluteX="283dp"
+        tools:layout_editor_absoluteY="308dp" />
+
 </android.support.constraint.ConstraintLayout>

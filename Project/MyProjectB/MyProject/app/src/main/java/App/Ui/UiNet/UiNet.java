@@ -25,11 +25,11 @@ public class UiNet extends Form
     {
         switch(view.getId())
         {
-            //case R.id.NetBtnId_TestPing:
-                //UtilSysLibsWrap.startActivity(this.mActivity, "com.bbb.aaa.myapp.MainActivity");
-                //UtilSysLibsWrap.finishActivity(this.mActivity);
+            case R.id.NetBtnId_TestPing:
+                UtilAndroidLibsWrap.startActivity(this.mActivity, "com.bbb.aaa.myapp.MainActivity");
+                //UtilAndroidLibsWrap.finishActivity(this.mActivity);
             //    this.testPing();
-            //    break;
+                break;
         }
     }
 

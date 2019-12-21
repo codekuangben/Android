@@ -19,12 +19,12 @@ public class PoolSys
         T retObj = null;
         // 查找
         int idx = 0;
-        for(idx = 0; idx < mPoolList.getCount(); ++idx)
+        for(idx = 0; idx < this.mPoolList.getCount(); ++idx)
         {
-            if (classT == mPoolList.get(idx).getClass())
+            if (classT == this.mPoolList.get(idx).getClass())
             {
-                retObj = (T)mPoolList.get(idx);
-                mPoolList.RemoveAt(idx);
+                retObj = (T)this.mPoolList.get(idx);
+                this.mPoolList.RemoveAt(idx);
 
                 Method myMethodInfo = null;
                 try
@@ -59,9 +59,9 @@ public class PoolSys
 
     public void deleteObj(IRecycle obj)
     {
-        if (mPoolList.IndexOf(obj) == -1)
+        if (this.mPoolList.IndexOf(obj) == -1)
         {
-            mPoolList.Add(obj);
+            this.mPoolList.Add(obj);
         }
     }
 }

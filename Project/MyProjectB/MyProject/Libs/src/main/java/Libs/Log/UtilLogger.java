@@ -3,7 +3,7 @@ package Libs.Log;
 /**
  * @brief 日志系统，只有工具在使用
  */
-public class LoggerTool
+public class UtilLogger
 {
     static public void log(String message)
     {

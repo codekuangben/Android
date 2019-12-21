@@ -4,7 +4,7 @@ import Libs.Core.GObject;
 import Libs.DataStruct.MList;
 import Libs.EventHandle.ICalleeObjectNoRetNoParam;
 import Libs.FrameHandle.LoopDepth;
-import Libs.Tools.UtilApi;
+import Libs.Tools.UtilSysLibsWrap;
 
 /**
  * @brief 当需要管理的对象可能在遍历中间添加的时候，需要这个管理器
@@ -87,7 +87,7 @@ public class DelayHandleMgrBase extends GObject implements ICalleeObjectNoRetNoP
     {
         for(DelayHandleObject item : this.mDeferredAddQueue.list())
         {
-            if(UtilApi.isAddressEqual(item.mDelayObject, delayObject))
+            if(UtilSysLibsWrap.isAddressEqual(item.mDelayObject, delayObject))
             {
                 return true;
             }
@@ -101,7 +101,7 @@ public class DelayHandleMgrBase extends GObject implements ICalleeObjectNoRetNoP
     {
         for (DelayHandleObject item : this.mDeferredDelQueue.list())
         {
-            if (UtilApi.isAddressEqual(item.mDelayObject, delayObject))
+            if (UtilSysLibsWrap.isAddressEqual(item.mDelayObject, delayObject))
             {
                 return true;
             }
@@ -115,7 +115,7 @@ public class DelayHandleMgrBase extends GObject implements ICalleeObjectNoRetNoP
     {
         for (DelayHandleObject item : this.mDeferredAddQueue.list())
         {
-            if (UtilApi.isAddressEqual(item.mDelayObject, delayObject))
+            if (UtilSysLibsWrap.isAddressEqual(item.mDelayObject, delayObject))
             {
                 this.mDeferredAddQueue.Remove(item);
             }
@@ -127,7 +127,7 @@ public class DelayHandleMgrBase extends GObject implements ICalleeObjectNoRetNoP
     {
         for (DelayHandleObject item : this.mDeferredDelQueue.list())
         {
-            if(UtilApi.isAddressEqual(item.mDelayObject, delayObject))
+            if(UtilSysLibsWrap.isAddressEqual(item.mDelayObject, delayObject))
             {
                 this.mDeferredDelQueue.Remove(item);
             }

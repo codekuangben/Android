@@ -8,7 +8,7 @@ import Libs.EventHandle.IDispatchObject;
 /**
  * @brief 对 api 的进一步 wrap
  */
-public class UtilApi
+public class UtilSysLibsWrap
 {
     public static final String CR_LF = "\\r\\n";
 

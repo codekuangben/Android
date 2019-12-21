@@ -3,6 +3,7 @@ package App.Ui.UiNet;
 import android.view.View;
 import android.widget.TextView;
 
+import com.bbb.aaa.myapp.NetActivity;
 import com.bbb.aaa.myapp.R;
 
 import Libs.NetWork.NetPing;
@@ -25,8 +26,8 @@ public class UiNet extends Form
         switch(view.getId())
         {
             case R.id.NetBtnId_TestPing:
-                //UtilApi.startActivity(this.mActivity, "com.bbb.aaa.myapp.MainActivity");
-                //UtilApi.finishActivity(this.mActivity);
+                //UtilSysLibsWrap.startActivity(this.mActivity, "com.bbb.aaa.myapp.MainActivity");
+                //UtilSysLibsWrap.finishActivity(this.mActivity);
                 this.testPing();
                 break;
         }

@@ -3,7 +3,7 @@ package Libs.FrameHandle;
 import Libs.DataStruct.MList;
 import Libs.DelayHandle.DelayHandleMgrBase;
 import Libs.DelayHandle.IDelayHandleItem;
-import Libs.Tools.UtilApi;
+import Libs.Tools.UtilSysLibsWrap;
 
 public class ResizeMgr extends DelayHandleMgrBase implements ITickedObject, IDelayHandleItem
 {
@@ -110,11 +110,11 @@ public class ResizeMgr extends DelayHandleMgrBase implements ITickedObject, IDel
     public void onTick(float delta)
     {
         this.mPreWidth = this.mCurWidth;
-        this.mCurWidth = UtilApi.getScreenWidth();
+        this.mCurWidth = UtilSysLibsWrap.getScreenWidth();
         this.mCurHalfWidth = this.mCurWidth / 2;
 
         this.mPreHeight = this.mCurHeight;
-        this.mCurHeight = UtilApi.getScreenHeight();
+        this.mCurHeight = UtilSysLibsWrap.getScreenHeight();
         this.mCurHalfHeight = this.mCurHeight / 2;
 
         if (this.mPreWidth != this.mCurWidth || this.mPreHeight != this.mCurHeight)

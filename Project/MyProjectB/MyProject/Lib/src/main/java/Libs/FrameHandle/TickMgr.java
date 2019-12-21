@@ -7,7 +7,7 @@ import Libs.DataStruct.MList;
 import Libs.DelayHandle.DelayHandleMgrBase;
 import Libs.DelayHandle.IDelayHandleItem;
 import Libs.EventHandle.ICalleeObjectNoRetNoParam;
-import Libs.Tools.UtilApi;
+import Libs.Tools.UtilSysLibsWrap;
 
 public class TickMgr extends DelayHandleMgrBase
 {
@@ -111,7 +111,7 @@ public class TickMgr extends DelayHandleMgrBase
         {
             for(TickProcessObject item : this.mTickList.list())
             {
-                if (UtilApi.isAddressEqual(item.mTickObject, delayObject))
+                if (UtilSysLibsWrap.isAddressEqual(item.mTickObject, delayObject))
                 {
                     this.mTickList.Remove(item);
                     break;

@@ -6,7 +6,7 @@ package Libs.FrameHandle;
 import Libs.DataStruct.MList;
 import Libs.DelayHandle.DelayHandleMgrBase;
 import Libs.DelayHandle.IDelayHandleItem;
-import Libs.Tools.UtilApi;
+import Libs.Tools.UtilSysLibsWrap;
 
 public class TimerMgr extends DelayHandleMgrBase
 {
@@ -68,7 +68,7 @@ public class TimerMgr extends DelayHandleMgrBase
             {
                 for(TimerItemBase item : this.mTimerList.list())
                 {
-                    if (UtilApi.isAddressEqual(item, delayObject))
+                    if (UtilSysLibsWrap.isAddressEqual(item, delayObject))
                     {
                         this.mTimerList.Remove(item);
                         break;

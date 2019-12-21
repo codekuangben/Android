@@ -1,7 +1,7 @@
 package Libs.EventHandle;
 
 import Libs.DelayHandle.IDelayHandleItem;
-import Libs.Tools.UtilApi;
+import Libs.Tools.UtilSysLibsWrap;
 
 public class EventDispatchFunctionObject implements IDelayHandleItem
 {
@@ -30,7 +30,7 @@ public class EventDispatchFunctionObject implements IDelayHandleItem
         boolean ret = false;
         if(pThis != null)
         {
-            ret = UtilApi.isAddressEqual(this.mThis, pThis);
+            ret = UtilSysLibsWrap.isAddressEqual(this.mThis, pThis);
             if (!ret)
             {
                 return ret;
@@ -38,8 +38,8 @@ public class EventDispatchFunctionObject implements IDelayHandleItem
         }
         if (handle != null)
         {
-            //ret = UtilApi.isAddressEqual(this.mHandle, handle);
-            ret = UtilApi.isDelegateEqual(this.mHandle, handle);
+            //ret = UtilSysLibsWrap.isAddressEqual(this.mHandle, handle);
+            ret = UtilSysLibsWrap.isDelegateEqual(this.mHandle, handle);
             if (!ret)
             {
                 return ret;

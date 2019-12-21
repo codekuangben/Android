@@ -11,7 +11,7 @@ public class ClientBuffer
     protected MsgBuffer mSendTmpBuffer;  // 发送临时缓冲区，发送的数据都暂时放在这里
     protected ByteBuffer mSocketSendBA;       // 真正发送缓冲区
 
-    protected DynBuffer<byte> mDynBuffer;        // 接收到的临时数据，将要放到 mRawBuffer 中去
+    protected DynByteBuffer mDynBuffer;        // 接收到的临时数据，将要放到 mRawBuffer 中去
     protected ByteBuffer mUnCompressHeaderBA;  // 存放解压后的头的长度
     protected ByteBuffer mSendData;            // 存放将要发送的数据，将要放到 m_sendBuffer 中去
     protected ByteBuffer mTmpData;             // 临时需要转换的数据放在这里
@@ -46,7 +46,7 @@ public class ClientBuffer
         }
     }
 
-    public DynBuffer<byte> dynBuffer
+    public DynByteBuffer dynBuffer
     {
         get
         {
@@ -126,7 +126,7 @@ public class ClientBuffer
 
     public void SetRevBufferSize(int size)
     {
-        mDynBuffer = new DynBuffer<byte>((uint)size);
+        mDynBuffer = new DynByteBuffer((uint)size);
     }
 
     public void moveDyn2Raw()

@@ -9,7 +9,7 @@ import Libs.EventHandle.AddOnceAndCallOnceEventDispatch;
 import Libs.EventHandle.IDispatchObject;
 import Libs.Tools.GkEncode;
 import Libs.Tools.MEncoding;
-import Libs.Tools.UtilApi;
+import Libs.Tools.UtilSysLibsWrap;
 
 /**
  * @brief 仅支持本地文件操作，仅支持同步操作
@@ -298,7 +298,7 @@ public class MFileStream extends GObject implements IDispatchObject
 
     public void writeText(String text, GkEncode gkEncode)
     {
-        MEncoding encode = UtilApi.convGkEncode2EncodingEncoding(gkEncode);
+        MEncoding encode = UtilSysLibsWrap.convGkEncode2EncodingEncoding(gkEncode);
 
         this.checkAndOpen();
 
@@ -370,7 +370,7 @@ public class MFileStream extends GObject implements IDispatchObject
 
     public void writeLine(String text, GkEncode gkEncode)
     {
-        text = text + UtilApi.CR_LF;
+        text = text + UtilSysLibsWrap.CR_LF;
         writeText(text, gkEncode);
     }
 }

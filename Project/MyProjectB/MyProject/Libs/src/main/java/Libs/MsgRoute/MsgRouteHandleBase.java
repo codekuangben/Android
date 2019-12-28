@@ -5,6 +5,7 @@ import Libs.DataStruct.MDictionary;
 import Libs.EventHandle.AddOnceEventDispatch;
 import Libs.EventHandle.ICalleeObject;
 import Libs.EventHandle.IDispatchObject;
+import Libs.Log.UtilLogger;
 
 public class MsgRouteHandleBase extends GObject implements ICalleeObject
 {
@@ -17,21 +18,38 @@ public class MsgRouteHandleBase extends GObject implements ICalleeObject
         this.mId2HandleDic = new MDictionary<Integer, AddOnceEventDispatch>();
     }
 
-    public void addMsgRouteHandle(MsgRouteID msgRouteID, IDispatchObject handle)
+    public void addMsgRouteHandle(
+            MsgRouteId msgRouteId,
+            ICalleeObject pThis,
+            IDispatchObject handle,
+            int eventId)
     {
-        if(!this.mId2HandleDic.ContainsKey(msgRouteID.ordinal()))
+        if(!this.mId2HandleDic.ContainsKey(msgRouteId.ordinal()))
         {
-            this.mId2HandleDic.set(msgRouteID.ordinal(), new AddOnceEventDispatch());
+            this.mId2HandleDic.set(msgRouteId.ordinal(), new AddOnceEventDispatch());
         }
 
-        this.mId2HandleDic.get(msgRouteID.ordinal()).addEventHandle(null, handle);
+        this.mId2HandleDic.get(msgRouteId.ordinal()).addEventHandle(
+                pThis,
+                handle,
+                eventId
+        );
     }
 
-    public void removeMsgRouteHandle(MsgRouteID msgRouteID, IDispatchObject handle)
+    public void removeMsgRouteHandle(
+            MsgRouteId msgRouteId,
+            ICalleeObject pThis,
+            IDispatchObject handle,
+            int eventId
+    )
     {
-        if (this.mId2HandleDic.ContainsKey(msgRouteID.ordinal()))
+        if (this.mId2HandleDic.ContainsKey(msgRouteId.ordinal()))
         {
-            this.mId2HandleDic.get(msgRouteID.ordinal()).removeEventHandle(null, handle);
+            this.mId2HandleDic.get(msgRouteId.ordinal()).removeEventHandle(
+                    pThis,
+                    handle,
+                    eventId
+            );
         }
     }
 
@@ -45,7 +63,7 @@ public class MsgRouteHandleBase extends GObject implements ICalleeObject
         }
         else
         {
-
+            UtilLogger.log("handleMsg can not id");
         }
     }
 

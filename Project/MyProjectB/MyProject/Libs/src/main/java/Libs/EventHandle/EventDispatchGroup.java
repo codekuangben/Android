@@ -1,6 +1,7 @@
 package Libs.EventHandle;
 
 import Libs.DataStruct.MDictionary;
+import Libs.Log.UtilLogger;
 
 public class EventDispatchGroup
 {
@@ -14,35 +15,53 @@ public class EventDispatchGroup
     }
 
     // 添加分发器
-    public void addEventDispatch(int groupID, EventDispatch disp)
+    public void addEventDispatch(int groupId, EventDispatch disp)
     {
-        if (!this.mGroupID2DispatchDic.ContainsKey(groupID))
+        if (!this.mGroupID2DispatchDic.ContainsKey(groupId))
         {
-            this.mGroupID2DispatchDic.set(groupID, disp);
+            this.mGroupID2DispatchDic.set(groupId, disp);
         }
     }
 
-    public void addEventHandle(int groupID, ICalleeObject pThis, IDispatchObject handle)
+    public void addEventHandle(
+            int groupId,
+            ICalleeObject pThis,
+            IDispatchObject handle,
+            int eventId
+    )
     {
         // 如果没有就创建一个
-        if (!this.mGroupID2DispatchDic.ContainsKey(groupID))
+        if (!this.mGroupID2DispatchDic.ContainsKey(groupId))
         {
-            addEventDispatch(groupID, new EventDispatch());
+            addEventDispatch(groupId, new EventDispatch());
         }
 
-        this.mGroupID2DispatchDic.get(groupID).addEventHandle(pThis, handle);
+        this.mGroupID2DispatchDic.get(groupId).addEventHandle(
+                pThis,
+                handle,
+                eventId
+        );
     }
 
-    public void removeEventHandle(int groupID, ICalleeObject pThis, IDispatchObject handle)
+    public void removeEventHandle(
+            int groupId,
+            ICalleeObject pThis,
+            IDispatchObject handle,
+            int eventId
+    )
     {
-        if (this.mGroupID2DispatchDic.ContainsKey(groupID))
+        if (this.mGroupID2DispatchDic.ContainsKey(groupId))
         {
-            this.mGroupID2DispatchDic.get(groupID).removeEventHandle(pThis, handle);
+            this.mGroupID2DispatchDic.get(groupId).removeEventHandle(
+                    pThis,
+                    handle,
+                    eventId
+            );
 
             // 如果已经没有了
-            if (!this.mGroupID2DispatchDic.get(groupID).hasEventHandle())
+            if (!this.mGroupID2DispatchDic.get(groupId).hasEventHandle())
             {
-                this.mGroupID2DispatchDic.Remove(groupID);
+                this.mGroupID2DispatchDic.Remove(groupId);
             }
         }
         else
@@ -51,17 +70,19 @@ public class EventDispatchGroup
         }
     }
 
-    public void dispatchEvent(int groupID, IDispatchObject dispatchObject)
+    public void dispatchEvent(int groupId, IDispatchObject dispatchObject)
     {
         this.mIsInLoop = true;
-        if (this.mGroupID2DispatchDic.ContainsKey(groupID))
+
+        if (this.mGroupID2DispatchDic.ContainsKey(groupId))
         {
-            this.mGroupID2DispatchDic.get(groupID).dispatchEvent(dispatchObject);
+            this.mGroupID2DispatchDic.get(groupId).dispatchEvent(dispatchObject);
         }
         else
         {
-
+            UtilLogger.log("dispatchEvent cannot find group");
         }
+
         this.mIsInLoop = false;
     }
 
@@ -82,14 +103,14 @@ public class EventDispatchGroup
         }
     }
 
-    public void clearGroupEventHandle(int groupID)
+    public void clearGroupEventHandle(int groupId)
     {
         if (!this.mIsInLoop)
         {
-            if (this.mGroupID2DispatchDic.ContainsKey(groupID))
+            if (this.mGroupID2DispatchDic.ContainsKey(groupId))
             {
-                this.mGroupID2DispatchDic.get(groupID).clearEventHandle();
-                this.mGroupID2DispatchDic.Remove(groupID);
+                this.mGroupID2DispatchDic.get(groupId).clearEventHandle();
+                this.mGroupID2DispatchDic.Remove(groupId);
             }
             else
             {
@@ -102,11 +123,11 @@ public class EventDispatchGroup
         }
     }
 
-    public boolean hasEventHandle(int groupID)
+    public boolean hasEventHandle(int groupId)
     {
-        if(this.mGroupID2DispatchDic.ContainsKey(groupID))
+        if(this.mGroupID2DispatchDic.ContainsKey(groupId))
         {
-            return this.mGroupID2DispatchDic.get(groupID).hasEventHandle();
+            return this.mGroupID2DispatchDic.get(groupId).hasEventHandle();
         }
 
         return false;

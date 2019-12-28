@@ -19,6 +19,7 @@ public class PoolSys
         T retObj = null;
         // 查找
         int idx = 0;
+
         for(idx = 0; idx < this.mPoolList.getCount(); ++idx)
         {
             if (classT == this.mPoolList.get(idx).getClass())
@@ -26,27 +27,35 @@ public class PoolSys
                 retObj = (T)this.mPoolList.get(idx);
                 this.mPoolList.RemoveAt(idx);
 
-                Method myMethodInfo = null;
-                try
-                {
-                    myMethodInfo = retObj.getClass().getMethod("resetDefault");
-                }
-                catch(Exception e)
-                {
+                IRecycle recycle = (IRecycle)retObj;
 
+                if(null != recycle)
+                {
+                    recycle.resetDefault();
                 }
 
-                if (myMethodInfo != null)
-                {
-                    try
-                    {
-                        myMethodInfo.invoke(retObj, null);
-                    }
-                    catch(Exception e)
-                    {
+                //Method myMethodInfo = null;
 
-                    }
-                }
+                //try
+                //{
+                //    myMethodInfo = retObj.getClass().getMethod("resetDefault");
+                //}
+                //catch(Exception e)
+                //{
+                //
+                //}
+
+                //if (myMethodInfo != null)
+                //{
+                //    try
+                //    {
+                //        myMethodInfo.invoke(retObj, null);
+                //    }
+                //    catch(Exception e)
+                //    {
+                //
+                //    }
+                //}
 
                 return retObj;
             }

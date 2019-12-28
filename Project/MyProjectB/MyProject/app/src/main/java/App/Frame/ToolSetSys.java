@@ -4,16 +4,16 @@ import Libs.Core.GObject;
 
 public class ToolSetSys extends GObject
 {
-    static public ToolSetSys mInstance;
+    public static ToolSetSys mInstance;
 
     public static ToolSetSys instance()
     {
-        if (null == mInstance)
+        if (null == ToolSetSys.mInstance)
         {
-            mInstance = new ToolSetSys();
+            ToolSetSys.mInstance = new ToolSetSys();
         }
 
-        return mInstance;
+        return ToolSetSys.mInstance;
     }
 
     public void init()

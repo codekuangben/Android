@@ -8,7 +8,7 @@ public class LoadedWebResMR extends MsgRouteBase
 
     public LoadedWebResMR()
     {
-        super(MsgRouteID.eMRIDLoadedWebRes);
+        super(MsgRouteId.eMRIDLoadedWebRes);
     }
 
     @Override

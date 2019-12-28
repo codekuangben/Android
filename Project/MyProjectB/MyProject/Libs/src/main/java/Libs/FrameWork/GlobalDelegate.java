@@ -17,9 +17,17 @@ public class GlobalDelegate
         this.mMainChildMassChangedDispatch = new AddOnceEventDispatch();
     }
 
-    public void addMainChildChangedHandle(ICalleeObject pThis, IDispatchObject handle)
+    public void addMainChildChangedHandle(
+            ICalleeObject pThis,
+            IDispatchObject handle,
+            int eventId
+    )
     {
-        this.mMainChildMassChangedDispatch.addEventHandle(pThis, handle);
+        this.mMainChildMassChangedDispatch.addEventHandle(
+                pThis,
+                handle,
+                eventId
+        );
     }
 
     public void init()

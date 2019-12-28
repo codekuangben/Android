@@ -7,6 +7,6 @@ public class ThreadLogMR extends MsgRouteBase
 
     public ThreadLogMR()
     {
-        super(MsgRouteID.eMRIDThreadLog);
+        super(MsgRouteId.eMRIDThreadLog);
     }
 }

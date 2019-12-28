@@ -1,6 +1,6 @@
 package Libs.MsgRoute;
 
-public enum MsgRouteID
+public enum MsgRouteId
 {
     eMRIDSocketOpened,      // socket Opened
     eMRIDSocketClosed,      // socket Closed

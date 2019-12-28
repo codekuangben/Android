@@ -3,11 +3,15 @@ package Libs.EventHandle;
 public class AddOnceAndCallOnceEventDispatch extends EventDispatch
 {
     @Override
-    public void addEventHandle(ICalleeObject pThis, IDispatchObject handle)
+    public void addEventHandle(
+            ICalleeObject pThis,
+            IDispatchObject handle,
+            int eventId
+    )
     {
-        if (!this.isExistEventHandle(pThis, handle))
+        if (!this.isExistEventHandle(pThis, handle, eventId))
         {
-            super.addEventHandle(pThis, handle);
+            super.addEventHandle(pThis, handle, eventId);
         }
     }
 

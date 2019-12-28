@@ -20,7 +20,7 @@ public class UiMain extends Form
         this.mTestButton = new AuxButton();
         this.mTestButton.setActivity(this.mActivity);
         this.mTestButton.setView(UtilAndroidLibsWrap.findViewById(this.mActivity, UiMainCV.BtnId_TestPing));
-        this.mTestButton.addClickHandle(this, null);
+        this.mTestButton.addClickHandle(this, null, 0);
     }
 
     public void onClick(View view)

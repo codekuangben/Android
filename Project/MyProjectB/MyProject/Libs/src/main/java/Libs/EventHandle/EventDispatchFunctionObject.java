@@ -8,16 +8,22 @@ public class EventDispatchFunctionObject implements IDelayHandleItem
     public boolean mIsClientDispose;       // 是否释放了资源
     public ICalleeObject mThis;
     public IDispatchObject mHandle;
+    public int mEventId;
 
     public EventDispatchFunctionObject()
     {
         this.mIsClientDispose = false;
     }
 
-    public void setFuncObject(ICalleeObject pThis, IDispatchObject func)
+    public void setFuncObject(
+            ICalleeObject pThis,
+            IDispatchObject func,
+            int eventId
+    )
     {
         this.mThis = pThis;
         this.mHandle = func;
+        this.mEventId = eventId;
     }
 
     public boolean isValid()
@@ -25,12 +31,18 @@ public class EventDispatchFunctionObject implements IDelayHandleItem
         return this.mThis != null || this.mHandle != null;
     }
 
-    public boolean isEqual(ICalleeObject pThis, IDispatchObject handle)
+    public boolean isEqual(
+            ICalleeObject pThis,
+            IDispatchObject handle,
+            int eventId
+    )
     {
         boolean ret = false;
+
         if(pThis != null)
         {
             ret = UtilSysLibsWrap.isAddressEqual(this.mThis, pThis);
+
             if (!ret)
             {
                 return ret;
@@ -40,10 +52,16 @@ public class EventDispatchFunctionObject implements IDelayHandleItem
         {
             //ret = UtilSysLibsWrap.isAddressEqual(this.mHandle, handle);
             ret = UtilSysLibsWrap.isDelegateEqual(this.mHandle, handle);
+
             if (!ret)
             {
                 return ret;
             }
+        }
+
+        if(this.mEventId != eventId)
+        {
+            return ret;
         }
 
         return ret;
@@ -51,9 +69,9 @@ public class EventDispatchFunctionObject implements IDelayHandleItem
 
     public void call(IDispatchObject dispObj)
     {
-        if(mThis != null)
+        if(this.mThis != null)
         {
-            mThis.call(dispObj);
+            this.mThis.call(dispObj);
         }
 
 //        if(null != this.mHandle)

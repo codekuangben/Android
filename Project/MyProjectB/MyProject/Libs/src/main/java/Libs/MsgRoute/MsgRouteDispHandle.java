@@ -3,6 +3,7 @@ package Libs.MsgRoute;
 import Libs.EventHandle.EventDispatchGroup;
 import Libs.EventHandle.IDispatchObject;
 import Libs.FrameWork.Ctx;
+import Libs.Log.UtilLogger;
 
 public class MsgRouteDispHandle
 {
@@ -13,14 +14,33 @@ public class MsgRouteDispHandle
         this.mEventDispatchGroup = new EventDispatchGroup();
     }
 
-    public void addRouteHandle(int evtId, MsgRouteHandleBase pThis, IDispatchObject handle)
+    public void addRouteHandle(
+            int groupId,
+            MsgRouteHandleBase pThis,
+            IDispatchObject handle,
+            int eventId)
     {
-        this.mEventDispatchGroup.addEventHandle(evtId, pThis, handle);
+        this.mEventDispatchGroup.addEventHandle(
+                groupId,
+                pThis,
+                handle,
+                eventId
+        );
     }
 
-    public void removeRouteHandle(int evtId, MsgRouteHandleBase pThis, IDispatchObject handle)
+    public void removeRouteHandle(
+            int groupId,
+            MsgRouteHandleBase pThis,
+            IDispatchObject handle,
+            int eventId
+    )
     {
-        this.mEventDispatchGroup.removeEventHandle(evtId, pThis, handle);
+        this.mEventDispatchGroup.removeEventHandle(
+                groupId,
+                pThis,
+                handle,
+                eventId
+        );
     }
 
     public void handleMsg(MsgRouteBase msg)
@@ -33,7 +53,7 @@ public class MsgRouteDispHandle
         }
         else
         {
-
+            UtilLogger.log("handleMsg can not find group");
         }
     }
 }

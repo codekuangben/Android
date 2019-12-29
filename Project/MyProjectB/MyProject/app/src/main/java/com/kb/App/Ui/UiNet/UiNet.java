@@ -3,9 +3,7 @@ package com.kb.App.Ui.UiNet;
 import android.view.View;
 import android.widget.TextView;
 
-//import com.bbb.aaa.myapp.NetActivity;
-//import com.bbb.aaa.myapp.R;
-
+import com.kb.R;
 import com.kb.mylibs.NetWork.NetPing;
 import com.kb.mylibs.Tools.UtilAndroidLibsWrap;
 import com.kb.mylibs.Ui.Base.Form;
@@ -20,18 +18,18 @@ public class UiNet extends Form implements View.OnClickListener
         // 新版本 sdk 修改，这个会编译报错
         //UtilAndroidLibsWrap.findViewById(this.mActivity, UiNetCV.BtnId_TestPing).setOnClickListener((NetActivity)this.mActivity);
         UtilAndroidLibsWrap.findViewById(this.mActivity, UiNetCV.BtnId_TestPing).setOnClickListener(this);
-        //this.mTextView = (TextView)UtilAndroidLibsWrap.findViewById(this.mActivity, R.id.NetTextView_Log);
+        this.mTextView = (TextView)UtilAndroidLibsWrap.findViewById(this.mActivity, R.id.NetTextView_Log);
     }
 
     public void onClick(View view)
     {
         switch(view.getId())
         {
-            //case R.id.NetBtnId_TestPing:
-            //    UtilAndroidLibsWrap.startActivity(this.mActivity, "com.bbb.aaa.myapp.MainActivity");
+            case R.id.NetBtnId_TestPing:
+                UtilAndroidLibsWrap.startActivity(this.mActivity, "com.kb.App.Ui.UiMain.MainActivity");
                 //UtilAndroidLibsWrap.finishActivity(this.mActivity);
-            //    this.testPing();
-            //    break;
+                this.testPing();
+                break;
         }
     }
 

@@ -2,7 +2,6 @@ package com.kb.App.Ui.UiMain;
 
 import android.view.View;
 
-import com.kb.MainActivity;
 import com.kb.R;
 
 import com.kb.mylibs.Auxiliary.AuxUi.AuxButton;

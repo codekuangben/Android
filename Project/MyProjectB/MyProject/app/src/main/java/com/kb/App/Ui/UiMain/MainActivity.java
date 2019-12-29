@@ -1,8 +1,10 @@
-package com.kb;
+package com.kb.App.Ui.UiMain;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.kb.R;
 
 public class MainActivity extends AppCompatActivity {
 

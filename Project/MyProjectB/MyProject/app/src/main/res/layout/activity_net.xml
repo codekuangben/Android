@@ -15,12 +15,12 @@
             android:id="@+id/NetTextView_Log"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TextView" />
+            android:text="@string/textview" />
 
         <Button
             android:id="@+id/NetBtnId_TestPing"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Button" />
+            android:text="@string/button" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

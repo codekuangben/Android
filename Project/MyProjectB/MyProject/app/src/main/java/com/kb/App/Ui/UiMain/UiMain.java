@@ -2,8 +2,8 @@ package com.kb.App.Ui.UiMain;
 
 import android.view.View;
 
-//import com.bbb.aaa.myapp.MainActivity;
-//import com.bbb.aaa.myapp.R;
+import com.kb.MainActivity;
+import com.kb.R;
 
 import com.kb.mylibs.Auxiliary.AuxUi.AuxButton;
 import com.kb.mylibs.EventHandle.IDispatchObject;
@@ -27,10 +27,10 @@ public class UiMain extends Form
     {
         switch(view.getId())
         {
-            //case R.id.BtnTestPing:
-            //    UtilAndroidLibsWrap.startActivity(this.mActivity, "com.bbb.aaa.myapp.NetActivity");
+            case R.id.BtnTestPing:
+                UtilAndroidLibsWrap.startActivity(this.mActivity, "com.kb.NetActivity");
                 //UtilAndroidLibsWrap.openURL(this.mActivity, "http://www.baidu.com");
-            //    break;
+                break;
         }
     }
 

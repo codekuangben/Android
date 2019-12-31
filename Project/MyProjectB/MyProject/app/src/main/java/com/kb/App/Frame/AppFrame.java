@@ -5,7 +5,7 @@ import com.kb.mylibs.Core.GObject;
 import com.kb.mylibs.FrameWork.Ctx;
 
 /**
- *
+ * @brief AppFrame 基本框架
  */
 public class AppFrame extends GObject
 {
@@ -21,8 +21,8 @@ public class AppFrame extends GObject
         Ctx.mInstance.init();
 
         // 初始化 App
-        ToolSetSys.instance();
-        ToolSetSys.mInstance.init();
+        ToolKitSys.instance();
+        ToolKitSys.mInstance.init();
 
         // 单元测试
         TestMain testMain = new TestMain();

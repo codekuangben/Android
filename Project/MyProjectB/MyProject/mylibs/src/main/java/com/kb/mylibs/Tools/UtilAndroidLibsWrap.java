@@ -49,16 +49,22 @@ public class UtilAndroidLibsWrap
      */
     static public void startActivity(Activity activity, String packageAndClassPath)
     {
-        Intent intent = new Intent(packageAndClassPath);
-        activity.startActivity(intent);
+        if (null != activity)
+        {
+            Intent intent = new Intent(packageAndClassPath);
+            activity.startActivity(intent);
+        }
     }
 
     // http://www.baidu.com 不是 www.baidu.com
     static public void openURL(Activity activity, String url)
     {
-        Uri uri = Uri.parse(url);
-        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-        activity.startActivity(intent);
+        if (null != activity)
+        {
+            Uri uri = Uri.parse(url);
+            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+            activity.startActivity(intent);
+        }
     }
 
     static public void exit()
@@ -68,6 +74,9 @@ public class UtilAndroidLibsWrap
 
     static public void finishActivity(Activity activity)
     {
-        activity.finish();
+        if (null != activity)
+        {
+            activity.finish();
+        }
     }
 }

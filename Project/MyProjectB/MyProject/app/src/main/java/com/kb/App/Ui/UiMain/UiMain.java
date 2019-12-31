@@ -27,9 +27,11 @@ public class UiMain extends Form
         switch(view.getId())
         {
             case R.id.BtnTestPing:
-                UtilAndroidLibsWrap.startActivity(this.mActivity, "com.kb.NetActivity");
+            {
+                UtilAndroidLibsWrap.startActivity(this.mActivity, "com.kb.App.Ui.UiNet.NetActivity");
                 //UtilAndroidLibsWrap.openURL(this.mActivity, "http://www.baidu.com");
                 break;
+            }
         }
     }
 

@@ -26,10 +26,12 @@ public class UiNet extends Form implements View.OnClickListener
         switch(view.getId())
         {
             case R.id.NetBtnId_TestPing:
+            {
                 UtilAndroidLibsWrap.startActivity(this.mActivity, "com.kb.App.Ui.UiMain.MainActivity");
                 //UtilAndroidLibsWrap.finishActivity(this.mActivity);
                 this.testPing();
                 break;
+            }
         }
     }
 

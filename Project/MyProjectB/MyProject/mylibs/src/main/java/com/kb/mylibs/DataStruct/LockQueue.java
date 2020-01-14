@@ -4,18 +4,18 @@ public class LockQueue<T>
 {
     protected LockList<T> mList;
 
-    public LockQueue(String name)
+    public LockQueue(Class<T> classInfo, String name)
     {
-        mList = new LockList<T>("name");
+        this.mList = new LockList<T>(classInfo, "name");
     }
 
     public void push(T item)
     {
-        mList.Add(item);
+        this.mList.Add(item);
     }
 
     public T pop()
     {
-        return mList.RemoveAt(0);
+        return this.mList.RemoveAt(0);
     }
 }

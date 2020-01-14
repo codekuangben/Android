@@ -9,7 +9,7 @@ public class SysMsgRoute extends LockQueue<MsgRouteBase>
 {
     public SysMsgRoute(String name)
     {
-        super(name);
+        super(MsgRouteBase.class, name);
     }
 
     public void init()

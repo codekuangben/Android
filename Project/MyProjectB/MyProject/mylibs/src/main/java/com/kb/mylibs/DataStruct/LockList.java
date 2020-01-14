@@ -11,20 +11,20 @@ public class LockList<T>
     protected MMutex mVisitMutex;
     protected T mRetItem;
 
-    public LockList(String name)
+    public LockList(Class<T> classInfo, String name)
     {
-        this(name, 32, 8 * 1024 * 1024);
+        this(classInfo, name, 32, 8 * 1024 * 1024);
     }
 
-    public LockList(String name, int initCapacity)
+    public LockList(Class<T> classInfo, String name, int initCapacity)
     {
-        this(name, initCapacity, 8 * 1024 * 1024);
+        this(classInfo, name, initCapacity, 8 * 1024 * 1024);
     }
 
-    public LockList(String name, int initCapacity, int maxCapacity)
+    public LockList(Class<T> classInfo, String name, int initCapacity, int maxCapacity)
     {
-        mDynamicBuffer = new DynBuffer<T>(initCapacity, maxCapacity);
-        mVisitMutex = new MMutex(false, name);
+        this.mDynamicBuffer = new DynBuffer<T>(classInfo, initCapacity, maxCapacity);
+        this.mVisitMutex = new MMutex(false, name);
     }
 
     public int getCount()
@@ -40,10 +40,10 @@ public class LockList<T>
         MLock mlock = new MLock(mVisitMutex);
 
         {
-            if (index < mDynamicBuffer.mSize) {
+            if (index < this.mDynamicBuffer.mSize) {
                 mlock.Dispose();
 
-                return mDynamicBuffer.mBuffer[index];
+                return this.mDynamicBuffer.mBuffer[index];
             } else {
                 mlock.Dispose();
 
@@ -57,7 +57,7 @@ public class LockList<T>
         MLock mlock = new MLock(mVisitMutex);
 
         {
-            mDynamicBuffer.mBuffer[index] = value;
+            this.mDynamicBuffer.mBuffer[index] = value;
         }
 
         mlock.Dispose();
@@ -68,13 +68,13 @@ public class LockList<T>
         MLock mlock = new MLock(mVisitMutex);
 
         {
-            if (mDynamicBuffer.mSize >= mDynamicBuffer.mCapacity)
+            if (this.mDynamicBuffer.mSize >= this.mDynamicBuffer.mCapacity)
             {
-                mDynamicBuffer.extendDeltaCapicity(1);
+                this.mDynamicBuffer.extendDeltaCapicity(1);
             }
 
-            mDynamicBuffer.mBuffer[mDynamicBuffer.mSize] = item;
-            ++mDynamicBuffer.mSize;
+            this.mDynamicBuffer.mBuffer[this.mDynamicBuffer.mSize] = item;
+            ++this.mDynamicBuffer.mSize;
         }
 
         mlock.Dispose();
@@ -82,12 +82,12 @@ public class LockList<T>
 
     public boolean Remove(T item)
     {
-        MLock mlock = new MLock(mVisitMutex);
+        MLock mlock = new MLock(this.mVisitMutex);
 
         {
             int idx = 0;
 
-            for(T elem : mDynamicBuffer.mBuffer)
+            for(T elem : this.mDynamicBuffer.mBuffer)
             {
                 if(item.equals(elem))       // 地址比较
                 {
@@ -108,41 +108,48 @@ public class LockList<T>
 
     public T RemoveAt(int index)
     {
-        MLock mlock = new MLock(mVisitMutex);
+        MLock mlock = new MLock(this.mVisitMutex);
 
         {
-            if (index < mDynamicBuffer.mSize)
+            if (index < this.mDynamicBuffer.mSize)
             {
-                mRetItem = mDynamicBuffer.mBuffer[index];
+                this.mRetItem = this.mDynamicBuffer.mBuffer[index];
 
-                if (index < mDynamicBuffer.mSize)
+                if (index < this.mDynamicBuffer.mSize)
                 {
-                    if (index != mDynamicBuffer.mSize - 1 && 1 != mDynamicBuffer.mSize) // 如果删除不是最后一个元素或者总共就大于一个元素
+                    if (index != this.mDynamicBuffer.mSize - 1 &&
+                        1 != this.mDynamicBuffer.mSize) // 如果删除不是最后一个元素或者总共就大于一个元素
                     {
-                        MArray.Copy(mDynamicBuffer.mBuffer, index + 1, mDynamicBuffer.mBuffer, index, mDynamicBuffer.mSize - 1 - index);
+                        MArray.Copy(
+                                this.mDynamicBuffer.mBuffer,
+                                index + 1,
+                                this.mDynamicBuffer.mBuffer,
+                                index,
+                                this.mDynamicBuffer.mSize - 1 - index
+                        );
                     }
 
-                    --mDynamicBuffer.mSize;
+                    --this.mDynamicBuffer.mSize;
                 }
             }
             else
             {
-                mRetItem = null;
+                this.mRetItem = null;
             }
 
             mlock.Dispose();
 
-            return mRetItem;
+            return this.mRetItem;
         }
     }
 
     public int IndexOf(T item)
     {
-        MLock mlock = new MLock(mVisitMutex);
+        MLock mlock = new MLock(this.mVisitMutex);
 
         {
             int idx = 0;
-            for(T elem : mDynamicBuffer.mBuffer)
+            for(T elem : this.mDynamicBuffer.mBuffer)
             {
                 if (item.equals(elem))       // 地址比较
                 {

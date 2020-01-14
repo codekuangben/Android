@@ -4,37 +4,39 @@ import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.lang.reflect.ParameterizedType;
 
 /**
  * @brief 动态增长的缓冲区，不是环形的，从 0 开始增长的
  */
 public class DynBuffer<T>
 {
-    public int mCapacity;         // 分配的内存空间大小，单位大小是字节
-    public int mMaxCapacity;      // 最大允许分配的存储空间大小
-    public int mSize;              // 存储在当前缓冲区中的数量
-    public T[] mBuffer;            // 当前环形缓冲区
+    public int mCapacity;           // 分配的内存空间大小，单位大小是字节
+    public int mMaxCapacity;        // 最大允许分配的存储空间大小
+    public int mSize;               // 存储在当前缓冲区中的数量
+    public T[] mBuffer;             // 当前环形缓冲区
 
-    private Class<T> mClassT;   // 传递的模板类型的类型信息
+    private Class<T> mClassT;       // 传递的模板类型的类型信息
 
-    public DynBuffer()      // mono 模板类中使用常亮报错， vs 可以
+    public DynBuffer(Class<T> classInfo)              // mono 模板类中使用常量报错， vs 可以
     {
-        this(1 * 1024/*DataCV.INIT_CAPACITY*/, 8 * 1024 * 1024/*DataCV.MAX_CAPACITY*/);
+        this(classInfo, 1 * 1024/*DataCV.INIT_CAPACITY*/, 8 * 1024 * 1024/*DataCV.MAX_CAPACITY*/);
     }
 
-    public DynBuffer(int initCapacity)
+    public DynBuffer(Class<T> classInfo, int initCapacity)
     {
-        this(initCapacity, 8 * 1024 * 1024/*DataCV.MAX_CAPACITY*/);
+        this(classInfo, initCapacity, 8 * 1024 * 1024/*DataCV.MAX_CAPACITY*/);
     }
 
-    public DynBuffer(int initCapacity, int maxCapacity)      // mono 模板类中使用常亮报错， vs 可以
+    public DynBuffer(Class<T> classInfo, int initCapacity, int maxCapacity)      // mono 模板类中使用常量报错， vs 可以
     {
+        this.mClassT = classInfo;
         this.mMaxCapacity = maxCapacity;
         this.mCapacity = initCapacity;
         this.mSize = 0;
         //this.mBuffer = new T[mCapacity];
         //this.mBuffer = (T[]) new Object[this.mCapacity];
-        this.mBuffer = this.createArray(mClassT, this.mCapacity);
+        this.mBuffer = this.createArray(this.mClassT, this.mCapacity);
     }
 
     // 获取模板类型
@@ -94,7 +96,8 @@ public class DynBuffer<T>
 
     public T[] createArray(Class<T> type, int initCapacity)
     {
-        return (T[]) Array.newInstance(type, initCapacity);
+        T[] ret = (T[]) Array.newInstance(type, initCapacity);
+        return ret;
     }
 
     public T[] getBuffer()
@@ -120,7 +123,7 @@ public class DynBuffer<T>
 
     public int getCapacity()
     {
-            return this.mCapacity;
+        return this.mCapacity;
     }
 
     public void setCapacity(int value)
@@ -159,6 +162,12 @@ public class DynBuffer<T>
 
     public void extendDeltaCapicity(int delta)
     {
-        this.setCapacity(DynBufResizePolicy.getCloseSize(this.getSize() + delta, this.getCapacity(), this.getMaxCapacity()));
+        this.setCapacity(
+                DynBufResizePolicy.getCloseSize(
+                        this.getSize() + delta,
+                        this.getCapacity(),
+                        this.getMaxCapacity()
+                )
+        );
     }
 }

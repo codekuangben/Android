@@ -25,9 +25,9 @@ public class LogSys
     // 构造函数仅仅是初始化变量，不涉及逻辑
     public LogSys()
     {
-        this.mAsyncLogList = new LockList<String>("Logger_asyncLogList");
-        this.mAsyncWarnList = new LockList<String>("Logger_asyncWarnList");
-        this.mAsyncErrorList = new LockList<String>("Logger_asyncErrorList");
+        this.mAsyncLogList = new LockList<String>(String.class, "Logger_asyncLogList");
+        this.mAsyncWarnList = new LockList<String>(String.class, "Logger_asyncWarnList");
+        this.mAsyncErrorList = new LockList<String>(String.class, "Logger_asyncErrorList");
         this.mLogDeviceList = new MList<LogDeviceBase>();
 
         //this.mEnableLogTypeList = new MList<LogTypeId>[LogColor.eLC_Count.ordinal();

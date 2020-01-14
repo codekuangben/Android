@@ -8,7 +8,7 @@ public class TaskQueue extends LockQueue<ITask>
 
     public TaskQueue(String name)
     {
-        super(name);
+        super(ITask.class, name);
     }
 
     @Override

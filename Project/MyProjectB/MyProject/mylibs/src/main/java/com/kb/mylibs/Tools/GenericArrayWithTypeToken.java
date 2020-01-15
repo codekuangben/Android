@@ -7,10 +7,8 @@ import java.lang.reflect.Array;
  */
 public class GenericArrayWithTypeToken<T>
 {
-    private T[] array;
-
     public GenericArrayWithTypeToken(Class<T> type, int size)
     {
-        array = (T[]) Array.newInstance(type, size);
+        T[] array = (T[]) Array.newInstance(type, size);
     }
 }

@@ -5,7 +5,7 @@ import com.kb.mylibs.DataStruct.MDictionary;
 import com.kb.mylibs.EventHandle.AddOnceEventDispatch;
 import com.kb.mylibs.EventHandle.ICalleeObject;
 import com.kb.mylibs.EventHandle.IDispatchObject;
-import com.kb.mylibs.Log.UtilLogger;
+import com.kb.mylibs.Log.UtilLog;
 
 public class MsgRouteHandleBase extends GObject implements ICalleeObject
 {
@@ -63,7 +63,7 @@ public class MsgRouteHandleBase extends GObject implements ICalleeObject
         }
         else
         {
-            UtilLogger.log("handleMsg can not id");
+            UtilLog.log("handleMsg can not id");
         }
     }
 

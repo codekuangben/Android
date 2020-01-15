@@ -1,7 +1,7 @@
 package com.kb.mylibs.EventHandle;
 
 import com.kb.mylibs.DataStruct.MDictionary;
-import com.kb.mylibs.Log.UtilLogger;
+import com.kb.mylibs.Log.UtilLog;
 
 public class EventDispatchGroup
 {
@@ -80,7 +80,7 @@ public class EventDispatchGroup
         }
         else
         {
-            UtilLogger.log("dispatchEvent cannot find group");
+            UtilLog.log("dispatchEvent cannot find group");
         }
 
         this.mIsInLoop = false;

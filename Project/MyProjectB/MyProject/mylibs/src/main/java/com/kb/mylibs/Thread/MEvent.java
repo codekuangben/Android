@@ -19,27 +19,37 @@ public class MEvent
         this.mEvent = new Object();
     }
 
-    synchronized public void WaitOne()
+    /*synchronized*/ public void WaitOne()
     {
-        try
-        {
-            this.mEvent.wait();
-        }
-        catch(Exception e)
-        {
-            e.printStackTrace();
-        }
+        // java.lang.IllegalMonitorStateException: object not locked by thread before wait()
+        //synchronized(this.mEvent)
+        //{
+            try
+            {
+                synchronized (this.mEvent)
+                {
+                    this.mEvent.wait();
+                }
+            }
+            catch (Exception e)
+            {
+                e.printStackTrace();
+            }
+        //}
     }
 
-    synchronized public boolean Reset()
+    /*synchronized*/ public boolean Reset()
     {
         //this.mEvent.reset();
         return true;
     }
 
-    synchronized public boolean Set()
+    /*synchronized*/ public boolean Set()
     {
-        this.mEvent.notify();
+        synchronized(this.mEvent)
+        {
+            this.mEvent.notify();
+        }
         return true;
     }
 }

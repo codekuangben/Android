@@ -16,8 +16,8 @@ public class TaskThread extends MThread
     {
         super(null, null);
 
-        mTaskQueue = taskQueue;
-        mCondition = new MCondition(name);
+        this.mTaskQueue = taskQueue;
+        this.mCondition = new MCondition(name);
     }
 
     /**
@@ -26,25 +26,26 @@ public class TaskThread extends MThread
     @Override
     public void run()
     {
-        while (!mIsExitFlag)
+        while (!this.mIsExitFlag)
         {
-            mCurTask = mTaskQueue.pop();
-            if(mCurTask != null)
+            this.mCurTask = this.mTaskQueue.pop();
+
+            if(this.mCurTask != null)
             {
-                mCurTask.runTask();
+                this.mCurTask.runTask();
             }
             else
             {
-                mCondition.waitImpl();
+                this.mCondition.waitImpl();
             }
         }
     }
 
     public boolean notifySelf()
     {
-        if(mCondition.getCanEnterWait())
+        if(this.mCondition.getCanEnterWait())
         {
-            mCondition.notifyAll();
+            this.mCondition.notifyAll();
             return true;
         }
 

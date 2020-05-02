@@ -1,4 +1,4 @@
-package com.kb.mylibs.FileSystem;
+package com.kb.mylibs.FileVisitor;
 
 public enum FileOpState
 {

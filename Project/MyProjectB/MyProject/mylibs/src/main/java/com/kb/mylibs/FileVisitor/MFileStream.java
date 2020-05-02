@@ -1,11 +1,10 @@
-package com.kb.mylibs.FileSystem;
+package com.kb.mylibs.FileVisitor;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 
 import com.kb.mylibs.Core.GObject;
-import com.kb.mylibs.EventHandle.AddOnceAndCallOnceEventDispatch;
 import com.kb.mylibs.EventHandle.IDispatchObject;
 import com.kb.mylibs.Tools.GkEncode;
 import com.kb.mylibs.Tools.MEncoding;

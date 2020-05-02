@@ -2,8 +2,7 @@ package com.kb.mylibs.EventHandle;
 
 import com.kb.mylibs.DataStruct.MList;
 import com.kb.mylibs.DelayHandle.*;
-import com.kb.mylibs.Log.UtilLogger;
-import com.kb.mylibs.Tools.UtilStr;
+import com.kb.mylibs.Log.UtilLog;
 
 /**
  * @brief 事件分发，之分发一类事件，不同类型的事件使用不同的事件分发
@@ -85,7 +84,7 @@ public class EventDispatch extends DelayHandleMgrBase
         }
         else
         {
-            UtilLogger.log("pThis or handle is null");
+            UtilLog.log("pThis or handle is null");
         }
     }
 
@@ -111,7 +110,7 @@ public class EventDispatch extends DelayHandleMgrBase
         }
         else
         {
-            UtilLogger.log("removeEventHandle failed");
+            UtilLog.log("removeEventHandle failed");
         }
     }
 
@@ -146,7 +145,7 @@ public class EventDispatch extends DelayHandleMgrBase
         {
             if (!this.mHandleList.Remove((EventDispatchFunctionObject)delayObject))
             {
-                UtilLogger.log("removeObject failed");
+                UtilLog.log("removeObject failed");
             }
         }
     }

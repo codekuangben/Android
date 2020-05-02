@@ -2,8 +2,7 @@ package com.kb.mylibs.MsgRoute;
 
 import com.kb.mylibs.EventHandle.EventDispatchGroup;
 import com.kb.mylibs.EventHandle.IDispatchObject;
-import com.kb.mylibs.FrameWork.Ctx;
-import com.kb.mylibs.Log.UtilLogger;
+import com.kb.mylibs.Log.UtilLog;
 
 public class MsgRouteDispHandle
 {
@@ -53,7 +52,7 @@ public class MsgRouteDispHandle
         }
         else
         {
-            UtilLogger.log("handleMsg can not find group");
+            UtilLog.log("handleMsg can not find group");
         }
     }
 }

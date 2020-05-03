@@ -40,7 +40,6 @@ public class Ctx
 
     public ShareData mShareData;               // 共享数据系统
     public MsgRouteNotify mMsgRouteNotify;     // RouteMsg 客户端自己消息流程
-    //public MFileSys mFileSys;                  // 文件系统
     public FactoryBuild mFactoryBuild;         // 生成各种内容，上层只用接口
 
     public SystemSetting mSystemSetting;

@@ -1,6 +1,6 @@
 package com.kb.App.Frame;
 
-import com.kb.App.Test.TestBasic.TestMain;
+import com.kb.App.Test.TestBase.TestMain;
 import com.kb.mylibs.Core.GObject;
 import com.kb.mylibs.FrameWork.Ctx;
 

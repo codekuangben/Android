@@ -1,6 +1,7 @@
 package com.kb.mylibs.FileVisitor;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.res.AssetManager;
 
 import com.kb.mylibs.Tools.UtilLog;
@@ -24,14 +25,16 @@ public class MAssetManager
 
     public void dispose()
     {
-
+        //_NativeAssetManager.close();
+        this._NativeAssetManager = null;
     }
 
-    public void setActivity(Activity activity)
+    public void setContext(Context context)
     {
-        if (null != activity)
+        if (null != context)
         {
-            this._NativeAssetManager = activity.getAssets();
+            this._NativeAssetManager = context.getAssets();
+            //this._NativeAssetManager = activity.getResources().getAssets();
         }
         else
         {
@@ -39,17 +42,52 @@ public class MAssetManager
         }
     }
 
+    public void setActivity(Activity activity)
+    {
+        if (null != activity)
+        {
+            this._NativeAssetManager = activity.getAssets();
+            //this._NativeAssetManager = activity.getResources().getAssets();
+        }
+        else
+        {
+            UtilLog.log("setActivity, is null");
+        }
+    }
+
+    public String[] list(String path)
+    {
+        String[] ret = null;
+
+        if (null != this._NativeAssetManager)
+        {
+            try
+            {
+                ret = this._NativeAssetManager.list(path);
+            }
+            catch (IOException error)
+            {
+
+            }
+        }
+
+        return ret;
+    }
+
     public InputStream open(String path)
     {
         InputStream inputStream = null;
 
-        try
+        if (null != this._NativeAssetManager)
         {
-            inputStream = this._NativeAssetManager.open(path);
-        }
-        catch (IOException error)
-        {
-            UtilLog.log("open, is error");
+            try
+            {
+                inputStream = this._NativeAssetManager.open(path);
+            }
+            catch (IOException error)
+            {
+                UtilLog.log("open, is error");
+            }
         }
 
         return inputStream;

@@ -1,11 +1,11 @@
 package com.kb.App.Test.TestSyntax;
 
-import com.kb.App.Test.TestBasic.TestBase;
+import com.kb.App.Test.TestBase.MTestBase;
 import com.kb.mylibs.Log.UtilLog;
 
-public class TestSyntax extends TestBase
+public class MTestSyntax extends MTestBase
 {
-    public TestSyntax()
+    public MTestSyntax()
     {
 
     }

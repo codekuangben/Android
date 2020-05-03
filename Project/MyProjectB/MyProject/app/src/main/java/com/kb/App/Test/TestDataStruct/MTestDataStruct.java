@@ -1,11 +1,10 @@
 package com.kb.App.Test.TestDataStruct;
 
-import com.kb.App.Test.TestBasic.TestBase;
-import com.kb.mylibs.DataStruct.MList;
+import com.kb.App.Test.TestBase.MTestBase;
 
-public class TestDataStruct extends TestBase
+public class MTestDataStruct extends MTestBase
 {
-    public TestDataStruct()
+    public MTestDataStruct()
     {
 
     }

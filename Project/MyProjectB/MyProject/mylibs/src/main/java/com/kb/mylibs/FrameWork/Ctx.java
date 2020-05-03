@@ -1,5 +1,6 @@
 package com.kb.mylibs.FrameWork;
 
+import com.kb.mylibs.FileVisitor.MAssetManager;
 import com.kb.mylibs.FrameHandle.FixedTickMgr;
 import com.kb.mylibs.FrameHandle.FrameTimerMgr;
 import com.kb.mylibs.FrameHandle.ITickedObject;
@@ -52,6 +53,7 @@ public class Ctx
     public SysMsgRoute mSysMsgRoute;
     public SystemTimeData mSystemTimeData;
     public SystemFrameData mSystemFrameData;
+    public MAssetManager mAssetManager;
 
     public Ctx()
     {
@@ -96,6 +98,7 @@ public class Ctx
         this.mSysMsgRoute = new SysMsgRoute("");
         this.mSystemTimeData = new SystemTimeData();
         this.mSystemFrameData = new SystemFrameData();
+        this.mAssetManager = new MAssetManager();
     }
 
     public void logicInit()
@@ -115,6 +118,7 @@ public class Ctx
         this.mSystemTimeData.init();
 
         this.mSystemFrameData.init();
+        this.mAssetManager.init();
 
         this.addEventHandle();
     }
@@ -175,6 +179,11 @@ public class Ctx
         {
             this.mSystemFrameData.dispose();
             this.mSystemFrameData = null;
+        }
+        if (null != this.mAssetManager)
+        {
+            this.mAssetManager.dispose();
+            this.mAssetManager = null;
         }
     }
 

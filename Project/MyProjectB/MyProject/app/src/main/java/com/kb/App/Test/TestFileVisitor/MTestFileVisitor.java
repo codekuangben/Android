@@ -29,22 +29,22 @@ public class MTestFileVisitor extends MTestBase
 
         byte[] byteArray = new byte[1024];
 
-        //while (UtilSysLibsWrap.read(inputStream, byteArray, 0, byteArray.length) > 0)
-        //{
-        //    String strContent = new String(byteArray);
-        //    UtilLog.log(strContent);
-        //}
-        int ret = 0;
-        try
+        while (UtilSysLibsWrap.read(inputStream, byteArray, 0, byteArray.length) > 0)
         {
-            if (null != inputStream && null != byteArray)
-            {
-                ret = inputStream.read(byteArray, 0, 1024);
-            }
+            String strContent = new String(byteArray);
+            UtilLog.log(strContent);
         }
-        catch(IOException error)
-        {
-
-        }
+//        int ret = 0;
+//        try
+//        {
+//            if (null != inputStream && null != byteArray)
+//            {
+//                ret = inputStream.read(byteArray, 0, 1024);
+//            }
+//        }
+//        catch(IOException error)
+//        {
+//
+//        }
     }
 }

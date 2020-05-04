@@ -1,6 +1,7 @@
 package com.kb.App.Test.TestFileVisitor;
 
 import com.kb.App.Test.TestBase.MTestBase;
+import com.kb.mylibs.FrameWork.Ctx;
 
 public class MTestFileVisitor extends MTestBase
 {
@@ -18,6 +19,6 @@ public class MTestFileVisitor extends MTestBase
 
     protected void _testA()
     {
-
+        Ctx.mInstance.mAssetManager.open("Config.TestA.txt");
     }
 }

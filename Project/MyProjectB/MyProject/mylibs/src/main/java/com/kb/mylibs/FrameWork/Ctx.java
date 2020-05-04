@@ -1,5 +1,7 @@
 package com.kb.mylibs.FrameWork;
 
+import android.content.Context;
+
 import com.kb.mylibs.FileVisitor.MAssetManager;
 import com.kb.mylibs.FrameHandle.FixedTickMgr;
 import com.kb.mylibs.FrameHandle.FrameTimerMgr;
@@ -54,6 +56,7 @@ public class Ctx
     public SystemTimeData mSystemTimeData;
     public SystemFrameData mSystemFrameData;
     public MAssetManager mAssetManager;
+    public Context mContext;
 
     public Ctx()
     {
@@ -198,5 +201,15 @@ public class Ctx
     protected void addEventHandle()
     {
         this.mTickMgr.addTick((ITickedObject)this.mResizeMgr, TickPriority.eTPResizeMgr);
+    }
+
+    public void initNativeContext(Context context)
+    {
+        this.mContext = context;
+
+        if (null != this.mAssetManager)
+        {
+            this.mAssetManager.setContext(this.mContext);
+        }
     }
 }

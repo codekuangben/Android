@@ -19,6 +19,7 @@ public class AppFrame extends GObject
         // 初始化核心功能
         Ctx.instance();
         Ctx.mInstance.init();
+        Ctx.mInstance.initNativeContext(MyApplication.getAppContext());
 
         // 初始化 App
         ToolKitSys.instance();

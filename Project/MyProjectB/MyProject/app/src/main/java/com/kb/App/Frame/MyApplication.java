@@ -17,7 +17,7 @@ public class MyApplication extends Application
     public void onCreate()
     {
         super.onCreate();
-        MyApplication._Context = getApplicationContext();
+        MyApplication._Context = this.getApplicationContext();
         //Context context = this.getApplicationContext();
         //Ctx.mInstance.initNativeContext(context);
     }

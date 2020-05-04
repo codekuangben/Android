@@ -1,5 +1,7 @@
 package com.kb.mylibs.Tools;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -84,5 +86,28 @@ public class UtilSysLibsWrap
                 System.out.println("-----------------------------------");
             }
         }
+    }
+
+    public static int read(InputStream inputStream, byte[] byteArray, int offset, int length)
+    {
+        int ret = 0;
+        try
+        {
+            if (null != inputStream && null != byteArray)
+            {
+                if (-1 == length)
+                {
+                    length = byteArray.length;
+                }
+
+                ret = inputStream.read(byteArray, offset, length);
+            }
+        }
+        catch(IOException error)
+        {
+
+        }
+
+        return ret;
     }
 }

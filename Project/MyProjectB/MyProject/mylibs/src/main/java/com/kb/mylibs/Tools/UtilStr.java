@@ -5,5 +5,15 @@ package com.kb.mylibs.Tools;
  */
 public class UtilStr
 {
+    public static byte[] ConvStr2Byte(String strContent)
+    {
+        return strContent.getBytes();
+    }
 
+    // "UTF-8"
+    public static String ConvByte2Str(byte[] byteArray)
+    {
+        String ret = new String(byteArray);
+        return ret;
+    }
 }

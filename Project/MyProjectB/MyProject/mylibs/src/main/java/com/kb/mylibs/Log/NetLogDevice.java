@@ -8,7 +8,7 @@ public class NetLogDevice extends LogDeviceBase
     public void getTest()
     {
         //GET请求
-        //Ctx.mInstance.mCoroutineMgr.StartCoroutine(GET("http://xuanyusong.com/"));
+        //Ctx.msIns.mCoroutineMgr.StartCoroutine(GET("http://xuanyusong.com/"));
     }
 
 //    public void sendTest()
@@ -20,7 +20,7 @@ public class NetLogDevice extends LogDeviceBase
 //        dic.Add("usrname","xys");
 //        dic.Add("psw","123456");
 //
-//        Ctx.mInstance.mCoroutineMgr.StartCoroutine(POST("http://192.168.1.12/login.php", dic));
+//        Ctx.msIns.mCoroutineMgr.StartCoroutine(POST("http://192.168.1.12/login.php", dic));
 //    }
 //
 //    //POST请求
@@ -86,8 +86,8 @@ public class NetLogDevice extends LogDeviceBase
         //注册请求 POST
 //        MDictionary<string, string> dic = new MDictionary<string, string>();
 //        dic.Add("id", "1000");
-//        dic.Add("charid", Ctx.mInstance.mDataPlayer.mDataMain.m_dwUserTempID.ToString());
-//        dic.Add("name", Ctx.mInstance.mDataPlayer.mDataMain.mName);
+//        dic.Add("charid", Ctx.msIns.mDataPlayer.mDataMain.m_dwUserTempID.ToString());
+//        dic.Add("name", Ctx.msIns.mDataPlayer.mDataMain.mName);
 //        dic.Add("type", "1000");
 //        dic.Add("platform", "1000");
 //        dic.Add("version", "1000");
@@ -97,6 +97,6 @@ public class NetLogDevice extends LogDeviceBase
 //        dic.Add("XDEBUG_SESSION_START", "ECLIPSE_DBGP");
 //        dic.Add("KEY", "142527193505815");
 //
-//        Ctx.mInstance.mCoroutineMgr.StartCoroutine(POST(string.Format("{0}/{1}", Ctx.mInstance.mCfg.mWebIP, Ctx.mInstance.mCfg.mNetLogPhp), dic));
+//        Ctx.msIns.mCoroutineMgr.StartCoroutine(POST(string.Format("{0}/{1}", Ctx.msIns.mCfg.mWebIP, Ctx.msIns.mCfg.mNetLogPhp), dic));
     }
 }

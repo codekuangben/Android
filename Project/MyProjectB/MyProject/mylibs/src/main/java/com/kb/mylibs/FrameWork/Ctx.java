@@ -26,7 +26,7 @@ import com.kb.mylibs.Task.TaskThreadPool;
  */
 public class Ctx
 {
-    static public Ctx mInstance;
+    public static Ctx msIns;
 
     public Config mCfg;                       // 整体配置文件
     public LogSys mLogSys;                    // 日志系统
@@ -65,11 +65,11 @@ public class Ctx
 
     public static Ctx instance()
     {
-        if (mInstance == null)
+        if (msIns == null)
         {
-            mInstance = new Ctx();
+            msIns = new Ctx();
         }
-        return mInstance;
+        return msIns;
     }
 
     protected void constructInit()
@@ -195,7 +195,7 @@ public class Ctx
         this.dispose();
 
         // 释放自己
-        //mInstance = null;
+        //msIns = null;
     }
 
     protected void addEventHandle()

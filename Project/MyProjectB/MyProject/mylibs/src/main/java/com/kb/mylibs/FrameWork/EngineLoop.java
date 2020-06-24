@@ -11,52 +11,52 @@ public class EngineLoop
     {
         // 每一帧处理
         // 处理 input
-        //Ctx.mInstance.mInputMgr.handleKeyBoard();
+        //Ctx.msIns.mInputMgr.handleKeyBoard();
 
         // 处理客户端的各类消息
         // 处理客户端自己的消息机制
         MsgRouteBase routeMsg = null;
-        while ((routeMsg = Ctx.mInstance.mSysMsgRoute.pop()) != null)
+        while ((routeMsg = Ctx.msIns.mSysMsgRoute.pop()) != null)
         {
-            Ctx.mInstance.mMsgRouteNotify.handleMsg(routeMsg);
+            Ctx.msIns.mMsgRouteNotify.handleMsg(routeMsg);
         }
 
         // 处理网络
-        //if (!Ctx.mInstance.mNetCmdNotify.isStopNetHandle)
+        //if (!Ctx.msIns.mNetCmdNotify.isStopNetHandle)
         //{
         //    MByteBuffer ret = null;
-        //    while ((ret = Ctx.mInstance.mNetMgr.getMsg()) != null)
+        //    while ((ret = Ctx.msIns.mNetMgr.getMsg()) != null)
         //    {
-        //        if (null != Ctx.mInstance.mNetCmdNotify)
+        //        if (null != Ctx.msIns.mNetCmdNotify)
         //        {
-        //            Ctx.mInstance.mNetCmdNotify.addOneHandleMsg();
-        //            Ctx.mInstance.mNetCmdNotify.handleMsg(ret);       // CS 中处理
-        //            Ctx.mInstance.mLuaSystem.receiveToLuaRpc(ret);    // Lua 中处理
+        //            Ctx.msIns.mNetCmdNotify.addOneHandleMsg();
+        //            Ctx.msIns.mNetCmdNotify.handleMsg(ret);       // CS 中处理
+        //            Ctx.msIns.mLuaSystem.receiveToLuaRpc(ret);    // Lua 中处理
         //        }
         //    }
         //}
 
         // 填充数据到 KBEngine ，使用 KBEngine 引擎的逻辑解析
-        //if (!Ctx.mInstance.mNetCmdNotify.isStopNetHandle)
+        //if (!Ctx.msIns.mNetCmdNotify.isStopNetHandle)
         //{
         //    MByteBuffer ret = null;
-        //    while ((ret = Ctx.mInstance.mNetMgr.getMsg_KBE()) != null)
+        //    while ((ret = Ctx.msIns.mNetMgr.getMsg_KBE()) != null)
         //    {
-        //        Ctx.mInstance.mMKBEMainEntry.gameapp.pushBuffer(ret.dynBuffer.buffer, ret.dynBuffer.size);
+        //        Ctx.msIns.mMKBEMainEntry.gameapp.pushBuffer(ret.dynBuffer.buffer, ret.dynBuffer.size);
         //    }
         //}
 
         // KBEngine 引擎逻辑处理
-        //Ctx.mInstance.mMKBEMainEntry.FixedUpdate();
+        //Ctx.msIns.mMKBEMainEntry.FixedUpdate();
 
         // 每一帧的游戏逻辑处理
-        Ctx.mInstance.mProcessSys.ProcessNextFrame();
+        Ctx.msIns.mProcessSys.ProcessNextFrame();
         // 日志处理
-        Ctx.mInstance.mLogSys.updateLog();
+        Ctx.msIns.mLogSys.updateLog();
     }
 
     public void fixedUpdate()
     {
-        Ctx.mInstance.mProcessSys.ProcessNextFixedFrame();
+        Ctx.msIns.mProcessSys.ProcessNextFixedFrame();
     }
 }

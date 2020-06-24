@@ -205,11 +205,11 @@ public class TimerItemBase implements IDelayHandleItem, IDispatchObject
 
     public void startTimer()
     {
-        //Ctx.mInstance.mTimerMgr.addTimer(this);
+        //Ctx.msIns.mTimerMgr.addTimer(this);
     }
 
     public void stopTimer()
     {
-        //Ctx.mInstance.mTimerMgr.removeTimer(this);
+        //Ctx.msIns.mTimerMgr.removeTimer(this);
     }
 }

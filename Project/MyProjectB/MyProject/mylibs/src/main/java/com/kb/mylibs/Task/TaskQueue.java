@@ -2,21 +2,21 @@ package com.kb.mylibs.Task;
 
 import com.kb.mylibs.DataStruct.LockQueue;
 
-public class TaskQueue extends LockQueue<ITask>
+public class TaskQueue extends LockQueue<ISimpleTask>
 {
     public TaskThreadPool mTaskThreadPool;
 
     public TaskQueue(String name)
     {
-        super(ITask.class, name);
+        super(ISimpleTask.class, name);
     }
 
     @Override
-    public void push(ITask item)
+    public void push(ISimpleTask item)
     {
         super.push(item);
 
         // 检查是否有线程空闲，如果有就唤醒
-        mTaskThreadPool.notifyIdleThread();
+        this.mTaskThreadPool.notifyIdleThread();
     }
 }

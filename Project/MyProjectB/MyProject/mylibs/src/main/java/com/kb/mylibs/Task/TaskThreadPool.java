@@ -11,14 +11,25 @@ public class TaskThreadPool
 
     }
 
+    public void init()
+    {
+
+    }
+
+    public void dispose()
+    {
+
+    }
+
     public void initThreadPool(int numThread, TaskQueue taskQueue)
     {
-        mList = new MList<TaskThread>(numThread);
-        int idx = 0;
-        for(idx = 0; idx < numThread; ++idx)
+        this.mList = new MList<TaskThread>(numThread);
+        int index = 0;
+
+        for(index = 0; index < numThread; ++index)
         {
-            mList.Add(new TaskThread(String.format("TaskThread{0}", idx), taskQueue));
-            mList.get(idx).start();
+            this.mList.Add(new TaskThread(String.format("TaskThread{0}", index), taskQueue));
+            this.mList.get(index).start();
         }
     }
 

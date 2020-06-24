@@ -20,6 +20,7 @@ import com.kb.mylibs.ObjectPool.IdPoolSys;
 import com.kb.mylibs.ObjectPool.PoolSys;
 import com.kb.mylibs.Task.TaskQueue;
 import com.kb.mylibs.Task.TaskThreadPool;
+import com.kb.mylibs.Tools.UtilAndroidLibsWrap;
 
 /**
  * @brief 全局数据区
@@ -65,14 +66,15 @@ public class Ctx
 
     public static Ctx instance()
     {
-        if (msIns == null)
+        if (null == Ctx.msIns)
         {
-            msIns = new Ctx();
+            Ctx.msIns = new Ctx();
         }
-        return msIns;
+
+        return Ctx.msIns;
     }
 
-    protected void constructInit()
+    protected void _preInit()
     {
         this.mMsgRouteNotify = new MsgRouteNotify();
         this.mSystemSetting = new SystemSetting();
@@ -104,14 +106,13 @@ public class Ctx
         this.mAssetManager = new MAssetManager();
     }
 
-    public void logicInit()
+    protected void _execInit()
     {
         this.mLogSys.init();
         this.mTickMgr.init();
         this.mFixedTickMgr.init();
 
         this.mTaskQueue.mTaskThreadPool = this.mTaskThreadPool;
-        this.mTaskThreadPool.initThreadPool(2, this.mTaskQueue);
 
         this.mGlobalDelegate.init();
         this.mResizeMgr.init();
@@ -126,12 +127,16 @@ public class Ctx
         this.addEventHandle();
     }
 
+    protected void _postInit()
+    {
+        this.mTaskThreadPool.initThreadPool(UtilAndroidLibsWrap.getDeviceCpuNum(), this.mTaskQueue);
+    }
+
     public void init()
     {
-        // 构造初始化
-        constructInit();
-        // 逻辑初始化，交叉引用的对象初始化
-        logicInit();
+        _preInit();
+        _execInit();
+        _postInit();
     }
 
     public void dispose()
@@ -193,9 +198,8 @@ public class Ctx
     public void quitApp()
     {
         this.dispose();
-
         // 释放自己
-        //msIns = null;
+        Ctx.msIns = null;
     }
 
     protected void addEventHandle()

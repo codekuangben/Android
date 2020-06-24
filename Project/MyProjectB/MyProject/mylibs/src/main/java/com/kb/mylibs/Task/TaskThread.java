@@ -10,7 +10,7 @@ public class TaskThread extends MThread
 {
     protected TaskQueue mTaskQueue;
     protected MCondition mCondition;
-    protected ITask mCurTask;
+    protected ISimpleTask mCurTask;
 
     public TaskThread(String name, TaskQueue taskQueue)
     {

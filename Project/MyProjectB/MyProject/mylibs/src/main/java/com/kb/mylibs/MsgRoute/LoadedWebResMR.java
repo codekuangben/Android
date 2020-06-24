@@ -1,10 +1,10 @@
 package com.kb.mylibs.MsgRoute;
 
-import com.kb.mylibs.Task.ITask;
+import com.kb.mylibs.Task.ISimpleTask;
 
 public class LoadedWebResMR extends MsgRouteBase
 {
-    public ITask m_task;
+    public ISimpleTask mTask;
 
     public LoadedWebResMR()
     {
@@ -14,6 +14,6 @@ public class LoadedWebResMR extends MsgRouteBase
     @Override
     public void resetDefault()
     {
-        m_task = null;
+        mTask = null;
     }
 }

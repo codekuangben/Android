@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Environment;
 import android.preference.PreferenceManager;
+import android.util.Log;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -82,7 +83,8 @@ public class UtilPath
     /**
      * @url https://blog.csdn.net/xy4_android/article/details/80985890
      */
-    public static void setStringSharedPreferences(Context context, String key, String value) {
+    public static void setStringSharedPreferences(Context context, String key, String value)
+    {
         SharedPreferences sp = context.getSharedPreferences("Default", MODE_PRIVATE);
         SharedPreferences.Editor edit = sp.edit();
         edit.putString(key, value);
@@ -95,7 +97,7 @@ public class UtilPath
         value = sp.getString(key, "");
     }
 
-    private void putSharedPreferencesByPreferenceManager(Context context, String key, String value)
+    public static void putSharedPreferencesByPreferenceManager(Context context, String key, String value)
     {
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
         SharedPreferences.Editor edit = sp.edit();
@@ -103,11 +105,84 @@ public class UtilPath
         edit.apply();
     }
 
-    private void putSharedPreferencesByActivity(Activity activity, String key, String value)
+    public static void putSharedPreferencesByActivity(Activity activity, String key, String value)
     {
         SharedPreferences sp = activity.getPreferences(MODE_PRIVATE);
         SharedPreferences.Editor edit = sp.edit();
         edit.putString(key, value);
         edit.apply();
+    }
+
+    // https://www.w3cschool.cn/android_training_course/android_training_course-9e6r27e9.html
+    /* Checks if external storage is available for read and write */
+    public static boolean isExternalStorageWritable()
+    {
+        String state = Environment.getExternalStorageState();
+
+        if (Environment.MEDIA_MOUNTED.equals(state))
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    /* Checks if external storage is available to at least read */
+    public static boolean isExternalStorageReadable()
+    {
+        String state = Environment.getExternalStorageState();
+
+        if (Environment.MEDIA_MOUNTED.equals(state) ||
+            Environment.MEDIA_MOUNTED_READ_ONLY.equals(state))
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    public static File getExternalStoragePublicRootDirectory()
+    {
+        return Environment.getExternalStoragePublicDirectory(null);
+    }
+
+    /**
+     * @url https://www.w3cschool.cn/android_training_course/android_training_course-9e6r27e9.html
+     * Note: 当用户卸载我们的app时，android系统会删除以下文件：
+     * 所有保存到internal storage的文件。
+     * 所有使用getExternalFilesDir()方式保存在external storage的文件。
+     * 然而，通常来说，我们应该手动删除所有通过 getCacheDir() 方式创建的缓存文件，以及那些不会再用到的文件。
+     */
+    public static File getExternalStoragePrivateRootDirectory(Context context)
+    {
+        return context.getExternalFilesDir(null);
+    }
+
+    public static File getPublicAlbumStorageDir(String albumName)
+    {
+        // Get the directory for the user's public pictures directory.
+        File file = new File(Environment.getExternalStoragePublicDirectory(
+                Environment.DIRECTORY_PICTURES), albumName);
+
+        if (!file.mkdirs())
+        {
+            Log.e("Default", "Directory not created");
+        }
+
+        return file;
+    }
+
+    public static File getPrivateAlbumStorageDir(Context context, String albumName)
+    {
+        // Get the directory for the app's private pictures directory.
+        File file = new File(context.getExternalFilesDir(
+                Environment.DIRECTORY_PICTURES), albumName);
+
+        if (!file.mkdirs())
+        {
+            Log.e("Default", "Directory not created");
+        }
+
+        return file;
     }
 }

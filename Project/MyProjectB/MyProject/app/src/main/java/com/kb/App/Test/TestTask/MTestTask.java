@@ -2,6 +2,7 @@ package com.kb.App.Test.TestTask;
 
 import com.kb.App.Test.TestBase.MTestBase;
 import com.kb.mylibs.FrameWork.Ctx;
+import com.kb.mylibs.Task.ISimpleTask;
 
 public class MTestTask extends MTestBase
 {
@@ -21,5 +22,6 @@ public class MTestTask extends MTestBase
     {
         MTestAssetsTask testAssetsTask = new MTestAssetsTask();
         Ctx.msIns.mTaskQueue.push(testAssetsTask);
+        //ISimpleTask task = Ctx.msIns.mTaskQueue.pop();
     }
 }

@@ -103,7 +103,8 @@ public class UtilPath
         edit.apply();
     }
 
-    private void putSharedPreferencesByActivity(Activity activity, String key, String value) {
+    private void putSharedPreferencesByActivity(Activity activity, String key, String value)
+    {
         SharedPreferences sp = activity.getPreferences(MODE_PRIVATE);
         SharedPreferences.Editor edit = sp.edit();
         edit.putString(key, value);

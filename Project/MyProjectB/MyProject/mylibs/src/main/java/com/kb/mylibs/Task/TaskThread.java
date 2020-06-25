@@ -30,7 +30,7 @@ public class TaskThread extends MThread
         {
             this.mCurTask = this.mTaskQueue.pop();
 
-            if(this.mCurTask != null)
+            if(null != this.mCurTask)
             {
                 this.mCurTask.runTask();
             }
@@ -43,12 +43,6 @@ public class TaskThread extends MThread
 
     public boolean notifySelf()
     {
-        if(this.mCondition.getCanEnterWait())
-        {
-            this.mCondition.notifyAll();
-            return true;
-        }
-
-        return false;
+        return this.mCondition.notifyAllImpl();
     }
 }

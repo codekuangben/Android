@@ -35,7 +35,7 @@ public class TaskThreadPool
 
     public void notifyIdleThread()
     {
-        for(TaskThread item : mList.list())
+        for(TaskThread item : this.mList.list())
         {
             if(item.notifySelf())       // 如果唤醒某个线程就退出，如果一个都没有唤醒，说明当前线程都比较忙，需要等待
             {

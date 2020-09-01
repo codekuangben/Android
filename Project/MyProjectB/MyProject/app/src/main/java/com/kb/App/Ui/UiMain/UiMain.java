@@ -36,9 +36,9 @@ public class UiMain extends Form
     }
 
     @Override
-    public void call(IDispatchObject dispObj)
+    public void call(IDispatchObject dispatchObject)
     {
-        super.call(dispObj);
+        super.call(dispatchObject);
 
 
     }

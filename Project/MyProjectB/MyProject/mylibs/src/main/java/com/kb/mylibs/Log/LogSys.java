@@ -112,7 +112,7 @@ public class LogSys
 
             LogDeviceBase logDevice = null;
             logDevice = new FileLogDevice();
-            //((FileLogDevice)logDevice).fileSuffix = Ctx.mInstance.mDataPlayer.m_accountData.m_account;
+            //((FileLogDevice)logDevice).fileSuffix = Ctx.msIns.mDataPlayer.m_accountData.m_account;
             logDevice.initDevice();
             this.mLogDeviceList.Add(logDevice);
         }

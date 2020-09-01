@@ -10,18 +10,33 @@ import com.kb.mylibs.FrameWork.*;
  */
 public class MLock
 {
-    protected Lock mMutex;
+    protected MMutex mMutex;
 
     public MLock(MMutex mutex)
     {
         if (MacroDef.NET_MULTHREAD)
         {
-            this.mMutex = new ReentrantLock();
-            this.mMutex.lock();
+            this.mMutex = mutex;
+            mMutex.lock();
         }
     }
 
-    // 这个在超出作用域的时候就会被调用，但是只有在使用 using 语句中，例如 using (MLock mlock = new MLock(mReadMutex)) ，这个语句执行完后立马调用，using (MLock mlock = new MLock(mReadMutex)) {} 才行
+    public void lock()
+    {
+        if (MacroDef.NET_MULTHREAD)
+        {
+            mMutex.lock();
+        }
+    }
+
+    public void unlock()
+    {
+        if (MacroDef.NET_MULTHREAD)
+        {
+            mMutex.unlock();
+        }
+    }
+
     public void Dispose()
     {
         if (MacroDef.NET_MULTHREAD)

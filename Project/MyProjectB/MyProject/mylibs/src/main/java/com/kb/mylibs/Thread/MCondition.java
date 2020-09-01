@@ -5,51 +5,36 @@ package com.kb.mylibs.Thread;
  */
 public class MCondition
 {
-    protected MMutex mMutex;
     protected MEvent mEvent;
-    protected boolean mCanEnterWait;  // 是否可以进入等待
+    protected MAtomicBoolean mCanWaitting;
 
     public MCondition(String name)
     {
-        this.mMutex = new MMutex(false, name);
         this.mEvent = new MEvent(false);
-        this.mCanEnterWait = true;      // 允许进入等待状态
-    }
-
-    public boolean getCanEnterWait()
-    {
-        return this.mCanEnterWait;
+        this.mCanWaitting = new MAtomicBoolean(true);
     }
 
     public void waitImpl()
     {
-        //using (MLock mlock = new MLock(mMutex))
-        //{
-            this.mMutex.WaitOne();
-            if (this.mCanEnterWait)
-            {
-                this.mMutex.ReleaseMutex();   // 这个地方需要释放锁，否则 notifyAll 进不来
-                this.mEvent.WaitOne();
-                this.mEvent.Reset();      // 重置信号
-            }
-            else
-            {
-                this.mCanEnterWait = true;
-                this.mMutex.ReleaseMutex();
-            }
-        //}
+        if (this.mCanWaitting.get())
+        {
+            this.mEvent.WaitOne();
+            this.mEvent.Reset();      // 重置信号
+        }
+
+        this.mCanWaitting.set(true);
     }
 
-    public void notifyAllImpl()
+    public boolean notifyAllImpl()
     {
-        MLock mlock = new MLock(mMutex);
+        boolean ret = false;
 
+        if (this.mCanWaitting.compareAndSet(true, false))
         {
-            if (this.mCanEnterWait) // 如果 mCanEnterWait == false，必然不能进入等待
-            {
-                this.mCanEnterWait = false;
-                this.mEvent.Set();        // 唤醒线程
-            }
+            ret = true;
+            this.mEvent.Set();        // 唤醒线程
         }
+
+        return ret;
     }
 }

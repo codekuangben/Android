@@ -429,7 +429,7 @@ public class ClientBuffer
                 mMsgBuffer.getCircularBuffer().pushBackArr(mRawBuffer.getMsgBodyBA().getDynBuffer().getBuffer(), mRawBuffer.getMsgBodyBA().getPosition() - msglen, msglen);      // 保存消息大小字段
             }
 
-            //Ctx.mInstance.mNetCmdNotify.addOneRevMsg();
+            //Ctx.msIns.mNetCmdNotify.addOneRevMsg();
 
             // Test 读取消息头
             // MByteBuffer buff = getMsg();

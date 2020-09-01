@@ -12,25 +12,25 @@ public class ProcessSys
 
     public void ProcessNextFrame()
     {
-        Ctx.mInstance.mSystemTimeData.nextFrame();
-        this.Advance(Ctx.mInstance.mSystemTimeData.getDeltaSec());
+        Ctx.msIns.mSystemTimeData.nextFrame();
+        this.Advance(Ctx.msIns.mSystemTimeData.getDeltaSec());
     }
 
     public void Advance(float delta)
     {
-        Ctx.mInstance.mSystemFrameData.nextFrame(delta);
-        Ctx.mInstance.mTickMgr.Advance(delta);            // 心跳
-        Ctx.mInstance.mTimerMgr.Advance(delta);           // 定时器
-        Ctx.mInstance.mFrameTimerMgr.Advance(delta);      // 帧定时器
+        Ctx.msIns.mSystemFrameData.nextFrame(delta);
+        Ctx.msIns.mTickMgr.Advance(delta);            // 心跳
+        Ctx.msIns.mTimerMgr.Advance(delta);           // 定时器
+        Ctx.msIns.mFrameTimerMgr.Advance(delta);      // 帧定时器
     }
 
     public void ProcessNextFixedFrame()
     {
-        this.FixedAdvance(Ctx.mInstance.mSystemTimeData.getFixedTimestep());
+        this.FixedAdvance(Ctx.msIns.mSystemTimeData.getFixedTimestep());
     }
 
     public void FixedAdvance(float delta)
     {
-        Ctx.mInstance.mFixedTickMgr.Advance(delta);
+        Ctx.msIns.mFixedTickMgr.Advance(delta);
     }
 }

@@ -4,16 +4,16 @@ import com.kb.mylibs.Core.GObject;
 
 public class ToolKitSys extends GObject
 {
-    public static ToolKitSys mInstance;
+    public static ToolKitSys msIns;
 
     public static ToolKitSys instance()
     {
-        if (null == ToolKitSys.mInstance)
+        if (null == ToolKitSys.msIns)
         {
-            ToolKitSys.mInstance = new ToolKitSys();
+            ToolKitSys.msIns = new ToolKitSys();
         }
 
-        return ToolKitSys.mInstance;
+        return ToolKitSys.msIns;
     }
 
     public void init()

@@ -18,12 +18,12 @@ public class AppFrame extends GObject
     {
         // 初始化核心功能
         Ctx.instance();
-        Ctx.mInstance.init();
-        Ctx.mInstance.initNativeContext(MyApplication.getAppContext());
+        Ctx.msIns.init();
+        Ctx.msIns.initNativeContext(MyApplication.getAppContext());
 
         // 初始化 App
         ToolKitSys.instance();
-        ToolKitSys.mInstance.init();
+        ToolKitSys.msIns.init();
 
         // 单元测试
         TestMain testMain = new TestMain();
@@ -32,7 +32,7 @@ public class AppFrame extends GObject
 
     public  void dispose()
     {
-        Ctx.mInstance.dispose();
-        Ctx.mInstance = null;
+        Ctx.msIns.dispose();
+        Ctx.msIns = null;
     }
 }

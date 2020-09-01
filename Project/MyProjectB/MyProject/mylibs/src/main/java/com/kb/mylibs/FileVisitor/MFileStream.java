@@ -2,6 +2,7 @@ package com.kb.mylibs.FileVisitor;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 
 import com.kb.mylibs.Core.GObject;
@@ -112,6 +113,17 @@ public class MFileStream extends GObject implements IDispatchObject
         if(this.mFileOpState == FileOpState.eNoOp)
         {
             this.mFile = new File(this.mFilePath);
+            try
+            {
+                mFileInputStream = new FileInputStream(this.mFile);
+                mFileOutputStream = new FileOutputStream(this.mFile);
+            }
+            catch (FileNotFoundException exception)
+            {
+                this.mFile = null;
+                this.mFileInputStream = null;
+                this.mFileOutputStream = null;
+            }
         }
     }
 

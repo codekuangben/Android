@@ -34,6 +34,6 @@ public class MsgRouteNotify
             item.handleMsg(msg);
         }
 
-        //Ctx.mInstance.mPoolSys.deleteObj(msg);
+        //Ctx.msIns.mPoolSys.deleteObj(msg);
     }
 }

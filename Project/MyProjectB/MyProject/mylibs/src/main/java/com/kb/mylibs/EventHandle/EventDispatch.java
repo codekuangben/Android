@@ -178,7 +178,7 @@ public class EventDispatch extends DelayHandleMgrBase
         //}
         //catch (Exception ex)
         //{
-        //    Ctx.mInstance.mLogSys.catchLog(ex.ToString());
+        //    Ctx.msIns.mLogSys.catchLog(ex.ToString());
         //}
     }
 

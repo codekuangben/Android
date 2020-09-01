@@ -11,20 +11,31 @@ public class TaskThreadPool
 
     }
 
+    public void init()
+    {
+
+    }
+
+    public void dispose()
+    {
+
+    }
+
     public void initThreadPool(int numThread, TaskQueue taskQueue)
     {
-        mList = new MList<TaskThread>(numThread);
-        int idx = 0;
-        for(idx = 0; idx < numThread; ++idx)
+        this.mList = new MList<TaskThread>(numThread);
+        int index = 0;
+
+        for(index = 0; index < numThread; ++index)
         {
-            mList.Add(new TaskThread(String.format("TaskThread{0}", idx), taskQueue));
-            mList.get(idx).start();
+            this.mList.Add(new TaskThread(String.format("TaskThread{0}", index), taskQueue));
+            this.mList.get(index).start();
         }
     }
 
     public void notifyIdleThread()
     {
-        for(TaskThread item : mList.list())
+        for(TaskThread item : this.mList.list())
         {
             if(item.notifySelf())       // 如果唤醒某个线程就退出，如果一个都没有唤醒，说明当前线程都比较忙，需要等待
             {

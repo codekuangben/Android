@@ -19,7 +19,7 @@ public class MyApplication extends Application
         super.onCreate();
         MyApplication._Context = this.getApplicationContext();
         //Context context = this.getApplicationContext();
-        //Ctx.mInstance.initNativeContext(context);
+        //Ctx.msIns.initNativeContext(context);
     }
 
     public static Context getAppContext()

@@ -1,6 +1,6 @@
 package com.kb.mylibs.FileVisitor;
 
-public class MFilePath
+public class MLocalFilePath
 {
 
 }

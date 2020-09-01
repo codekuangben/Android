@@ -48,7 +48,7 @@ public class SystemTimeData
 
     public float getFixedTimestep()
     {
-        if (Ctx.mInstance.mCfg.mIsActorMoveUseFixUpdate)
+        if (Ctx.msIns.mCfg.mIsActorMoveUseFixUpdate)
         {
             return this.mFixedTimestep;
         }

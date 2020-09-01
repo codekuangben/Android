@@ -5,8 +5,11 @@ import android.content.Intent;
 import android.net.Uri;
 import android.view.View;
 
+import java.io.File;
+import java.io.FileFilter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.regex.Pattern;
 
 /**
  * @brief 对 Android 的进一步 wrap
@@ -78,5 +81,15 @@ public class UtilAndroidLibsWrap
         {
             activity.finish();
         }
+    }
+
+    /**
+     * @brief android获取cpu核数
+     * @url https://www.jianshu.com/p/695b8345d870
+     * @url https://www.cnblogs.com/garfieldx/p/3408678.html
+     */
+    public static int getDeviceCpuNum()
+    {
+        return Runtime.getRuntime().availableProcessors();
     }
 }

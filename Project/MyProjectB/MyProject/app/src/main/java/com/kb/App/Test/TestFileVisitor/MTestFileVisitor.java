@@ -25,7 +25,7 @@ public class MTestFileVisitor extends MTestBase
     protected void _testA()
     {
         // path 是相对目录，相对于 Android\Project\MyProjectB\MyProject\app\src\main\assets
-        InputStream inputStream = Ctx.mInstance.mAssetManager.open("Config/TestA.txt");
+        InputStream inputStream = Ctx.msIns.mAssetManager.open("Config/TestA.txt");
 
         byte[] byteArray = new byte[1024];
 

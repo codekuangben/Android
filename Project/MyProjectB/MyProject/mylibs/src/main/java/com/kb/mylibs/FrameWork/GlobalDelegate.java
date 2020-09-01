@@ -18,14 +18,14 @@ public class GlobalDelegate
     }
 
     public void addMainChildChangedHandle(
-            ICalleeObject pThis,
-            IDispatchObject handle,
+            ICalleeObject eventListener,
+            IDispatchObject eventHandle,
             int eventId
     )
     {
         this.mMainChildMassChangedDispatch.addEventHandle(
-                pThis,
-                handle,
+                eventListener,
+                eventHandle,
                 eventId
         );
     }

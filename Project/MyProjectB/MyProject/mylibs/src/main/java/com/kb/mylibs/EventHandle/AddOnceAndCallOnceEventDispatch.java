@@ -4,14 +4,14 @@ public class AddOnceAndCallOnceEventDispatch extends EventDispatch
 {
     @Override
     public void addEventHandle(
-            ICalleeObject pThis,
-            IDispatchObject handle,
+            ICalleeObject eventListener,
+            IDispatchObject eventHandle,
             int eventId
     )
     {
-        if (!this.isExistEventHandle(pThis, handle, eventId))
+        if (!this.isExistEventHandle(eventListener, eventHandle, eventId))
         {
-            super.addEventHandle(pThis, handle, eventId);
+            super.addEventHandle(eventListener, eventHandle, eventId);
         }
     }
 

@@ -25,8 +25,8 @@ public class EventDispatchGroup
 
     public void addEventHandle(
             int groupId,
-            ICalleeObject pThis,
-            IDispatchObject handle,
+            ICalleeObject eventListener,
+            IDispatchObject eventHandle,
             int eventId
     )
     {
@@ -37,24 +37,24 @@ public class EventDispatchGroup
         }
 
         this.mGroupID2DispatchDic.get(groupId).addEventHandle(
-                pThis,
-                handle,
+                eventListener,
+                eventHandle,
                 eventId
         );
     }
 
     public void removeEventHandle(
             int groupId,
-            ICalleeObject pThis,
-            IDispatchObject handle,
+            ICalleeObject eventListener,
+            IDispatchObject eventHandle,
             int eventId
     )
     {
         if (this.mGroupID2DispatchDic.ContainsKey(groupId))
         {
             this.mGroupID2DispatchDic.get(groupId).removeEventHandle(
-                    pThis,
-                    handle,
+                    eventListener,
+                    eventHandle,
                     eventId
             );
 

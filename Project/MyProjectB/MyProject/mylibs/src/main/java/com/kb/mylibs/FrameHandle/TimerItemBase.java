@@ -31,9 +31,9 @@ public class TimerItemBase implements IDelayHandleItem, IDispatchObject
         this.mIsContinuous = false;
     }
 
-    public void setFuncObject(ICalleeObjectTimer handle)
+    public void setFuncObject(ICalleeObjectTimer eventHandle)
     {
-        this.mTimerDisp.setFuncObject(handle);
+        this.mTimerDisp.setFuncObject(eventHandle);
     }
 
     public void setTotalTime(float value)

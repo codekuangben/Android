@@ -17,15 +17,15 @@ public class AddOnceEventDispatch extends EventDispatch
 
     @Override
     public void addEventHandle(
-            ICalleeObject pThis,
-            IDispatchObject handle,
+            ICalleeObject eventListener,
+            IDispatchObject eventHandle,
             int eventId
     )
     {
         // 这个判断说明相同的函数只能加一次，但是如果不同资源使用相同的回调函数就会有问题，但是这个判断可以保证只添加一次函数，值得，因此不同资源需要不同回调函数
-        if (!this.isExistEventHandle(pThis, handle, eventId))
+        if (!this.isExistEventHandle(eventListener, eventHandle, eventId))
         {
-            super.addEventHandle(pThis, handle, eventId);
+            super.addEventHandle(eventListener, eventHandle, eventId);
         }
     }
 }

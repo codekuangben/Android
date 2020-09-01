@@ -15,29 +15,29 @@ public class MsgRouteDispHandle
 
     public void addRouteHandle(
             int groupId,
-            MsgRouteHandleBase pThis,
-            IDispatchObject handle,
+            MsgRouteHandleBase eventListener,
+            IDispatchObject eventHandle,
             int eventId)
     {
         this.mEventDispatchGroup.addEventHandle(
                 groupId,
-                pThis,
-                handle,
+                eventListener,
+                eventHandle,
                 eventId
         );
     }
 
     public void removeRouteHandle(
             int groupId,
-            MsgRouteHandleBase pThis,
-            IDispatchObject handle,
+            MsgRouteHandleBase eventListener,
+            IDispatchObject eventHandle,
             int eventId
     )
     {
         this.mEventDispatchGroup.removeEventHandle(
                 groupId,
-                pThis,
-                handle,
+                eventListener,
+                eventHandle,
                 eventId
         );
     }

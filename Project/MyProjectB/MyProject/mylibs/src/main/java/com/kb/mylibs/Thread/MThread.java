@@ -14,9 +14,9 @@ public class MThread implements IMRunnable
     protected Object mParam;           // 参数数据
     protected boolean mIsExitFlag;           // 退出标志
 
-    public MThread(IThreadDispatch func, Object param)
+    public MThread(IThreadDispatch eventHandle, Object param)
     {
-        this.mCb = func;
+        this.mCb = eventHandle;
         this.mParam = param;
     }
 

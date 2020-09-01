@@ -55,7 +55,7 @@ public class Form extends GObject implements ICalleeObject
         this.mActivity = value;
     }
 
-    public void call(IDispatchObject dispObj)
+    public void call(IDispatchObject dispatchObject)
     {
 
     }

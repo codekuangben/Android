@@ -5,30 +5,30 @@ import com.kb.mylibs.Tools.UtilSysLibsWrap;
 
 public class TimerFunctionObject
 {
-    public ICalleeObjectTimer mHandle;
+    public ICalleeObjectTimer mEventHandle;
 
     public TimerFunctionObject()
     {
-        this.mHandle = null;
+        this.mEventHandle = null;
     }
 
-    public void setFuncObject(ICalleeObjectTimer handle)
+    public void setFuncObject(ICalleeObjectTimer eventHandle)
     {
-        this.mHandle = handle;
+        this.mEventHandle = eventHandle;
     }
 
     public boolean isValid()
     {
-        return this.mHandle != null;
+        return this.mEventHandle != null;
     }
 
-    public boolean isEqual(ICalleeObject handle)
+    public boolean isEqual(ICalleeObject eventHandle)
     {
         boolean ret = false;
 
-        if(handle != null)
+        if(eventHandle != null)
         {
-            ret = UtilSysLibsWrap.isAddressEqual(this.mHandle, handle);
+            ret = UtilSysLibsWrap.isAddressEqual(this.mEventHandle, eventHandle);
             if(!ret)
             {
                 return ret;
@@ -38,11 +38,11 @@ public class TimerFunctionObject
         return ret;
     }
 
-    public void call(TimerItemBase dispObj)
+    public void call(TimerItemBase dispatchObject)
     {
-        if (null != this.mHandle)
+        if (null != this.mEventHandle)
         {
-            this.mHandle.call(dispObj);
+            this.mEventHandle.call(dispatchObject);
         }
     }
 }

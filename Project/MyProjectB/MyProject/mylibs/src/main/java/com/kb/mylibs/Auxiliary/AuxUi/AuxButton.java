@@ -36,13 +36,13 @@ public class AuxButton extends AuxWindow implements View.OnClickListener
 
     }
 
-    public void addClickHandle(ICalleeObject ptr, IDispatchObject dispObj, int eventId)
+    public void addClickHandle(ICalleeObject ptr, IDispatchObject dispatchObject, int eventId)
     {
         if (null != this.mClickDispatch)
         {
             this.mClickDispatch = new AddOnceEventDispatch();
         }
 
-        this.mClickDispatch.addEventHandle(ptr, dispObj, eventId);
+        this.mClickDispatch.addEventHandle(ptr, dispatchObject, eventId);
     }
 }

@@ -6,8 +6,8 @@ import com.kb.mylibs.Tools.UtilSysLibsWrap;
 public class EventDispatchFunctionObject implements IDelayHandleItem
 {
     public boolean mIsClientDispose;       // 是否释放了资源
-    public ICalleeObject mThis;
-    public IDispatchObject mHandle;
+    public ICalleeObject mEventListener;
+    public IDispatchObject mEventHandle;
     public int mEventId;
 
     public EventDispatchFunctionObject()
@@ -16,42 +16,42 @@ public class EventDispatchFunctionObject implements IDelayHandleItem
     }
 
     public void setFuncObject(
-            ICalleeObject pThis,
-            IDispatchObject func,
+            ICalleeObject eventListener,
+            IDispatchObject eventHandle,
             int eventId
     )
     {
-        this.mThis = pThis;
-        this.mHandle = func;
+        this.mEventListener = eventListener;
+        this.mEventHandle = eventHandle;
         this.mEventId = eventId;
     }
 
     public boolean isValid()
     {
-        return this.mThis != null || this.mHandle != null;
+        return this.mEventListener != null || this.mEventHandle != null;
     }
 
     public boolean isEqual(
-            ICalleeObject pThis,
-            IDispatchObject handle,
+            ICalleeObject eventListener,
+            IDispatchObject eventHandle,
             int eventId
     )
     {
         boolean ret = false;
 
-        if(pThis != null)
+        if(eventListener != null)
         {
-            ret = UtilSysLibsWrap.isAddressEqual(this.mThis, pThis);
+            ret = UtilSysLibsWrap.isAddressEqual(this.mEventListener, eventListener);
 
             if (!ret)
             {
                 return ret;
             }
         }
-        if (handle != null)
+        if (eventHandle != null)
         {
-            //ret = UtilSysLibsWrap.isAddressEqual(this.mHandle, handle);
-            ret = UtilSysLibsWrap.isDelegateEqual(this.mHandle, handle);
+            //ret = UtilSysLibsWrap.isAddressEqual(this.mEventHandle, eventHandle);
+            ret = UtilSysLibsWrap.isDelegateEqual(this.mEventHandle, eventHandle);
 
             if (!ret)
             {
@@ -67,16 +67,16 @@ public class EventDispatchFunctionObject implements IDelayHandleItem
         return ret;
     }
 
-    public void call(IDispatchObject dispObj)
+    public void call(IDispatchObject dispatchObject)
     {
-        if(this.mThis != null)
+        if(this.mEventListener != null)
         {
-            this.mThis.call(dispObj);
+            this.mEventListener.call(dispatchObject);
         }
 
-//        if(null != this.mHandle)
+//        if(null != this.mEventHandle)
 //        {
-//            this.mHandle(dispObj);
+//            this.mEventHandle(dispatchObject);
 //        }
     }
 

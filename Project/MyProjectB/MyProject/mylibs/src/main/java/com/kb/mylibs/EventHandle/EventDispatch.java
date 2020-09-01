@@ -66,29 +66,29 @@ public class EventDispatch extends DelayHandleMgrBase
 
     // 相同的函数只能增加一次，Lua ，Python 这些语言不支持同时存在几个相同名字的函数，只支持参数可以赋值，因此不单独提供同一个名字不同参数的接口了
     public void addEventHandle(
-            ICalleeObject pThis,
-            IDispatchObject handle,
+            ICalleeObject eventListener,
+            IDispatchObject eventHandle,
             int eventId
     )
     {
-        if (null != pThis || null != handle)
+        if (null != eventListener || null != eventHandle)
         {
             EventDispatchFunctionObject funcObject = new EventDispatchFunctionObject();
 
-            if (null != handle)
+            if (null != eventHandle)
             {
-                funcObject.setFuncObject(pThis, handle, eventId);
+                funcObject.setFuncObject(eventListener, eventHandle, eventId);
             }
 
             this.addDispatch(funcObject);
         }
         else
         {
-            UtilLog.log("pThis or handle is null");
+            UtilLog.log("eventListener or eventHandle is null");
         }
     }
 
-    public void removeEventHandle(ICalleeObject pThis, IDispatchObject handle, int eventId)
+    public void removeEventHandle(ICalleeObject eventListener, IDispatchObject eventHandle, int eventId)
     {
         int idx = 0;
         int elemLen = 0;
@@ -96,7 +96,7 @@ public class EventDispatch extends DelayHandleMgrBase
 
         while (idx < elemLen)
         {
-            if (this.mHandleList.get(idx).isEqual(pThis, handle, eventId))
+            if (this.mHandleList.get(idx).isEqual(eventListener, eventHandle, eventId))
             {
                 break;
             }
@@ -156,19 +156,19 @@ public class EventDispatch extends DelayHandleMgrBase
         //{
         this.mLoopDepth.incDepth();
 
-        //foreach (EventDispatchFunctionObject handle in this.mHandleList.list())
+        //foreach (EventDispatchFunctionObject eventHandle in this.mHandleList.list())
 
         int idx = 0;
         int len = this.mHandleList.Count();
-        EventDispatchFunctionObject handle = null;
+        EventDispatchFunctionObject eventHandle = null;
 
         while (idx < len)
         {
-            handle = this.mHandleList.get(idx);
+            eventHandle = this.mHandleList.get(idx);
 
-            if (!handle.mIsClientDispose)
+            if (!eventHandle.mIsClientDispose)
             {
-                handle.call(dispatchObject);
+                eventHandle.call(dispatchObject);
             }
 
             ++idx;
@@ -208,8 +208,8 @@ public class EventDispatch extends DelayHandleMgrBase
 
     // 这个判断说明相同的函数只能加一次，但是如果不同资源使用相同的回调函数就会有问题，但是这个判断可以保证只添加一次函数，值得，因此不同资源需要不同回调函数
     public boolean isExistEventHandle(
-            ICalleeObject pThis,
-            IDispatchObject handle,
+            ICalleeObject eventListener,
+            IDispatchObject eventHandle,
             int eventId
     )
     {
@@ -223,7 +223,7 @@ public class EventDispatch extends DelayHandleMgrBase
         {
             item = this.mHandleList.get(idx);
 
-            if (item.isEqual(pThis, handle, eventId))
+            if (item.isEqual(eventListener, eventHandle, eventId))
             {
                 bFinded = true;
                 break;
@@ -237,16 +237,16 @@ public class EventDispatch extends DelayHandleMgrBase
 
     public void copyFrom(EventDispatch rhv)
     {
-        //foreach(EventDispatchFunctionObject handle in rhv.handleList.list())
+        //foreach(EventDispatchFunctionObject eventHandle in rhv.handleList.list())
         int idx = 0;
         int len = this.mHandleList.Count();
-        EventDispatchFunctionObject handle = null;
+        EventDispatchFunctionObject eventHandle = null;
 
         while (idx < len)
         {
-            handle = this.mHandleList.get(idx);
+            eventHandle = this.mHandleList.get(idx);
 
-            this.mHandleList.Add(handle);
+            this.mHandleList.Add(eventHandle);
 
             ++idx;
         }

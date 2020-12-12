@@ -1,8 +1,8 @@
-package com.kb.App.Test.TestBase;
+package com.kb.Test.TestBase;
 
-import com.kb.App.Test.TestByteBuffer.MTestByteBuffer;
-import com.kb.App.Test.TestDataStruct.MTestDataStruct;
-import com.kb.App.Test.TestSyntax.MTestSyntax;
+import com.kb.Test.TestByteBuffer.MTestByteBuffer;
+import com.kb.Test.TestDataStruct.MTestDataStruct;
+import com.kb.Test.TestSyntax.MTestSyntax;
 
 /**
  * @brief TestMain

@@ -1,6 +1,6 @@
-package com.kb.App.Test.TestDataStruct;
+package com.kb.Test.TestDataStruct;
 
-import com.kb.App.Test.TestBase.MTestBase;
+import com.kb.Test.TestBase.MTestBase;
 
 public class MTestDataStruct extends MTestBase
 {

@@ -1,4 +1,4 @@
-package com.example.myprojectjavaa.Module.Frame;
+package com.kb.Module.Frame;
 
 public class MainEntry
 {

@@ -1,7 +1,7 @@
-package com.kb.App.Test.TestByteBuffer;
+package com.kb.Test.TestByteBuffer;
 
 
-import com.kb.App.Test.TestBase.MTestBase;
+import com.kb.Test.TestBase.MTestBase;
 import com.kb.mylibs.DataStruct.MByteBuffer;
 
 

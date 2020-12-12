@@ -1,2 +1,3 @@
+include ':mylibs'
 include ':app'
 rootProject.name = "MyProjectJavaA"

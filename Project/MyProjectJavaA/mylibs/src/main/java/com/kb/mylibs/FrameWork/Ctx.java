@@ -1,8 +1,5 @@
 package com.kb.mylibs.FrameWork;
 
-import android.content.Context;
-
-import com.kb.mylibs.FileVisitor.MAssetManager;
 import com.kb.mylibs.FrameHandle.FixedTickMgr;
 import com.kb.mylibs.FrameHandle.FrameTimerMgr;
 import com.kb.mylibs.FrameHandle.ITickedObject;
@@ -20,7 +17,6 @@ import com.kb.mylibs.ObjectPool.IdPoolSys;
 import com.kb.mylibs.ObjectPool.PoolSys;
 import com.kb.mylibs.Task.TaskQueue;
 import com.kb.mylibs.Task.TaskThreadPool;
-import com.kb.mylibs.Tools.UtilAndroidLibsWrap;
 
 /**
  * @brief 全局数据区
@@ -56,8 +52,6 @@ public class Ctx
     public SysMsgRoute mSysMsgRoute;
     public SystemTimeData mSystemTimeData;
     public SystemFrameData mSystemFrameData;
-    public MAssetManager mAssetManager;
-    public Context mContext;
 
     public Ctx()
     {
@@ -103,7 +97,6 @@ public class Ctx
         this.mSysMsgRoute = new SysMsgRoute("");
         this.mSystemTimeData = new SystemTimeData();
         this.mSystemFrameData = new SystemFrameData();
-        this.mAssetManager = new MAssetManager();
     }
 
     protected void _execInit()
@@ -122,14 +115,13 @@ public class Ctx
         this.mSystemTimeData.init();
 
         this.mSystemFrameData.init();
-        this.mAssetManager.init();
 
         this.addEventHandle();
     }
 
     protected void _postInit()
     {
-        this.mTaskThreadPool.initThreadPool(UtilAndroidLibsWrap.getDeviceCpuNum(), this.mTaskQueue);
+        this.mTaskThreadPool.initThreadPool(1, this.mTaskQueue);
     }
 
     public void init()
@@ -188,11 +180,6 @@ public class Ctx
             this.mSystemFrameData.dispose();
             this.mSystemFrameData = null;
         }
-        if (null != this.mAssetManager)
-        {
-            this.mAssetManager.dispose();
-            this.mAssetManager = null;
-        }
     }
 
     public void quitApp()
@@ -205,15 +192,5 @@ public class Ctx
     protected void addEventHandle()
     {
         this.mTickMgr.addTick((ITickedObject)this.mResizeMgr, TickPriority.eTPResizeMgr);
-    }
-
-    public void initNativeContext(Context context)
-    {
-        this.mContext = context;
-
-        if (null != this.mAssetManager)
-        {
-            this.mAssetManager.setContext(this.mContext);
-        }
     }
 }

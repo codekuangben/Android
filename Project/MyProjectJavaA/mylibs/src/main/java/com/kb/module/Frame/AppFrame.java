@@ -1,4 +1,4 @@
-package com.kb.App.Frame;
+package com.kb.module.Frame;
 
 import com.kb.App.Test.TestBase.TestMain;
 import com.kb.mylibs.Core.GObject;
@@ -19,11 +19,11 @@ public class AppFrame extends GObject
         // 初始化核心功能
         Ctx.instance();
         Ctx.msIns.init();
-        Ctx.msIns.initNativeContext(MyApplication.getAppContext());
+        //Ctx.msIns.initNativeContext(MyApplication.getAppContext());
 
         // 初始化 App
-        ToolKitSys.instance();
-        ToolKitSys.msIns.init();
+        //ToolKitSys.instance();
+        //ToolKitSys.msIns.init();
 
         // 单元测试
         TestMain testMain = new TestMain();

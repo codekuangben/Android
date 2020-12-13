@@ -4,6 +4,6 @@ public class UtilDebug
 {
     public static void asset(Boolean condition, String message)
     {
-
+        assert condition : message;
     }
 }

@@ -23,4 +23,11 @@ public class MTestSyntax extends MTestBase
         test.init();
         UtilLog.log("aaaaa");
     }
+
+    protected void _testB(String... args)
+    {
+        for (int i = 0; i < args.length; i++) {
+            UtilLog.log(args[i]);
+        }
+    }
 }

@@ -1,8 +1,10 @@
 package com.kb.mylibs.Tools;
 
+import com.kb.mylibs.DataStruct.MList;
 import com.kb.mylibs.EventHandle.IEventListener;
 import com.kb.mylibs.EventHandle.IDispatchObject;
 import com.kb.mylibs.EventHandle.IFileOrDirectoryVisitorEventListener;
+import com.kb.mylibs.FileVisitor.MOneFileOrDirInfo;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -169,5 +171,15 @@ public class UtilPath
                 }
             }
         }
+    }
+
+    public static MList<MOneFileOrDirInfo> getAllDir()
+    {
+        return null;
+    }
+
+    public static MList<MOneFileOrDirInfo> getAllFile()
+    {
+        return null;
     }
 }

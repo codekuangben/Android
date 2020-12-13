@@ -6,7 +6,7 @@ package com.kb.mylibs.FrameHandle;
 import com.kb.mylibs.DataStruct.MList;
 import com.kb.mylibs.DelayHandle.DelayHandleMgrBase;
 import com.kb.mylibs.DelayHandle.IDelayHandleItem;
-import com.kb.mylibs.EventHandle.ICalleeObjectNoRetNoParam;
+import com.kb.mylibs.EventHandle.IEventListenerNoRetNoParam;
 import com.kb.mylibs.Tools.UtilSysLibsWrap;
 
 public class TickMgr extends DelayHandleMgrBase

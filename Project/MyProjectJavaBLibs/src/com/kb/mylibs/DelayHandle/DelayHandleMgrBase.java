@@ -2,14 +2,14 @@ package com.kb.mylibs.DelayHandle;
 
 import com.kb.mylibs.Core.GObject;
 import com.kb.mylibs.DataStruct.MList;
-import com.kb.mylibs.EventHandle.ICalleeObjectNoRetNoParam;
+import com.kb.mylibs.EventHandle.IEventListenerNoRetNoParam;
 import com.kb.mylibs.FrameHandle.LoopDepth;
 import com.kb.mylibs.Tools.UtilSysLibsWrap;
 
 /**
  * @brief 当需要管理的对象可能在遍历中间添加的时候，需要这个管理器
  */
-public class DelayHandleMgrBase extends GObject implements ICalleeObjectNoRetNoParam
+public class DelayHandleMgrBase extends GObject implements IEventListenerNoRetNoParam
 {
     protected MList<DelayHandleObject> mDeferredAddQueue;
     protected MList<DelayHandleObject> mDeferredDelQueue;

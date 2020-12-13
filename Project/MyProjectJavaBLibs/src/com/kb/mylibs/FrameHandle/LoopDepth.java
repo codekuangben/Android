@@ -1,13 +1,13 @@
 package com.kb.mylibs.FrameHandle;
 
-import com.kb.mylibs.EventHandle.ICalleeObjectNoRetNoParam;
+import com.kb.mylibs.EventHandle.IEventListenerNoRetNoParam;
 
 public class LoopDepth
 {
     private int mLoopDepth;         // 是否在循环中，支持多层嵌套，就是循环中再次调用循环
-    private ICalleeObjectNoRetNoParam mIncHandle;     // 增加处理器
-    private ICalleeObjectNoRetNoParam mDecHandle;     // 减少处理器
-    private ICalleeObjectNoRetNoParam mZeroHandle;    // 减少到 0 处理器
+    private IEventListenerNoRetNoParam mIncHandle;     // 增加处理器
+    private IEventListenerNoRetNoParam mDecHandle;     // 减少处理器
+    private IEventListenerNoRetNoParam mZeroHandle;    // 减少到 0 处理器
 
     public LoopDepth()
     {
@@ -17,17 +17,17 @@ public class LoopDepth
         this.mZeroHandle = null;
     }
 
-    public void setIncHandle(ICalleeObjectNoRetNoParam value)
+    public void setIncHandle(IEventListenerNoRetNoParam value)
     {
         this.mIncHandle = value;
     }
 
-    public void setDecHandle(ICalleeObjectNoRetNoParam value)
+    public void setDecHandle(IEventListenerNoRetNoParam value)
     {
         this.mDecHandle = value;
     }
 
-    public void setZeroHandle(ICalleeObjectNoRetNoParam value)
+    public void setZeroHandle(IEventListenerNoRetNoParam value)
     {
         this.mZeroHandle = value;
     }

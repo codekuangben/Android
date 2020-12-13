@@ -6,7 +6,7 @@ import com.kb.mylibs.Tools.UtilSysLibsWrap;
 public class EventDispatchFunctionObject implements IDelayHandleItem
 {
     public boolean mIsClientDispose;       // 是否释放了资源
-    public ICalleeObject mEventListener;
+    public IEventListener mEventListener;
     public IDispatchObject mEventHandle;
     public int mEventId;
 
@@ -16,7 +16,7 @@ public class EventDispatchFunctionObject implements IDelayHandleItem
     }
 
     public void setFuncObject(
-            ICalleeObject eventListener,
+            IEventListener eventListener,
             IDispatchObject eventHandle,
             int eventId
     )
@@ -32,7 +32,7 @@ public class EventDispatchFunctionObject implements IDelayHandleItem
     }
 
     public boolean isEqual(
-            ICalleeObject eventListener,
+            IEventListener eventListener,
             IDispatchObject eventHandle,
             int eventId
     )

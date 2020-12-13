@@ -4,7 +4,7 @@ public class AddOnceAndCallOnceEventDispatch extends EventDispatch
 {
     @Override
     public void addEventHandle(
-            ICalleeObject eventListener,
+            IEventListener eventListener,
             IDispatchObject eventHandle,
             int eventId
     )

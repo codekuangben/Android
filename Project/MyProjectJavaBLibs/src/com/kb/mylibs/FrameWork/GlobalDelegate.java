@@ -1,7 +1,7 @@
 package com.kb.mylibs.FrameWork;
 
 import com.kb.mylibs.EventHandle.AddOnceEventDispatch;
-import com.kb.mylibs.EventHandle.ICalleeObject;
+import com.kb.mylibs.EventHandle.IEventListener;
 import com.kb.mylibs.EventHandle.IDispatchObject;
 
 /**
@@ -18,7 +18,7 @@ public class GlobalDelegate
     }
 
     public void addMainChildChangedHandle(
-            ICalleeObject eventListener,
+            IEventListener eventListener,
             IDispatchObject eventHandle,
             int eventId
     )

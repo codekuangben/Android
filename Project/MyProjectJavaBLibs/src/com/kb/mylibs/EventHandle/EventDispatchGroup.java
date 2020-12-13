@@ -25,7 +25,7 @@ public class EventDispatchGroup
 
     public void addEventHandle(
             int groupId,
-            ICalleeObject eventListener,
+            IEventListener eventListener,
             IDispatchObject eventHandle,
             int eventId
     )
@@ -45,7 +45,7 @@ public class EventDispatchGroup
 
     public void removeEventHandle(
             int groupId,
-            ICalleeObject eventListener,
+            IEventListener eventListener,
             IDispatchObject eventHandle,
             int eventId
     )

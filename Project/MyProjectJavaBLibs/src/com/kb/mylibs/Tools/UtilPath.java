@@ -1,7 +1,8 @@
 package com.kb.mylibs.Tools;
 
-import com.kb.mylibs.EventHandle.ICalleeObject;
+import com.kb.mylibs.EventHandle.IEventListener;
 import com.kb.mylibs.EventHandle.IDispatchObject;
+import com.kb.mylibs.EventHandle.IFileOrDirectoryVisitorEventListener;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -111,9 +112,9 @@ public class UtilPath
     public static void traverseDirectory(
             String absolutionDirPath,
             boolean isRecursion,
-            ICalleeObject fileEventListener,
+            IFileOrDirectoryVisitorEventListener fileEventListener,
             IDispatchObject fileEventHandle,
-            ICalleeObject dirEventListener,
+            IFileOrDirectoryVisitorEventListener dirEventListener,
             IDispatchObject dirEventHandle)
     {
         File dirFile = new File(absolutionDirPath);
@@ -130,9 +131,9 @@ public class UtilPath
     public static void traverseDirectory(
             File dirFile,
             boolean isRecursion,
-            ICalleeObject fileEventListener,
+            IFileOrDirectoryVisitorEventListener fileEventListener,
             IDispatchObject fileEventHandle,
-            ICalleeObject dirEventListener,
+            IFileOrDirectoryVisitorEventListener dirEventListener,
             IDispatchObject dirEventHandle)
     {
         if (dirFile != null && dirFile.exists() && dirFile.isDirectory())
@@ -143,7 +144,10 @@ public class UtilPath
             {
                 if (fileOrDir.isDirectory())
                 {
-
+                    if (null != dirEventListener)
+                    {
+                        dirEventListener.call(fileOrDir.getAbsolutePath(), fileOrDir.getName());
+                    }
 
                     if (isRecursion)
                     {
@@ -158,7 +162,10 @@ public class UtilPath
                 }
                 else
                 {
-                    UtilPath.removeFile(fileOrDir);
+                    if (null != fileEventListener)
+                    {
+                        fileEventListener.call(fileOrDir.getAbsolutePath(), fileOrDir.getName());
+                    }
                 }
             }
         }

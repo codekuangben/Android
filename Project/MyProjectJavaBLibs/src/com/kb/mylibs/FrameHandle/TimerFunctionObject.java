@@ -1,6 +1,6 @@
 package com.kb.mylibs.FrameHandle;
 
-import com.kb.mylibs.EventHandle.ICalleeObject;
+import com.kb.mylibs.EventHandle.IEventListener;
 import com.kb.mylibs.Tools.UtilSysLibsWrap;
 
 public class TimerFunctionObject
@@ -22,7 +22,7 @@ public class TimerFunctionObject
         return this.mEventHandle != null;
     }
 
-    public boolean isEqual(ICalleeObject eventHandle)
+    public boolean isEqual(IEventListener eventHandle)
     {
         boolean ret = false;
 

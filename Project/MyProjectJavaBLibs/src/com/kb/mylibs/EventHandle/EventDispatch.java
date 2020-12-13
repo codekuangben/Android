@@ -66,7 +66,7 @@ public class EventDispatch extends DelayHandleMgrBase
 
     // 相同的函数只能增加一次，Lua ，Python 这些语言不支持同时存在几个相同名字的函数，只支持参数可以赋值，因此不单独提供同一个名字不同参数的接口了
     public void addEventHandle(
-            ICalleeObject eventListener,
+            IEventListener eventListener,
             IDispatchObject eventHandle,
             int eventId
     )
@@ -88,7 +88,7 @@ public class EventDispatch extends DelayHandleMgrBase
         }
     }
 
-    public void removeEventHandle(ICalleeObject eventListener, IDispatchObject eventHandle, int eventId)
+    public void removeEventHandle(IEventListener eventListener, IDispatchObject eventHandle, int eventId)
     {
         int idx = 0;
         int elemLen = 0;
@@ -208,7 +208,7 @@ public class EventDispatch extends DelayHandleMgrBase
 
     // 这个判断说明相同的函数只能加一次，但是如果不同资源使用相同的回调函数就会有问题，但是这个判断可以保证只添加一次函数，值得，因此不同资源需要不同回调函数
     public boolean isExistEventHandle(
-            ICalleeObject eventListener,
+            IEventListener eventListener,
             IDispatchObject eventHandle,
             int eventId
     )

@@ -3,11 +3,11 @@ package com.kb.mylibs.MsgRoute;
 import com.kb.mylibs.Core.GObject;
 import com.kb.mylibs.DataStruct.MDictionary;
 import com.kb.mylibs.EventHandle.AddOnceEventDispatch;
-import com.kb.mylibs.EventHandle.ICalleeObject;
+import com.kb.mylibs.EventHandle.IEventListener;
 import com.kb.mylibs.EventHandle.IDispatchObject;
 import com.kb.mylibs.Log.UtilLog;
 
-public class MsgRouteHandleBase extends GObject implements ICalleeObject
+public class MsgRouteHandleBase extends GObject implements IEventListener
 {
     public MDictionary<Integer, AddOnceEventDispatch> mId2HandleDic;
 
@@ -20,7 +20,7 @@ public class MsgRouteHandleBase extends GObject implements ICalleeObject
 
     public void addMsgRouteHandle(
             MsgRouteId msgRouteId,
-            ICalleeObject eventListener,
+            IEventListener eventListener,
             IDispatchObject eventHandle,
             int eventId)
     {
@@ -38,7 +38,7 @@ public class MsgRouteHandleBase extends GObject implements ICalleeObject
 
     public void removeMsgRouteHandle(
             MsgRouteId msgRouteId,
-            ICalleeObject eventListener,
+            IEventListener eventListener,
             IDispatchObject eventHandle,
             int eventId
     )

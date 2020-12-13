@@ -1,5 +1,8 @@
 package com.kb.mylibs.Tools;
 
+import com.kb.mylibs.EventHandle.ICalleeObject;
+import com.kb.mylibs.EventHandle.IDispatchObject;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -103,5 +106,61 @@ public class UtilPath
         File file = new File(absolutionDirPath);
         ret = file.exists() && file.isDirectory();
         return ret;
+    }
+
+    public static void traverseDirectory(
+            String absolutionDirPath,
+            boolean isRecursion,
+            ICalleeObject fileEventListener,
+            IDispatchObject fileEventHandle,
+            ICalleeObject dirEventListener,
+            IDispatchObject dirEventHandle)
+    {
+        File dirFile = new File(absolutionDirPath);
+
+        UtilPath.traverseDirectory(
+                dirFile,
+                isRecursion,
+                fileEventListener,
+                fileEventHandle,
+                dirEventListener,
+                dirEventHandle);
+    }
+
+    public static void traverseDirectory(
+            File dirFile,
+            boolean isRecursion,
+            ICalleeObject fileEventListener,
+            IDispatchObject fileEventHandle,
+            ICalleeObject dirEventListener,
+            IDispatchObject dirEventHandle)
+    {
+        if (dirFile != null && dirFile.exists() && dirFile.isDirectory())
+        {
+            File[] fileArray = dirFile.listFiles();
+
+            for (File fileOrDir: fileArray)
+            {
+                if (fileOrDir.isDirectory())
+                {
+
+
+                    if (isRecursion)
+                    {
+                        UtilPath.traverseDirectory(
+                                fileOrDir,
+                                isRecursion,
+                                fileEventListener,
+                                fileEventHandle,
+                                dirEventListener,
+                                dirEventHandle);
+                    }
+                }
+                else
+                {
+                    UtilPath.removeFile(fileOrDir);
+                }
+            }
+        }
     }
 }
